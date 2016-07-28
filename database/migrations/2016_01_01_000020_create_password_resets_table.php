@@ -16,8 +16,8 @@ class CreatePasswordResetsTable extends Migration
 			$table->increments('id');
             
             $table->string('reset_token')->unique();
-            $table->timestamp('expires_at');
             $table->boolean('used');
+            $table->datetime('expires_at');
 			
             $table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');

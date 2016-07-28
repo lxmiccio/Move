@@ -4,16 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Classroom extends Model
+class Topic extends Model
 {
-	protected $fillable = [
-        'name', 'description', 'maximum_partecipants',
+    protected $fillable = [
+        'name', 'description',
     ];
     
     /**
      * Get the events for the classroom.
      */
-    public function events()
+    public function event()
     {
         return $this->hasMany('App\Event');
     }
