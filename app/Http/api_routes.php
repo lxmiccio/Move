@@ -12,6 +12,7 @@ $api->version('v1', function ($api) {
 	$api->resource('classrooms', 'App\Api\V1\Controllers\ClassroomController');
 	$api->resource('topics', 'App\Api\V1\Controllers\TopicController');
 	$api->resource('items', 'App\Api\V1\Controllers\ItemController');
+	$api->resource('events', 'App\Api\V1\Controllers\EventController');
 
 	/*$api->group(['middleware' => 'api.auth'], function ($api) {
 		$api->get('books', 'App\Api\V1\Controllers\BookController@index');

@@ -52,7 +52,7 @@ class ClassroomController extends Controller
         $classroom->maximum_partecipants = $request->get('maximum_partecipants');
         
         if($classroom->save()) {
-			return $this->response->item(classroom, new ClassroomTransformer);
+			return $this->response->item($classroom, new ClassroomTransformer);
 		}
         else {
 			return $this->response->errorInternal('could_not_create_classroom');
@@ -61,7 +61,7 @@ class ClassroomController extends Controller
     
     public function update(Request $request, $id)
     {
-		$validator = Validator::make($request->only(['id', 'name', 'maximum_partecipants']), [
+		$validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'maximum_partecipants'])), [
 			'id' => 'required|exists:classrooms,id',
             'name' => 'required',
             'maximum_partecipants' => 'required|integer|min:0'
@@ -78,7 +78,7 @@ class ClassroomController extends Controller
         $classroom->maximum_partecipants = $request->get('maximum_partecipants');
         
         if($classroom->save()) {
-			return $this->response->item(classroom, new ClassroomTransformer);
+			return $this->response->item($classroom, new ClassroomTransformer);
 		}
         else {
 			return $this->response->errorInternal('could_not_update_classroom');

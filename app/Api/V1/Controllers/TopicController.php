@@ -50,7 +50,7 @@ class TopicController extends Controller
         $topic->description = $request->get('description');
         
         if($topic->save()) {
-			return $this->response->item(classroom, new TopicTransformer);
+			return $this->response->item($topic, new TopicTransformer);
 		}
         else {
 			return $this->response->errorInternal('could_not_create_topic');
@@ -59,7 +59,7 @@ class TopicController extends Controller
     
     public function update(Request $request, $id)
     {
-		$validator = Validator::make($request->only(['id', 'name']), [
+		$$validator = Validator::make(array_merge(['id' => $id], $request->only(['name'])), [
 			'id' => 'required|exists:topics,id',
             'name' => 'required'
         ]);
@@ -74,7 +74,7 @@ class TopicController extends Controller
         $topic->description = $request->get('description');
         
         if($topic->save()) {
-			return $this->response->item(classroom, new TopicTransformer);
+			return $this->response->item($topic, new TopicTransformer);
 		}
         else {
 			return $this->response->errorInternal('could_not_update_topic');
@@ -84,7 +84,7 @@ class TopicController extends Controller
     public function destroy($id)
     {
 		$validator = Validator::make(['id' => $id], [
-			'id' => 'required|exists:classrooms,id'
+			'id' => 'required|exists:topics,id'
         ]);
         
         $topic = Topic::find($id);
