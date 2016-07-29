@@ -3,64 +3,101 @@
 namespace App\Api\V1\Controllers;
 
 use JWTAuth;
-use App\Book;
+use Validator;
+use App\Classroom;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Transformers\ClassroomTransformer;
+use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
     use Helpers;
-    
+
     public function index()
     {
-        return $this->currentUser()
-            ->books()
-            ->orderBy('created_at', 'DESC')
-            ->get()
-            ->toArray();
+		return $this->response->collection(Classroom::all(), new ClassroomTransformer);
     }
     
     public function show($id)
     {
-        $book = $this->currentUser()->books()->find($id);
-        if(!$book)
-            throw new NotFoundHttpException; 
-        return $book;
+		$validator = Validator::make(['id' => $id], [
+            'id' => 'required|exists:classrooms,id'
+        ]);
+        
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+        
+        return $this->response->item(Classroom::find($id), new ClassroomTransformer);
     }
     
     public function store(Request $request)
     {
-        $book = new Book;
-        $book->title = $request->get('title');
-        $book->author_name = $request->get('author_name');
-        $book->pages_count = $request->get('pages_count');
-        if($this->currentUser()->books()->save($book))
-            return $this->response->created();
-        else
-            return $this->response->error('could_not_create_book', 500);
+		$validator = Validator::make($request->only(['name', 'maximum_partecipants']), [
+            'name' => 'required',
+            'maximum_partecipants' => 'required|integer|min:0'
+        ]);
+        
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+        
+        $classroom = new Classroom;
+        
+        $classroom->name = $request->get('name');
+        $classroom->description = $request->get('description');
+        $classroom->maximum_partecipants = $request->get('maximum_partecipants');
+        
+        if($classroom->save()) {
+			return $this->response->item(classroom, new ClassroomTransformer);
+		}
+        else {
+			return $this->response->errorInternal('could_not_create_classroom');
+		}
     }
     
     public function update(Request $request, $id)
     {
-        $book = $this->currentUser()->books()->find($id);
-        if(!$book)
-            throw new NotFoundHttpException;
-        $book->fill($request->all());
-        if($book->save())
-            return $this->response->noContent();
-        else
-            return $this->response->error('could_not_update_book', 500);
+		$validator = Validator::make($request->only(['id', 'name', 'maximum_partecipants']), [
+			'id' => 'required|exists:classrooms,id',
+            'name' => 'required',
+            'maximum_partecipants' => 'required|integer|min:0'
+        ]);
+        
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+        
+        $classroom = Classroom::find($id);
+        
+        $classroom->name = $request->get('name');
+        $classroom->description = $request->get('description');
+        $classroom->maximum_partecipants = $request->get('maximum_partecipants');
+        
+        if($classroom->save()) {
+			return $this->response->item(classroom, new ClassroomTransformer);
+		}
+        else {
+			return $this->response->errorInternal('could_not_update_classroom');
+		}
     }
     
     public function destroy($id)
     {
-        $book = $this->currentUser()->books()->find($id);
-        if(!$book)
-            throw new NotFoundHttpException;
-        if($book->delete())
-            return $this->response->noContent();
-        else
-            return $this->response->error('could_not_delete_book', 500);
+		$validator = Validator::make(['id' => $id], [
+			'id' => 'required|exists:classrooms,id'
+        ]);
+        
+        $classroom = Classroom::find($id);
+        
+        if($classroom->delete()) {
+			return $this->response->noContent();
+		}
+        else {
+			return $this->response->errorInternal('could_not_delete_classroom');
+		}
     }
 }

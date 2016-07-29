@@ -13,7 +13,7 @@ class Topic extends Model
     /**
      * Get the events for the classroom.
      */
-    public function event()
+    public function events()
     {
         return $this->hasMany('App\Event');
     }

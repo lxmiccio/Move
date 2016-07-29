@@ -9,7 +9,9 @@ $api->version('v1', function ($api) {
 	$api->post('auth/recovery', 'App\Api\V1\Controllers\AuthController@recovery');
 	$api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 
-	$api->resource('books', 'App\Api\V1\Controllers\BookController');
+	$api->resource('classrooms', 'App\Api\V1\Controllers\ClassroomController');
+	$api->resource('topics', 'App\Api\V1\Controllers\TopicController');
+	$api->resource('items', 'App\Api\V1\Controllers\ItemController');
 
 	/*$api->group(['middleware' => 'api.auth'], function ($api) {
 		$api->get('books', 'App\Api\V1\Controllers\BookController@index');

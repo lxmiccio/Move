@@ -23,10 +23,10 @@ class CreateUsersTable extends Migration
             $table->date('birthdate');
             $table->string('sex');
             
-            $table->string('image');
+            $table->string('image')->nullable();
             
             $table->string('confirmation_token');
-            $table->boolean('confirmed');
+            $table->boolean('confirmed')->default(0);
             
             $table->timestamps();
         });
