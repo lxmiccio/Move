@@ -22,14 +22,8 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=6
-FILE_NAME_0=120;None;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fcommand.txt;0;4
-FILE_NAME_1=271;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fapp%2FClassroom.php;0;4
-FILE_NAME_2=429;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fdatabase%2Fmigrations%2F2016_01_01_000025_create_classrooms_table.php;0;4
-FILE_NAME_3=0;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fdatabase%2Fmigrations%2F2016_01_01_000030_create_topics_table.php;0;4
-FILE_NAME_4=96;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fapp%2FTopic.php;0;4
-FILE_NAME_5=0;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fdatabase%2Fmigrations%2F2016_01_01_000035_create_items_table.php;0;4
-FILE_NAME_6=311;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fapp%2FItem.php;0;4
+current_page=0
+FILE_NAME_0=106;PHP;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FDesktop%2FLaravel%2Fapp%2FHttp%2Froutes.php;0;4
 
 [VTE]
 last_dir=/root
