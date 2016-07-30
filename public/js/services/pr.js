@@ -1,18 +1,18 @@
-angular.module("myServices").factory("classroomService", function ($http, userService) {
+angular.module("myServices").factory("prService", function ($http, userService) {
 
 	function getAll(onSuccess, onError) {
-		
-		$http.get('api/classrooms').then(function(response) {
+
+		$http.get('api/prs').then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);
 		});
-		
+
 	};
 
 	function getById(id, onSuccess, onError) {
 
-		$http.get('api/classrooms/' + id).then(function(response) {
+		$http.get('api/prs/' + id).then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);
@@ -22,7 +22,7 @@ angular.module("myServices").factory("classroomService", function ($http, userSe
 
 	function create(data, onSuccess, onError) {
 
-		$http.post('api/classrooms?token=' + userService.getToken(), data).then(function(response) {
+		$http.post('api/prs?token=' + userService.getToken(), data).then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);
@@ -32,7 +32,7 @@ angular.module("myServices").factory("classroomService", function ($http, userSe
 
 	function update(id, data, onSuccess, onError) {
 
-		$http.put('api/classrooms/' + id + '?token=' + userService.getToken(), data).then(function(response) {
+		$http.put('api/prs/' + id + '?token=' + userService.getToken(), data).then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);
@@ -41,15 +41,15 @@ angular.module("myServices").factory("classroomService", function ($http, userSe
 	};
 
 	function remove(id, onSuccess, onError) {
-		
-		$http.delete('api/classrooms/' + id + '?token=' + userService.getToken()).then(function() {
+
+		$http.delete('api/prs/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
 		}, function(response){
 			onError(response);
 		});
-		
+
 	};
-	
+
 	return {
 		getAll: getAll,
 		getById: getById,

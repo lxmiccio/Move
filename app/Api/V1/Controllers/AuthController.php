@@ -26,17 +26,17 @@ class AuthController extends Controller
   public function me()
   {
     try {
-      if (!$user = JWTAuth::parseToken()->authenticate()) {
+      if(!$user = JWTAuth::parseToken()->authenticate()) {
         return $this->response->errorNotFound('user_not_found');
       }
     }
-    catch (TokenExpiredException $exception) {
+    catch(TokenExpiredException $exception) {
       return $this->response->error('token_expired', $exception->getStatusCode());
     }
-    catch (TokenInvalidException $exception) {
+    catch(TokenInvalidException $exception) {
       return $this->response->error('token_invalid', $exception->getStatusCode());
     }
-    catch (JWTException $exception) {
+    catch(JWTException $exception) {
       return $this->response->error('token_absent', $exception->getStatusCode());
     }
 
@@ -52,7 +52,7 @@ class AuthController extends Controller
     try {
       $token = JWTAuth::refresh($token);
     }
-    catch (TokenExpiredException $exception) {
+    catch(TokenExpiredException $exception) {
       return $this->response->error('token_expired', $exception->getStatusCode());
     }
     catch(TokenInvalidException $exception) {
@@ -74,14 +74,21 @@ class AuthController extends Controller
     }
 
     try {
-      if (!$token = JWTAuth::attempt($credentials)) {
+      if(!$token = JWTAuth::attempt($credentials)) {
         return $this->response->errorUnauthorized('could_not_login');
       }
-    } catch (JWTException $exception) {
+    } catch(JWTException $exception) {
       return $this->response->errorInternal('could_not_create_token');
     }
 
     return response()->json(compact('token'));
+  }
+
+  public function logout()
+  {
+    JWTAuth::parseToken()->invalidate();
+
+    return $this->response->noContent();
   }
 
   public function signup(Request $request)

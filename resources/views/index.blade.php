@@ -25,7 +25,12 @@
 
   <script src="js/controllers.js"></script>
 
-  <script src="js/services.js"></script>
+  <script src="js/services/category.js"></script>
+  <script src="js/services/event.js"></script>
+  <script src="js/services/module.js"></script>
+  <script src="js/services/partecipants.js"></script>
+  <script src="js/services/pr.js"></script>
+  <script src="js/services/user.js"></script>
 </head>
 
 <body>

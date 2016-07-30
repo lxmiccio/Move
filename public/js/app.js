@@ -1,4 +1,4 @@
-angular.module('moveApp', ['ngRoute', 'LocalStorageModule'])
+angular.module('moveApp', ['ngRoute', 'LocalStorageModule', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
