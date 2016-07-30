@@ -2,126 +2,125 @@
 
 namespace App\Api\V1\Controllers;
 
-use JWTAuth;
-use Validator;
 use Config;
+use JWTAuth;
+use Mail;
+use Validator;
+use App\Http\Controllers\Controller;
+use App\PasswordReset;
 use App\User;
+use Carbon\Carbon;
+use Dingo\Api\Exception\ValidationHttpException;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
-use Dingo\Api\Routing\Helpers;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Dingo\Api\Exception\ValidationHttpException;
 
 class AuthController extends Controller
 {
-    use Helpers;
+  use Helpers;
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only(['email', 'password']);
+  public function me()
+  {
+    return JWTAuth::parseToken()->authenticate();
+  }
 
-        $validator = Validator::make($credentials, [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+  public function login(Request $request)
+  {
+    $validator = Validator::make($request->only(['email', 'password']), [
+      'email' => 'required|email|unique:users',
+      'password' => 'required|min:6'
+    ]);
 
-        if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
-        }
-
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return $this->response->errorUnauthorized();
-            }
-        } catch (JWTException $e) {
-            return $this->response->error('could_not_create_token', 500);
-        }
-
-        return response()->json(compact('token'));
+    if($validator->fails()) {
+      throw new ValidationHttpException($validator->errors()->all());
     }
 
-    public function signup(Request $request)
-    {
-        $signupFields = Config::get('boilerplate.signup_fields');
-        $hasToReleaseToken = Config::get('boilerplate.signup_token_release');
-
-        $userData = $request->only($signupFields);
-
-        $validator = Validator::make($userData, Config::get('boilerplate.signup_fields_rules'));
-
-        if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
-        }
-
-        User::unguard();
-        $user = User::create($userData);
-        User::reguard();
-
-        if(!$user->id) {
-            return $this->response->error('could_not_create_user', 500);
-        }
-
-        if($hasToReleaseToken) {
-            return $this->login($request);
-        }
-        
-        return $this->response->created();
+    try {
+      if (!$token = JWTAuth::attempt($credentials)) {
+        return $this->response->errorUnauthorized('could_not_login');
+      }
+    } catch (JWTException $exception) {
+      return $this->response->errorInternal('could_not_create_token');
     }
 
-    public function recovery(Request $request)
-    {
-        $validator = Validator::make($request->only('email'), [
-            'email' => 'required'
-        ]);
+    return response()->json(compact('token'));
+  }
 
-        if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
-        }
+  public function signup(Request $request)
+  {
+    $validator = Validator::make($request->only(['first_name', 'last_name', 'email', 'password']), [
+      'first_name' => 'required',
+      'last_name' => 'required',
+      'email' => 'required|email|unique:users,email',
+      'password' => 'required|min:6'
+    ]);
 
-        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
-            $message->subject(Config::get('boilerplate.recovery_email_subject'));
-        });
-
-        switch ($response) {
-            case Password::RESET_LINK_SENT:
-                return $this->response->noContent();
-            case Password::INVALID_USER:
-                return $this->response->errorNotFound();
-        }
+    if($validator->fails()) {
+      throw new ValidationHttpException($validator->errors()->all());
     }
 
-    public function reset(Request $request)
-    {
-        $credentials = $request->only(
-            'email', 'password', 'password_confirmation', 'token'
-        );
+    $user = new User;
 
-        $validator = Validator::make($credentials, [
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:6',
-        ]);
+    $user->first_name = $request->get('first_name');
+    $user->last_name = $request->get('last_name');
+    $user->email = $request->get('email');
+    $user->password = $request->get('password');
 
-        if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
-        }
-        
-        $response = Password::reset($credentials, function ($user, $password) {
-            $user->password = $password;
-            $user->save();
-        });
-
-        switch ($response) {
-            case Password::PASSWORD_RESET:
-                if(Config::get('boilerplate.reset_token_release')) {
-                    return $this->login($request);
-                }
-                return $this->response->noContent();
-
-            default:
-                return $this->response->error('could_not_reset_password', 500);
-        }
+    if($user->save()) {
+      return $this->response->noContent();
     }
+    else {
+      return $this->response->errorInternal('could_not_create_user');
+    }
+  }
+
+  public function recovery(Request $request)
+  {
+    $validator = Validator::make($request->only('email'), [
+      'email' => 'required|email|exists:users,email'
+    ]);
+
+    if($validator->fails()) {
+      throw new ValidationHttpException($validator->errors()->all());
+    }
+
+    $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+      $message->subject(Config::get('boilerplate.recovery_email_subject'));
+    });
+
+    if($response == Password::RESET_LINK_SENT) {
+      return $this->response->noContent();
+    }
+    else if($response == Password::INVALID_USER){
+      return $this->response->errorNotFound('email_not_found');
+    }
+  }
+
+  public function reset(Request $request)
+  {
+    $validator = Validator::make($request->only(['token', 'email', 'password', 'password_confirmation']), [
+      'token' => 'required',
+      'email' => 'required|email',
+      'password' => 'required|confirmed|min:6',
+      'password_confirmation' => 'required|confirmed|min:6',
+    ]);
+
+    if($validator->fails()) {
+      throw new ValidationHttpException($validator->errors()->all());
+    }
+
+    $response = Password::reset($request->only(['token', 'email', 'password', 'password_confirmation']), function ($user, $password) {
+      $user->password = $password;
+      $user->save();
+    });
+
+    if($response == Password::PASSWORD_RESET) {
+      return $this->response->noContent();
+    }
+    else {
+      return $this->response->errorInternal('could_not_reset_password');
+    }
+  }
 }
