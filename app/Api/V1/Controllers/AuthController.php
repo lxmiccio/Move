@@ -15,6 +15,8 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
@@ -23,7 +25,41 @@ class AuthController extends Controller
 
   public function me()
   {
-    return JWTAuth::parseToken()->authenticate();
+    try {
+      if (!$user = JWTAuth::parseToken()->authenticate()) {
+        return $this->response->errorNotFound('user_not_found');
+      }
+    }
+    catch (TokenExpiredException $exception) {
+      return $this->response->error('token_expired', $exception->getStatusCode());
+    }
+    catch (TokenInvalidException $exception) {
+      return $this->response->error('token_invalid', $exception->getStatusCode());
+    }
+    catch (JWTException $exception) {
+      return $this->response->error('token_absent', $exception->getStatusCode());
+    }
+
+    return response()->json(compact('user'));
+  }
+
+  public function refresh()
+  {
+    if(!$token = JWTAuth::getToken()) {
+      return $this->response->errorBadRequest('token_not_provided');
+    }
+
+    try {
+      $token = JWTAuth::refresh($token);
+    }
+    catch (TokenExpiredException $exception) {
+      return $this->response->error('token_expired', $exception->getStatusCode());
+    }
+    catch(TokenInvalidException $exception) {
+      return $this->response->error('token_invalid', $exception->getStatusCode());
+    }
+
+    return response()->json(compact('user'));
   }
 
   public function login(Request $request)
@@ -94,7 +130,7 @@ class AuthController extends Controller
       return $this->response->noContent();
     }
     else if($response == Password::INVALID_USER){
-      return $this->response->errorNotFound('email_not_found');
+      return $this->response->errorNotFound('user_not_found');
     }
   }
 

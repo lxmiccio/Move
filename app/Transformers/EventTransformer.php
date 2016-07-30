@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Transformers;
 
 use App\Event;
@@ -8,18 +9,15 @@ class EventTransformer extends Fractal\TransformerAbstract
 {
 	public function transform(Event $event)
 	{
-	    return [
-	        'id' => $event->id,
-	        'name' => $event->name,
-	        'description' => $event->description,
-	        'starting_date' => $event->starting_date,
-            'ending_date' => $event->ending_date,
-            'maximum_partecipants' => $event->maximum_partecipants,
-	        'user' => $event->user,
-            'classroom' => $event->classroom,
-            'topic' => $event->topic,
-            'users' => $event->users()->orderBy('last_name')->get(),
-            'items' => $event->items()->orderBy('name')->get()
-	    ];
+		return [
+			'id' => $event->id,
+			'name' => $event->name,
+			'description' => $event->description,
+			'starting_date' => $event->starting_date,
+			'maximum_partecipants' => $event->maximum_partecipants,
+			'image' => $event->image,
+			'category' => $event->category,
+			'partecipants' => $event->partecipants()->orderBy('name')->get()
+		];
 	}
 }
