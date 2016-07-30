@@ -7,46 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'name', 'description', 'starting_date', 'ending_date', 'maximum_partecipants'
+        'name', 'description', 'starting_date', 'maximum_partecipants', 'image'
     ];
-    
+
     /**
-     * Get the user that owns the event.
+     * Get the category that owns the event.
      */
-    public function user()
+    public function category()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Category');
     }
-    
-    /**
-     * Get the classroom that owns the event.
+
+		/**
+     * Get the partecipants for the event.
      */
-    public function classroom()
+    public function partecipants()
     {
-        return $this->belongsTo('App\Classroom');
-    }
-    
-    /**
-     * Get the topic that owns the event.
-     */
-    public function topic()
-    {
-        return $this->belongsTo('App\Topic');
-    }
-    
-    /**
-     * Get the users that belong to the event.
-     */
-    public function users()
-    {
-        return $this->belongsToMany('App\User');
-    }
-    
-    /**
-     * Get the items that belong to the event.
-     */
-    public function items()
-    {
-        return $this->belongsToMany('App\Item')->withPivot('required_amount');
+        return $this->hasMany('App\Partecipant');
     }
 }
