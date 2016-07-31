@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it" ng-app="moveApp" ng-controller="IndexController as index">
 <head>
+  <base href="/">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -54,13 +56,14 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/#/">
-          <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=300%C3%97100&w=400&h=100" alt="" class="img-responsive img-rounded">
+          <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=500%C3%97100&w=500&h=100" alt="" class="img-responsive img-rounded">
         </a>
       </div>
       <nav class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/#/">Home</a></li>
-          <li><a href="">Login</a></li>
+          <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
+          <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>
       </nav>
     </div>
@@ -70,13 +73,11 @@
     <div class="row br-lg"></div>
 
     <div ng-view></div>
-
-    <div class="row br-lg"></div>
   </div>
 
   <footer class="footer-inverse">
     <div class="container">
-      <p class="text-center">Visitatori: @{{index.counter.visitors}}</p>
+      <p class="text-center">Visitatori: {{index.counter.visitors}}</p>
     </div>
   </footer>
 </body>

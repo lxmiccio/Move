@@ -1,7 +1,50 @@
 <div class="row">
-	<div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="category in ctrl.categories">
-		<div class="jumbotron">
-			{{category.name}}
-		</div>
-	</div>
+  <div class="col-xs-12">
+    <img src="https://placeholdit.imgix.net/~text?txtsize=45&txt=1200%C3%97200&w=1200&h=200" class="img-responsive img-rounded center-block"/>
+  </div>
+</div>
+
+<div class="row br-lg"></div>
+
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="category in ctrl.categories">
+    <div class="jumbotron well-sm">
+      <div class="row br-xs"></div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <h3 class="text-center"><strong>{{category.name}}</strong></h3>
+        </div>
+      </div>
+
+      <div class="row br-sm"></div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="http://www.billboard.com/files/styles/article_main_image/public/media/tove-lo-2014-press-joahnnes-helje-billboard-bb32-650.jpg" class="img-responsive img-rounded center-block"/>
+        </div>
+      </div>
+
+      <div class="row br-sm"></div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="text-center">{{category.description}}</p>
+        </div>
+      </div>
+
+      <div class="row br-sm"></div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-center">
+            <!-- TO DO -->
+            <button class="btn btn-primary">Vai</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row br-xs"></div>
+    </div>
+  </div>
 </div>

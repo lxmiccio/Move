@@ -17,16 +17,16 @@ angular.module("myControllers").controller("IndexController", function ($http, c
     console.log(response);
   });
 
+  vm.isAuthenticated = function () {
+    return userService.isAuthenticated();
+  }
+
   vm.logout = function() {
     userService.logout(function(response) {
       console.log(response);
     }, function(response) {
       console.log(response);
     });
-  };
-
-  vm.redirect = function(path) {
-    $location.redirect(path);
   };
 
 });

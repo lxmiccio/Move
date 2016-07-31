@@ -11,6 +11,17 @@
 |
 */
 
+Route::any('{path?}', function () {
+  return File::get(public_path() . '\index.html');
+})->where("path", ".+");
+
+/*
+
 Route::get('/', function () {
-    return view('index');
+  return view('index');
 });
+
+
+Route::any('{path?}', function () {
+  return File::get(base_path() . '\resources\views\index.blade.php');
+})->where("path", ".+");
