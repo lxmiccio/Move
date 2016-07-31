@@ -1,4 +1,4 @@
-angular.module("myServices").factory("userService", function ($http, localStorageService) {
+angular.module('myServices').factory('userService', function ($http, localStorageService) {
 
   function me(onSuccess, onError) {
 

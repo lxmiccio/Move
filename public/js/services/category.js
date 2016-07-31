@@ -1,4 +1,4 @@
-angular.module("myServices").factory("categoryService", function ($http, userService) {
+angular.module('myServices').factory('categoryService', function ($http, userService) {
 
 	function getAll(onSuccess, onError) {
 

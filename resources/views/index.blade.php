@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" ng-app="moveApp">
+<html lang="it" ng-app="moveApp" ng-controller="IndexController as index">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,9 +32,11 @@
 
   <script src="js/controllers/module.js"></script>
   <script src="js/controllers/categories.js"></script>
+  <script src="js/controllers/index.js"></script>
 
   <script src="js/services/module.js"></script>
   <script src="js/services/category.js"></script>
+  <script src="js/services/counter.js"></script>
   <script src="js/services/event.js"></script>
   <script src="js/services/partecipant.js"></script>
   <script src="js/services/pr.js"></script>
@@ -51,13 +53,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/#/">
           <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=300%C3%97100&w=400&h=100" alt="" class="img-responsive img-rounded">
         </a>
       </div>
       <nav class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="">Home</a></li>
+          <li><a href="/#/">Home</a></li>
           <li><a href="">Login</a></li>
         </ul>
       </nav>
@@ -65,11 +67,16 @@
   </header>
 
   <div class="container">
+    <div class="row br-lg"></div>
+
     <div ng-view></div>
+
+    <div class="row br-lg"></div>
   </div>
 
   <footer class="footer-inverse">
     <div class="container">
+      <p class="text-center">Visitatori: @{{index.counter.visitors}}</p>
     </div>
   </footer>
 </body>
