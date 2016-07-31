@@ -15,7 +15,7 @@ class CreatePartecipantsTable extends Migration
     Schema::create('partecipants', function (Blueprint $table) {
       $table->increments('id');
 
-      $table->integer('name')->unsigned();
+      $table->string('name');
 
       $table->integer('event_id')->unsigned();
       $table->foreign('event_id')->references('id')->on('events');
