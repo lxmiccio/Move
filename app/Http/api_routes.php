@@ -16,6 +16,9 @@ $api->version('v1', function ($api) {
 	$api->put('categories/{id}/attach/pr', 'App\Api\V1\Controllers\CategoryController@attachPr');
 	$api->put('categories/{id}/detach/pr', 'App\Api\V1\Controllers\CategoryController@detachPr');
 
+	$api->resource('counters', 'App\Api\V1\Controllers\CounterController');
+	$api->put('counters/{id}/increase', 'App\Api\V1\Controllers\CounterController@increase');
+
 	$api->resource('events', 'App\Api\V1\Controllers\EventController');
 
 	$api->resource('partecipants', 'App\Api\V1\Controllers\PartecipantController');

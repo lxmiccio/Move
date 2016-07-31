@@ -1,4 +1,4 @@
-angular.module('moveApp', ['ngRoute', 'LocalStorageModule', 'myServices'])
+angular.module('moveApp', ['ngRoute', 'LocalStorageModule', 'myControllers', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
@@ -6,8 +6,8 @@ angular.module('moveApp', ['ngRoute', 'LocalStorageModule', 'myServices'])
 
 .config(function ($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl: 'views/index.html',
-    //controller: 'IndexController as index'
+    templateUrl: 'views/categories.html',
+    controller: 'CategoriesController as ctrl'
   })/*.when('/login', {
     templateUrl: 'partials/login.html',
     controller: 'LoginController as ctrl'

@@ -44,7 +44,7 @@ class PartecipantController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    4partecipants = new Partecipant;
+    $partecipants = new Partecipant;
 
     $partecipants->name = $request->get('name');
 

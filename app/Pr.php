@@ -11,18 +11,18 @@ class Pr extends Model
   ];
 
   /**
-   * Get the partecipants for the pr.
-   */
+  * Get the partecipants for the pr.
+  */
   public function partecipants()
   {
-      return $this->hasMany('App\Partecipant');
+    return $this->hasMany('App\Partecipant');
   }
 
   /**
-   * Get the categories that belong to the pr.
-   */
+  * Get the categories that belong to the pr.
+  */
   public function categories()
   {
-      return $this->belongsToMany('App\Category');
+    return $this->belongsToMany('App\Category');
   }
 }

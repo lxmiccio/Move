@@ -7,7 +7,6 @@ use JWTAuth;
 use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
-use App\PasswordReset;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ValidationHttpException;
