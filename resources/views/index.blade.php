@@ -9,8 +9,12 @@
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" rel="stylesheet"/>
 
+  <link href="http://fonts.googleapis.com/css?family=Sniglet" rel="stylesheet"/>
+
+  <link href="css/body.css" rel="stylesheet"/>
   <link href="css/breaks.css" rel="stylesheet"/>
   <link href="css/footer.css" rel="stylesheet"/>
+  <link href="css/header.css" rel="stylesheet"/>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
@@ -38,14 +42,35 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Book Wishlist Application</h1>
+  <header id="header" class="navbar-inverse">
+    <div class="container">
+      <div class="navbar-header ">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="https://placeholdit.imgix.net/~text?txtsize=25&txt=300%C3%97100&w=400&h=100" alt="" class="img-responsive img-rounded">
+        </a>
       </div>
+      <nav class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="">Home</a></li>
+          <li><a href="">Login</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
+  <div class="container">
     <div ng-view></div>
   </div>
+
+  <footer class="footer-inverse">
+    <div class="container">
+    </div>
+  </footer>
 </body>
 </html>
