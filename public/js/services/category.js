@@ -64,7 +64,7 @@ angular.module('myServices').factory('categoryService', function ($http, userSer
 
 		$http.delete('api/categories/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
-		}, function(response){
+		}, function(response) {
 			onError(response);
 		});
 

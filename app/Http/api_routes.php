@@ -21,6 +21,9 @@ $api->version('v1', function ($api) {
 
 	$api->resource('events', 'App\Api\V1\Controllers\EventController');
 
+	$api->post('images/upload', 'App\Api\V1\Controllers\ImageController@upload');
+	$api->post('images/remove', 'App\Api\V1\Controllers\ImageController@remove');
+
 	$api->resource('partecipants', 'App\Api\V1\Controllers\PartecipantController');
 
 	$api->resource('prs', 'App\Api\V1\Controllers\PrController');

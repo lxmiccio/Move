@@ -12,7 +12,6 @@ angular.module("myControllers").controller("IndexController", function ($http, c
 
   }, function(response) {
     vm.counter = response.data.data;
-    console.log(response.data)
   }, function(response) {
     console.log(response);
   });

@@ -54,7 +54,7 @@ angular.module('myServices').factory('counterService', function ($http, userServ
 
 		$http.delete('api/counters/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
-		}, function(response){
+		}, function(response) {
 			onError(response);
 		});
 

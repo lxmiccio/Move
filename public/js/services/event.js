@@ -44,7 +44,7 @@ angular.module('myServices').factory('eventService', function ($http, userServic
 
 		$http.delete('api/events/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
-		}, function(response){
+		}, function(response) {
 			onError(response);
 		});
 

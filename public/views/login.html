@@ -1,21 +1,44 @@
-
-  <base href="/login">
 <div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <h2>Login</h2>
-    <p>Welcome! Use this form to log into your application.</p>
+  <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="text-center"><strong>Login</strong></h2>
+      </div>
+    </div>
 
-    <hr>
+    <div class="row br-sm"></div>
 
-    <p><input type="text" class="form-control" placeholder="Email Address..." ng-model="email" required /></p>
-    <p><input type="password" class="form-control" placeholder="Password..." ng-model="password" required /></p>
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-center">Esegui il Login per accedere come Amministratore</p>
+      </div>
+    </div>
 
-    <hr>
+    <hr/>
 
-    <p><button type="button" class="btn btn-success form-control" ng-click="login()">Login</button></p>
+    <div class="row">
+      <div class="col-xs-12">
+        <input type="text" class="form-control" placeholder="Indirizzo Email..." ng-model="ctrl.email" required/>
+      </div>
+    </div>
 
-    <hr>
+    <div class="row br-sm"></div>
 
-    <p><a href="#signup">First time here? <b>Sign up!</b></a></p>
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-right"><a>Password dimenticata?</a></p>
+        <input type="password" class="form-control" placeholder="Password..." ng-model="ctrl.password" required/>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-success form-control" ng-click="ctrl.login(ctrl.email, ctrl.password)">Login</button>
+      </div>
+    </div>
+
+    <div class="row br-lg"></div>
   </div>
 </div>

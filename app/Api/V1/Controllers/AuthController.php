@@ -7,6 +7,7 @@ use JWTAuth;
 use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
 use App\User;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ValidationHttpException;
@@ -39,7 +40,7 @@ class AuthController extends Controller
       return $this->response->error('token_absent', $exception->getStatusCode());
     }
 
-    return response()->json(compact('user'));
+    return $this->response->item($user, new UserTransformer);
   }
 
   public function refresh()
@@ -64,7 +65,7 @@ class AuthController extends Controller
   public function login(Request $request)
   {
     $validator = Validator::make($request->only(['email', 'password']), [
-      'email' => 'required|email|unique:users',
+      'email' => 'required|email|exists:users,email',
       'password' => 'required|min:6'
     ]);
 
@@ -73,7 +74,7 @@ class AuthController extends Controller
     }
 
     try {
-      if(!$token = JWTAuth::attempt($credentials)) {
+      if(!$token = JWTAuth::attempt($request->only(['email', 'password']))) {
         return $this->response->errorUnauthorized('could_not_login');
       }
     } catch(JWTException $exception) {

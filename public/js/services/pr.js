@@ -44,7 +44,7 @@ angular.module('myServices').factory('prService', function ($http, userService) 
 
 		$http.delete('api/prs/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
-		}, function(response){
+		}, function(response) {
 			onError(response);
 		});
 

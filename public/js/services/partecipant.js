@@ -44,7 +44,7 @@ angular.module('myServices').factory('partecipantService', function ($http, user
 
 		$http.delete('api/partecipants/' + id + '?token=' + userService.getToken()).then(function() {
 			onSuccess();
-		}, function(response){
+		}, function(response) {
 			onError(response);
 		});
 

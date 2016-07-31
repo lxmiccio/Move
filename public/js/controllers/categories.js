@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("CategoriesController", function ($http, $location, categoryService, userService) {
+angular.module("myControllers").controller("CategoriesController", function ($location, categoryService, userService) {
 
   var vm  = this;
 
@@ -17,14 +17,6 @@ angular.module("myControllers").controller("CategoriesController", function ($ht
   }, function(response)  {
     console.log(response);
   });
-
-  vm.logout = function() {
-    userService.logout(function(response) {
-      console.log(response);
-    }, function(response) {
-      console.log(response);
-    });
-  };
 
   vm.redirect = function(path) {
     $location.redirect(path);
