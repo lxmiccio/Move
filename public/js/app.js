@@ -13,6 +13,11 @@ angular.module('moveApp', ['ngFileUpload', 'ngRoute', 'LocalStorageModule', 'myC
   }).when('/modifica/categoria/:id', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/categoria/:id/pagina/:page', {
+    templateUrl: 'views/events.html',
+    controller: 'EventsController as ctrl'
+  }).when('/categoria/:id', {
+    redirectTo: '/categoria/:id/pagina/1'
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'

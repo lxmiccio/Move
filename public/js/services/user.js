@@ -30,6 +30,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
       localStorageService.remove('token');
       onSuccess(response);
     }, function(response) {
+      localStorageService.remove('token');
       onError(response);
     });
 

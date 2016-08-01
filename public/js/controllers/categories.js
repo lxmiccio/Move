@@ -19,7 +19,7 @@ angular.module("myControllers").controller("CategoriesController", function ($lo
   });
 
   vm.redirect = function(path) {
-    $location.redirect(path);
+    $location.path(path);
   };
 
 });

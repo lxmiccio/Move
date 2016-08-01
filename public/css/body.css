@@ -7,6 +7,11 @@ p {
   margin-bottom: 0px;
 }
 
+.form-control-image {
+  height: auto;
+  padding: 10px;
+}
+
 .jumbotron h1, h2, h3, h4, h5 {
   margin: 0px 0px;
 }

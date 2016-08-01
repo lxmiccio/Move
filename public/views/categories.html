@@ -38,8 +38,8 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button class="btn btn-success" ng-if="category.id == ctrl.user.category.id">Modifica</button>
-            <button class="btn btn-primary">Vai</button>
+            <button class="btn btn-success" ng-click="ctrl.redirect('/modifica/categoria/' + category.id)" ng-if="category.id == ctrl.user.category.id">Modifica</button>
+            <button class="btn btn-primary" ng-click="ctrl.redirect('/categoria/' + category.id)">Vai</button>
           </div>
         </div>
       </div>
