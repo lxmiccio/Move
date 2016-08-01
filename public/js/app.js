@@ -1,4 +1,4 @@
-angular.module('moveApp', ['ngFileUpload', 'ngRoute', 'LocalStorageModule', 'myControllers', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'ngFileUpload', 'ngRoute', 'LocalStorageModule', 'myControllers', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');

@@ -44,8 +44,10 @@ angular.module('myServices').factory('paginationService', function ($http, categ
     angular.forEach(items, function(category) {
 
       events = [];
-
+      console.log(category.events)
       angular.forEach(category.events, function(event, index) {
+        console.log(event)
+        console.log(index)
         if(index == 0 || index % objectPerPage == 0) {
           events.push([event]);
         } else {

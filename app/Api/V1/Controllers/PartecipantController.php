@@ -7,7 +7,7 @@ use Validator;
 use App\Partecipant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Transformers\ClassroomTransformer;
+use App\Transformers\PartecipantTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
