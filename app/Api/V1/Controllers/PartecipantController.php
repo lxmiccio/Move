@@ -36,8 +36,10 @@ class PartecipantController extends Controller
 
   public function store(Request $request)
   {
-    $validator = Validator::make($request->only(['name']), [
-      'name' => 'required'
+    $validator = Validator::make($request->only(['name', 'event_id', 'pr_id']), [
+      'name' => 'required',
+      'event_id' => 'required|exists:events,id',
+      'pr_id' => 'required|exists:prs,id'
     ]);
 
     if($validator->fails()) {
@@ -47,6 +49,8 @@ class PartecipantController extends Controller
     $partecipants = new Partecipant;
 
     $partecipants->name = $request->get('name');
+    $partecipants->event_id = $request->get('event_id');
+    $partecipants->pr_id = $request->get('pr_id');
 
     if($partecipants->save()) {
       return $this->response->item($partecipants, new PartecipantTransformer);

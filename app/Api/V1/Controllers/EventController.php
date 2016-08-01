@@ -36,11 +36,11 @@ class EventController extends Controller
 
   public function store(Request $request)
   {
-    $validator = Validator::make($request->only(['name', 'starting_date', 'maximum_partecipant', 'category_id']), [
+    $validator = Validator::make($request->only(['name', 'starting_date', 'maximum_partecipants', 'category_id']), [
       'name' => 'required',
       'starting_date' => 'required|date_format:Y-m-d H:i:s',
-      'maximum_partecipant' => 'required|integer|min:0',
-      'category_id' => 'required|exists:categories,id',
+      'maximum_partecipants' => 'required|integer|min:0',
+      'category_id' => 'required|exists:categories,id'
     ]);
 
     if($validator->fails()) {
@@ -52,7 +52,7 @@ class EventController extends Controller
     $event->name = $request->get('name');
     $event->description = $request->get('description');
     $event->starting_date = $request->get('starting_date');
-    $event->maximum_partecipant = $request->get('maximum_partecipant');
+    $event->maximum_partecipants = $request->get('maximum_partecipants');
     $event->image = $request->get('image');
     $event->category_id = $request->get('category_id');
 
@@ -66,11 +66,11 @@ class EventController extends Controller
 
   public function update(Request $request, $id)
   {
-    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date', 'ending_date', 'maximum_partecipant'])), [
+    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date', 'ending_date', 'maximum_partecipants'])), [
       'id' => 'required|exists:events,id',
       'name' => 'required',
       'starting_date' => 'required|date_format:Y-m-d H:i:s',
-      'maximum_partecipant' => 'required|integer|min:0'
+      'maximum_partecipants' => 'required|integer|min:0'
     ]);
 
     if($validator->fails()) {
@@ -82,7 +82,7 @@ class EventController extends Controller
     $event->name = $request->get('name');
     $event->description = $request->get('description');
     $event->starting_date = $request->get('starting_date');
-    $event->maximum_partecipant = $request->get('maximum_partecipant');
+    $event->maximum_partecipants = $request->get('maximum_partecipants');
     $event->image = $request->get('image');
 
     if($event->save()) {

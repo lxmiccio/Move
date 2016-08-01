@@ -4,10 +4,13 @@
       <div class="row">
         <div class="row br-lg"></div>
 
-        <div class="col-md-5 col-xs-5 col-xs-12">
-          <img src="https://placeholdit.imgix.net/~text?txtsize=23&txt=400%C3%97250&w=400&h=250" class="img-responsive img-rounded center-block"/>
+        <div class="col-md-5 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+          <!--<img src="https://placeholdit.imgix.net/~text?txtsize=23&txt=500%C3%97250&w=500&h=250" class="img-responsive img-rounded center-block"/>-->
+          <img src="{{event.image}}" class="img-responsive img-rounded center-block"/>
         </div>
-        <div class="col-md-7 col-xs-7 col-xs-12">
+        <div class="col-md-7 col-sm-6 col-xs-12">
+          <div class="row br-lg visible-xs"></div>
+
           <div class="row">
             <div class="col-xs-12">
               <h2 class="text-center"><strong>{{event.name}}</strong></h2>
@@ -32,20 +35,40 @@
         </div>
       </div>
 
-      <div class="row br-lg"></div>
+      <div class="row" ng-if="event.partecipants.length < event.maximumPartecipants">
+        <div class="row br-lg"></div>
 
-      <div class="row">
-        <div class="col-md-5">
+        <div class="col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+          <input type="text" class="form-control" placeholder="Nome e Cognome..." ng-model="ctrl.name" required/>
+        </div>
+
+        <div class="col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+          <div class="row br-xs visible-xs"></div>
           <div placeholder="Pr..." angucomplete-alt input-class="form-control" match-class="highlight" minlength="1" pause="100"
           local-data="ctrl.category.prs" selected-object="ctrl.pr" search-fields="firstName,lastName" title-field="firstName,lastName"></div>
         </div>
 
-        <div class="col-md-5">
-          <input type="text" class="form-control" placeholder="Nome e Cognome..." ng-model="ctrl.name" required/>
+        <div class="col-sm-2 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+          <div class="row br-xs visible-xs"></div>
+          <div class="text-right">
+            <button type="button" class="btn btn-success" ng-click="ctrl.addPartecipant(ctrl.name, event.id, ctrl.pr)">Partecipa</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" ng-if="ctrl.category.id == ctrl.user.category.id">
+        <div class="row br-lg"></div>
+
+        <div class="col-xs-2 col-xs-offset-8">
+          <div class="text-right">
+            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + ctrl.category.id + '/crea/evento/')">Aggiungi</button>
+          </div>
         </div>
 
-        <div class="col-md-2">
-          <button type="button" class="btn btn-success text-right" ng-click="ctrl.addPartecipant(ctrl.pr, ctrl.name)">Partecipa</button>
+        <div class="col-xs-2">
+          <div class="text-right">
+            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('modifica/evento/' + event.id)">Modifica</button>
+          </div>
         </div>
       </div>
 
@@ -53,27 +76,25 @@
     </div>
 
     <div class="text-center">
-      <h1>AngularJS - Pagination Example with logic like Google</h1>
-
-      <!-- items being paged -->
-      <div ng-repeat="item in vm.items">Item {{item}}</div>
-
-      <!-- pager -->
-      <ul ng-if="vm.pager.pages.length" class="pagination">
-        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-          <a ng-click="vm.setPage(1)">First</a>
+      <ul class="pagination" ng-if="ctrl.pagination">
+        <li ng-class="{disabled: ctrl.pagination.page == 1}">
+          <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(1)">Inizio</a>
+          <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(1)"><i class="fa fa-fast-backward" aria-hidden="true"></i></a>
         </li>
-        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-          <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
+        <li ng-class="{disabled: ctrl.pagination.page == 1}">
+          <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1)">Precedente</a>
+          <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1)"><i class="fa fa-backward" aria-hidden="true"></i></a>
         </li>
-        <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
-          <a ng-click="vm.setPage(page)">{{page}}</a>
+        <li ng-repeat="page in ctrl.pagination.pages" ng-class="{active: ctrl.pagination.page == page}">
+          <a ng-click="ctrl.redirectToPage(page)">{{page}}</a>
         </li>
-        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-          <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
+        <li ng-class="{disabled: ctrl.pagination.page == ctrl.pagination.totalPages}">
+          <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1 + 2)">Successivo</a>
+          <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1 + 2)"><i class="fa fa-forward" aria-hidden="true"></i></a>
         </li>
-        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-          <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+        <li ng-class="{disabled: ctrl.pagination.page == ctrl.pagination.totalPages}">
+          <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.totalPages)">Fine</a>
+          <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.totalPages)"><i class="fa fa-fast-forward" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'ngFileUpload', 'ngRoute', 'LocalStorageModule', 'myControllers', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ui.bootstrap.datetimepicker', 'myControllers', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
@@ -13,11 +13,17 @@ angular.module('moveApp', ['angucomplete-alt', 'ngFileUpload', 'ngRoute', 'Local
   }).when('/modifica/categoria/:id', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/categoria/:id', {
+    redirectTo: '/categoria/:id/pagina/1'
   }).when('/categoria/:id/pagina/:page', {
     templateUrl: 'views/events.html',
     controller: 'EventsController as ctrl'
-  }).when('/categoria/:id', {
-    redirectTo: '/categoria/:id/pagina/1'
+  }).when('/categoria/:id/crea/evento', {
+    templateUrl: 'views/createEvent.html',
+    controller: 'CreateEventController as ctrl'
+  }).when('/modifica/evento/:id', {
+    templateUrl: 'views/updateEvent.html',
+    controller: 'UpdateEventController as ctrl'
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
@@ -27,7 +33,7 @@ angular.module('moveApp', ['angucomplete-alt', 'ngFileUpload', 'ngRoute', 'Local
   }).when('/', {
     templateUrl: 'partials/index.html',
     controller: 'MainController'
-  })*/.otherwise({
+  }).otherwise({
     redirectTo: '/'
-  });
+  })*/;
 });
