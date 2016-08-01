@@ -36,46 +36,44 @@
 
       <div class="row">
         <div class="col-md-5">
-          {{ctrl.category.prs}}
-          <div angucomplete-alt
-          placeholder="Pr..."
-          pause="100"
-          selected-object="ctrl.pr"
-          local-data="ctrl.category.prs"
-          search-fields="firstName,lastName"
-          title-field="firstName,lastName"
-          minlength="1"
-          input-class="form-control form-control-small"
-          match-class="highlight"></div>
-          <div>
-          </div>
+          <div placeholder="Pr..." angucomplete-alt input-class="form-control" match-class="highlight" minlength="1" pause="100"
+          local-data="ctrl.category.prs" selected-object="ctrl.pr" search-fields="firstName,lastName" title-field="firstName,lastName"></div>
         </div>
 
+        <div class="col-md-5">
+          <input type="text" class="form-control" placeholder="Nome e Cognome..." ng-model="ctrl.name" required/>
+        </div>
 
+        <div class="col-md-2">
+          <button type="button" class="btn btn-success text-right" ng-click="ctrl.addPartecipant(ctrl.pr, ctrl.name)">Partecipa</button>
+        </div>
       </div>
 
-      <div class="text-center">
-        <h1>AngularJS - Pagination Example with logic like Google</h1>
+      <div class="row br-lg"></div>
+    </div>
 
-        <!-- items being paged -->
-        <div ng-repeat="item in vm.items">Item {{item}}</div>
+    <div class="text-center">
+      <h1>AngularJS - Pagination Example with logic like Google</h1>
 
-        <!-- pager -->
-        <ul ng-if="vm.pager.pages.length" class="pagination">
-          <li ng-class="{disabled:vm.pager.currentPage === 1}">
-            <a ng-click="vm.setPage(1)">First</a>
-          </li>
-          <li ng-class="{disabled:vm.pager.currentPage === 1}">
-            <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
-          </li>
-          <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
-            <a ng-click="vm.setPage(page)">{{page}}</a>
-          </li>
-          <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-            <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
-          </li>
-          <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-            <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
-          </li>
-        </ul>
-      </div>
+      <!-- items being paged -->
+      <div ng-repeat="item in vm.items">Item {{item}}</div>
+
+      <!-- pager -->
+      <ul ng-if="vm.pager.pages.length" class="pagination">
+        <li ng-class="{disabled:vm.pager.currentPage === 1}">
+          <a ng-click="vm.setPage(1)">First</a>
+        </li>
+        <li ng-class="{disabled:vm.pager.currentPage === 1}">
+          <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
+        </li>
+        <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+          <a ng-click="vm.setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+          <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
+        </li>
+        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+          <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+        </li>
+      </ul>
+    </div>

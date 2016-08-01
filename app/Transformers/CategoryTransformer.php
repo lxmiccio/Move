@@ -10,19 +10,9 @@ class CategoryTransformer extends Fractal\TransformerAbstract
   public function transform(Category $category)
   {
 
-    /*
-    * use App\Transformers\Event;
-    * use League\Fractal\Manager;
-    * use League\Fractal\Resource\Collection;
-    *
-    * $fractal = new Manager();
-    * $resource = new Collection($category->events()->orderBy('starting_date')->get(['id', 'name', 'description']), new EventTransformer);
-    * $events = current($fractal->createData($resource)->toArray());
-    */
-
     $events = [];
 
-    foreach ($category->events()->orderBy('starting_date')->get() as $event)
+    foreach ($category->events()->orderBy('starting_date')->get() as $event) {
       $partecipants = [];
 
       foreach($event->partecipants()->orderBy('name')->get() as $partecipant) {
@@ -32,7 +22,16 @@ class CategoryTransformer extends Fractal\TransformerAbstract
         ];
       }
 
-      $events['partecipants'] = $partecipants;
+      $events[] = [
+        'id' => $event->id,
+  			'name' => $event->name,
+  			'description' => $event->description,
+  			'startingDate' => $event->starting_date,
+  			'maximumPartecipants' => $event->maximum_partecipants,
+  			'image' => $event->image,
+  			'category' => $event->category()->get(['id', 'name', 'description']),
+  			'partecipants' => $partecipants
+      ];
     }
 
     return [

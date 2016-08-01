@@ -12,6 +12,10 @@ p {
   padding: 10px;
 }
 
+.highlight {
+  color: #EE3B25;
+}
+
 .jumbotron h1, h2, h3, h4, h5 {
   margin: 0px 0px;
 }
