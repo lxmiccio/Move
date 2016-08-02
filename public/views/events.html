@@ -37,8 +37,9 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="text-center">
-                <button class="btn" ng-click="ctrl.openPartecipantsPrs(event)">Partecipanti e Pr</button>
-                <button class="btn" ng-click="ctrl.downloadPartecipants(event)">Partecipanti</button>
+                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPrs(event)">Partecipanti e Pr</button>
+                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipants(event)">Partecipanti</button>
+                <button type="button" class="btn btn-success" ng-click="ctrl.redirect('modifica/evento/' + event.id)">Modifica</button>
               </div>
             </div>
           </div>
@@ -71,7 +72,6 @@
 
         <div class="col-xs-12">
           <div class="text-right">
-            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + ctrl.category.id + '/crea/evento/')">Aggiungi</button>
             <button type="button" class="btn btn-success" ng-click="ctrl.redirect('modifica/evento/' + event.id)">Modifica</button>
           </div>
         </div>

@@ -35,17 +35,50 @@ angular.module("myControllers").controller("EventsController", function ($locati
   };
 
   vm.openPartecipantsPrs = function(event) {
-    var body = [[
+    var prs = [];
+
+    var partecipants = [[
       { text: 'Partecipante', style: 'tableHeader' },
       { text: 'Pr', style: 'tableHeader' }
     ]];
 
     angular.forEach(event.partecipants, function(partecipant) {
-      body.push([
+
+      partecipants.push([
         { text: partecipant.name, style: 'tableText' },
         { text: partecipant.pr.firstName + ' ' + partecipant.pr.lastName, style: 'tableText' }
       ])
-    })
+
+      var found = false;
+      angular.forEach(prs, function(pr, index) {
+        if(pr.id == partecipant.pr.id) {
+          found = true;
+          prs[index].partecipants++;
+        }
+      });
+
+      if(!found) {
+        prs.push({
+          id: partecipant.pr.id,
+          name: partecipant.pr.firstName + ' ' + partecipant.pr.lastName,
+          partecipants: 1
+        });
+      }
+
+    });
+
+    var partecipantsPerPr = [[
+      { text: 'Pr', style: 'tableHeader' },
+      { text: 'Partecipanti', style: 'tableHeader' }
+    ]];
+
+    angular.forEach(prs, function(pr) {
+      partecipantsPerPr.push([
+        { text: pr.name, style: 'tableText' },
+        { text: pr.partecipants.toString(), style: 'tableText' }
+      ])
+
+    });
 
     var pdf = {
       content: [{
@@ -56,7 +89,14 @@ angular.module("myControllers").controller("EventsController", function ($locati
         table: {
           widths: ['*', '*'],
           headerRows: 1,
-          body: body
+          body: partecipants
+        }
+      }, {
+        style: 'table',
+        table: {
+          widths: ['*', '*'],
+          headerRows: 1,
+          body: partecipantsPerPr
         }
       }],
       styles: {
@@ -86,7 +126,7 @@ angular.module("myControllers").controller("EventsController", function ($locati
     pdfMake.createPdf(pdf).open();
   };
 
-  vm.downloadPartecipants = function(event) {
+  vm.openPartecipants = function(event) {
     var body = [[
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
@@ -133,7 +173,7 @@ angular.module("myControllers").controller("EventsController", function ($locati
       }
     };
 
-    pdfMake.createPdf(pdf).download(event.name);
+    pdfMake.createPdf(pdf).open();
   };
 
   vm.addPartecipant = function(name, event, pr) {
