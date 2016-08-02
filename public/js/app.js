@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ui.bootstrap.datetimepicker', 'myControllers', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
@@ -27,13 +27,7 @@ angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUplo
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
-  })/*.when('/login', {
-    templateUrl: 'partials/login.html',
-    controller: 'LoginController as ctrl'
-  }).when('/', {
-    templateUrl: 'partials/index.html',
-    controller: 'MainController'
-  }).otherwise({
+  })/*.otherwise({
     redirectTo: '/'
   })*/;
 });
