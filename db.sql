@@ -1,10 +1,10 @@
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Alex', 'Miccio', 'miccio.alex@gmail.com', '$2y$10$xSvy/MRMx7lNHodW3Vbi7OxUvGa4t.vyn.6rUYliwVZirKb7NO9JW', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(2, 'Alex', 'Miccio', 'miccio.alex.1@gmail.com', '$2y$10$dTJNIi8vAtZRG.8EBNvisemh4HNQHRkyXCt1.MwDL31qALY.dd/LO', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(3, 'Alex', 'Miccio', 'miccio.alex.2@gmail.com', '$2y$10$7hIEJV8koeSdhu1KzugPe.naC8dgXbsKivd0aS.nVU3n9lVzupGS.', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(4, 'Alex', 'Miccio', 'miccio.alex.3@gmail.com', '$2y$10$D7Spsq9kVwAgWrSTpTs5SuDHbQRTyDIoEogSK9qfS6eulNwTUvMka', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(5, 'Alex', 'Miccio', 'miccio.alex.4@gmail.com', '$2y$10$bNM2nehmdqNr19dgcMjM/O92b1K..Pfl7LXTLbcavvbanu19XppPC', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(6, 'Alex', 'Miccio', 'miccio.alex.5@gmail.com', '$2y$10$Cpk/SlLzXTctkvB/f.UyBehMCqEhY6uXe3cNeIZU4bp3lrJ6vqYhe', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'Alex', 'Miccio', 'miccio.alex', 'miccio.alex@gmail.com', '$2y$10$xSvy/MRMx7lNHodW3Vbi7OxUvGa4t.vyn.6rUYliwVZirKb7NO9JW', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+(2, 'Alex', 'Miccio', 'miccio.alex1', 'miccio.alex.1@gmail.com', '$2y$10$dTJNIi8vAtZRG.8EBNvisemh4HNQHRkyXCt1.MwDL31qALY.dd/LO', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+(3, 'Alex', 'Miccio', 'miccio.alex2', 'miccio.alex.2@gmail.com', '$2y$10$7hIEJV8koeSdhu1KzugPe.naC8dgXbsKivd0aS.nVU3n9lVzupGS.', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+(4, 'Alex', 'Miccio', 'miccio.alex3', 'miccio.alex.3@gmail.com', '$2y$10$D7Spsq9kVwAgWrSTpTs5SuDHbQRTyDIoEogSK9qfS6eulNwTUvMka', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+(5, 'Alex', 'Miccio', 'miccio.alex4', 'miccio.alex.4@gmail.com', '$2y$10$bNM2nehmdqNr19dgcMjM/O92b1K..Pfl7LXTLbcavvbanu19XppPC', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+(6, 'Alex', 'Miccio', 'miccio.alex5', 'miccio.alex.5@gmail.com', '$2y$10$Cpk/SlLzXTctkvB/f.UyBehMCqEhY6uXe3cNeIZU4bp3lrJ6vqYhe', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
 
 INSERT INTO `categories` (`id`, `name`, `description`, `image`, `user_id`, `created_at`, `updated_at`) VALUES
 (1, 'name1', 'description1', 'images/categories/1.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),

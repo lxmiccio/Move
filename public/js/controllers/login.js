@@ -2,9 +2,9 @@ angular.module("myControllers").controller("LoginController", function ($locatio
 
   var vm  = this;
 
-  vm.login = function(email, password) {
+  vm.login = function(username, password) {
     userService.login({
-      email: email,
+      username: username,
       password: password
     }, function(response) {
       $location.path('/');

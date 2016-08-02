@@ -64,8 +64,8 @@ class AuthController extends Controller
 
   public function login(Request $request)
   {
-    $validator = Validator::make($request->only(['email', 'password']), [
-      'email' => 'required|email|exists:users,email',
+    $validator = Validator::make($request->only(['username', 'password']), [
+      'username' => 'required|exists:users,username',
       'password' => 'required|min:6'
     ]);
 
@@ -73,8 +73,10 @@ class AuthController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
+    $email = User::where('username', $request->only(['username']))->first()->email;
+
     try {
-      if(!$token = JWTAuth::attempt($request->only(['email', 'password']))) {
+      if(!$token = JWTAuth::attempt(array_merge(['email' => $email], $request->only(['password'])))) {
         return $this->response->errorUnauthorized('could_not_login');
       }
     } catch(JWTException $exception) {
