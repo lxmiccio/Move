@@ -18,12 +18,14 @@ angular.module("myControllers").controller("CreateEventController", function ($f
     vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
   };
 
-  vm.removeImage = function(image) {
-    vm.image = null;
-  };
+  vm.onMaximumPartecipantsChange = function(maximumPartecipants) {
+    if(!Number.isInteger(maximumPartecipants) || maximumPartecipants < 0) {
+      vm.maximumPartecipants = 0;
+    }
+  }
 
-  vm.restoreImage = function() {
-    vm.image = vm.category.image;
+  vm.removeImage = function() {
+    vm.image = null;
   };
 
   vm.changeImage = function(image) {
@@ -33,41 +35,60 @@ angular.module("myControllers").controller("CreateEventController", function ($f
   };
 
   vm.createEvent = function (name, startingDate, maximumPartecipants, description, image, category) {
-    eventService.create({
-      'name': name,
-      'starting_date': startingDate,
-      'maximum_partecipants': maximumPartecipants,
-      'description': description,
-      'category_id': category.id
-    }, function(response) {
+    if(image) {
 
-      var id = response.data.data.id;
-
-      imageService.upload({
-        'image': image,
-        'directory': 'events',
-        'filename': id
+      eventService.create({
+        'name': name,
+        'starting_date': startingDate,
+        'maximum_partecipants': maximumPartecipants,
+        'description': description,
+        'category_id': category.id
       }, function(response) {
 
-        eventService.update(id, {
-          'name': name,
-          'starting_date': startingDate,
-          'maximum_partecipants': maximumPartecipants,
-          'description': description,
-          'image': response.data.path
+        var id = response.data.data.id;
+
+        imageService.upload({
+          'image': image,
+          'directory': 'events',
+          'filename': id
+        }, function(response) {
+
+          eventService.update(id, {
+            'name': name,
+            'starting_date': startingDate,
+            'maximum_partecipants': maximumPartecipants,
+            'description': description,
+            'image': response.data.path
+          }, function(response) {
+            $location.path('/');
+          }, function(response) {
+            console.log(response);
+          });
+
         }, function(response) {
           console.log(response);
-        }, function(response) {
-          console.log(response);
-        })
+        });
 
       }, function(response) {
         console.log(response);
       });
 
-    }, function(response) {
-      console.log(response);
-    });
+    } else {
+
+      eventService.create({
+        'name': name,
+        'starting_date': startingDate,
+        'maximum_partecipants': maximumPartecipants,
+        'description': description,
+        'category_id': category.id
+      }, function(response) {
+        $location.path('/');
+      }, function(response) {
+        console.log(response);
+      });
+
+    }
+
   }
 
 });

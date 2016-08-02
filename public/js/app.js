@@ -40,7 +40,6 @@ angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUplo
 
 .run(function($rootScope) {
   $rootScope.$on('$locationChangeStart', function() {
-    console.log(location.pathname)
     $rootScope.previous = location.pathname;
   })
 })

@@ -18,41 +18,35 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     console.log(response);
   });
 
-  vm.removeImage = function(image) {
-
+  vm.removeImage = function() {
     vm.image = null;
-
   };
 
-  vm.restoreImage = function() {
-
-    vm.image = vm.category.image;
-
+  vm.restoreImage = function(image) {
+    vm.image = image;
   };
 
   vm.changeImage = function(image) {
-
     if(image) {
       vm.image = image;
     }
-
   };
 
-  vm.updateCategory = function(name, description, image) {
+  vm.updateCategory = function(name, description, image, category) {
 
-    if(image && vm.category.image && image != vm.category.image) {
+    if(image && category.image && image != category.image) {
 
       imageService.remove({
-        path: vm.category.image
+        path: category.image
       }, function(response) {
 
         imageService.upload({
           'image': image,
           'directory': 'categories',
-          'filename': vm.category.id
+          'filename': category.id
         }, function(response) {
 
-          categoryService.update(vm.category.id, {
+          categoryService.update(category.id, {
             name: name,
             description: description,
             image: response.data.path
@@ -70,9 +64,9 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         console.log(response);
       });
 
-    } else if(image && vm.category.image && image == vm.category.image) {
+    } else if(image && category.image && image == category.image) {
 
-      categoryService.update(vm.category.id, {
+      categoryService.update(category.id, {
         name: name,
         description: description,
         image: image
@@ -82,15 +76,15 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         console.log(response);
       });
 
-    } else if(image && !vm.category.image) {
+    } else if(image && !category.image) {
 
       imageService.upload({
         'image': image,
         'directory': 'categories',
-        'filename': vm.category.id
+        'filename': category.id
       }, function(response) {
 
-        categoryService.update(vm.category.id, {
+        categoryService.update(category.id, {
           name: name,
           description: description,
           image: response.data.path
@@ -104,13 +98,13 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         console.log(response);
       });
 
-    } else if(!image && vm.category.image) {
+    } else if(!image && category.image) {
 
       imageService.remove({
-        path: vm.category.image
+        path: category.image
       }, function(response) {
 
-        categoryService.update(vm.category.id, {
+        categoryService.update(category.id, {
           name: name,
           description: description,
           image: image
@@ -124,9 +118,9 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         console.log(response);
       });
 
-    } else if(!image && !vm.category.image) {
+    } else if(!image && !category.image) {
 
-      categoryService.update(vm.category.id, {
+      categoryService.update(category.id, {
         name: name,
         description: description,
         image: image
