@@ -50,14 +50,14 @@ class EventController extends Controller
     $event = new Event;
 
     $event->name = $request->get('name');
-    $event->description = $request->get('description');
     $event->starting_date = $request->get('starting_date');
     $event->maximum_partecipants = $request->get('maximum_partecipants');
+    $event->description = $request->get('description');
     $event->image = $request->get('image');
     $event->category_id = $request->get('category_id');
 
     if($event->save()) {
-      return $this->response->item($event, new EventTransformer);
+      return $this->response->item(Event::find($event->id), new EventTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_event');
@@ -66,7 +66,7 @@ class EventController extends Controller
 
   public function update(Request $request, $id)
   {
-    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date', 'ending_date', 'maximum_partecipants'])), [
+    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date', 'maximum_partecipants'])), [
       'id' => 'required|exists:events,id',
       'name' => 'required',
       'starting_date' => 'required|date_format:Y-m-d H:i:s',
@@ -80,13 +80,13 @@ class EventController extends Controller
     $event = Event::find($id);
 
     $event->name = $request->get('name');
-    $event->description = $request->get('description');
     $event->starting_date = $request->get('starting_date');
     $event->maximum_partecipants = $request->get('maximum_partecipants');
+    $event->description = $request->get('description');
     $event->image = $request->get('image');
 
     if($event->save()) {
-      return $this->response->item($event, new EventTransformer);
+      return $this->response->item(Event::find($event->id), new EventTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_event');

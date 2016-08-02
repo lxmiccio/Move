@@ -21,8 +21,6 @@ class CounterController extends Controller
     return $this->response->collection(Counter::all(), new CounterTransformer);
   }
 
-
-
   public function show($id)
   {
     $validator = Validator::make(['id' => $id], [
@@ -45,7 +43,7 @@ class CounterController extends Controller
     }
 
     if($counter->save()) {
-      return $this->response->item($counter, new CounterTransformer);
+      return $this->response->item(Counter::find($counter->id), new CounterTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_counter');
@@ -68,7 +66,7 @@ class CounterController extends Controller
     $counter->visitors = $request->get('visitors');
 
     if($counter->save()) {
-      return $this->response->item($counter, new CounterTransformer);
+      return $this->response->item(Counter::find($counter->id), new CounterTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_counter');
@@ -95,7 +93,7 @@ class CounterController extends Controller
     }
 
     if($counter->save()) {
-      return $this->response->item($counter, new CounterTransformer);
+      return $this->response->item(Counter::find($counter->id), new CounterTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_counter');

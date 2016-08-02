@@ -10,6 +10,10 @@ class Pr extends Model
     'first_name', 'last_name'
   ];
 
+	protected $hidden = [
+    'pivot'
+  ];
+
   /**
   * Get the partecipants for the pr.
   */

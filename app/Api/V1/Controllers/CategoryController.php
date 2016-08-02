@@ -51,7 +51,7 @@ class CategoryController extends Controller
     $category->image = $request->get('image');
 
     if($category->save()) {
-      return $this->response->item($category, new CategoryTransformer);
+      return $this->response->item(Category::find($category->id), new CategoryTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_category');
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     $category->image = $request->get('image');
 
     if($category->save()) {
-      return $this->response->item($category, new CategoryTransformer);
+      return $this->response->item(Category::find($category->id), new CategoryTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_category');
@@ -100,7 +100,7 @@ class CategoryController extends Controller
     $category->prs()->attach($request->get('pr_id'));
 
     if(count($category->prs()->get()) > $count) {
-      return $this->response->item($category, new CategoryTransformer);
+      return $this->response->item(Category::find($category->id), new CategoryTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_attach_pr');
@@ -123,7 +123,7 @@ class CategoryController extends Controller
     $category->prs()->detach($request->get('pr_id'));
 
     if(count($category->prs()->get()) < $count) {
-      return $this->response->item($category, new CategoryTransformer);
+      return $this->response->item(Category::find($category->id), new CategoryTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_detach_pr');

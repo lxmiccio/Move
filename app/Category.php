@@ -10,6 +10,10 @@ class Category extends Model
 		'name', 'description', 'image',
 	];
 
+	protected $hidden = [
+    'pivot'
+  ];
+
 	/**
 	* Get the user that owns the category.
 	*/

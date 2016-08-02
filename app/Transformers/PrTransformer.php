@@ -13,8 +13,9 @@ class PrTransformer extends Fractal\TransformerAbstract
       'id' => $pr->id,
       'firstName' => $pr->first_name,
       'lastName' => $pr->last_name,
-      'partecipants' => $pr->partecipants()->orderBy('name')->get(['id', 'name']),
-      'categories' => $pr->categories()->orderBy('name')->get(['categories.id', 'name', 'description'])
+
+      'categories' => $pr->categories()->orderBy('name')->get(['categories.id', 'categories.description', 'categories.name']),
+      'partecipants' => $pr->partecipants()->orderBy('name')->get(['id', 'name'])
     ];
   }
 }

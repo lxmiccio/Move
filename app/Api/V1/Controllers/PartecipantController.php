@@ -46,14 +46,14 @@ class PartecipantController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $partecipants = new Partecipant;
+    $partecipant = new Partecipant;
 
-    $partecipants->name = $request->get('name');
-    $partecipants->event_id = $request->get('event_id');
-    $partecipants->pr_id = $request->get('pr_id');
+    $partecipant->name = $request->get('name');
+    $partecipant->event_id = $request->get('event_id');
+    $partecipant->pr_id = $request->get('pr_id');
 
-    if($partecipants->save()) {
-      return $this->response->item($partecipants, new PartecipantTransformer);
+    if($partecipant->save()) {
+      return $this->response->item(Partecipant::find($partecipant->save()), new PartecipantTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_partecipant');
@@ -71,12 +71,12 @@ class PartecipantController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $partecipants = Partecipant::find($id);
+    $partecipant = Partecipant::find($id);
 
-    $partecipants->name = $request->get('name');
+    $partecipant->name = $request->get('name');
 
-    if($partecipants->save()) {
-      return $this->response->item($partecipants, new PartecipantTransformer);
+    if($partecipant->save()) {
+      return $this->response->item(Partecipant::find($partecipant->id), new PartecipantTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_partecipant');
@@ -89,9 +89,9 @@ class PartecipantController extends Controller
       'id' => 'required|exists:partecipants,id'
     ]);
 
-    $partecipants = Partecipant::find($id);
+    $partecipant = Partecipant::find($id);
 
-    if($partecipants->delete()) {
+    if($partecipant->delete()) {
       return $this->response->noContent();
     }
     else {

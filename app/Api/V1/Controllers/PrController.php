@@ -21,8 +21,6 @@ class PrController extends Controller
     return $this->response->collection(Pr::all(), new PrTransformer);
   }
 
-
-
   public function show($id)
   {
     $validator = Validator::make(['id' => $id], [
@@ -53,7 +51,7 @@ class PrController extends Controller
     $pr->last_name = $request->get('last_name');
 
     if($pr->save()) {
-      return $this->response->item($pr, new PrTransformer);
+      return $this->response->item(Pr::find($pr->id), new PrTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_pr');
@@ -78,7 +76,7 @@ class PrController extends Controller
     $pr->last_name = $request->get('last_name');
 
     if($pr->save()) {
-      return $this->response->item($pr, new PrTransformer);
+      return $this->response->item(Pr::find($id), new PrTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_update_pr');

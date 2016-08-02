@@ -18,30 +18,32 @@ class CategoryTransformer extends Fractal\TransformerAbstract
       foreach($event->partecipants()->orderBy('name')->get() as $partecipant) {
         $partecipants[] = [
           'name' => $partecipant->name,
+
           'pr' => $partecipant->pr()->get(['id', 'first_name as firstName', 'last_name as lastName'])->first()
         ];
       }
 
       $events[] = [
         'id' => $event->id,
-  			'name' => $event->name,
-  			'description' => $event->description,
-  			'startingDate' => $event->starting_date,
-  			'maximumPartecipants' => $event->maximum_partecipants,
-  			'image' => $event->image,
-  			'category' => $event->category()->get(['id', 'name', 'description'])->first(),
-  			'partecipants' => $partecipants
+        'description' => $event->description,
+        'image' => $event->image,
+        'maximumPartecipants' => $event->maximum_partecipants,
+        'name' => $event->name,
+        'startingDate' => $event->starting_date,
+
+        'partecipants' => $partecipants
       ];
     }
 
     return [
       'id' => $category->id,
-      'name' => $category->name,
       'description' => $category->description,
       'image' => $category->image,
-      'user' => $category->user()->get(['id', 'first_name AS firstName', 'last_name AS lastName', 'email'])->first(),
+      'name' => $category->name,
+
       'events' => $events,
-      'prs' => $category->prs()->orderBy('last_name')->get(['prs.id', 'first_name AS firstName', 'last_name AS lastName'])
+      'prs' => $category->prs()->orderBy('last_name')->get(['prs.id', 'prs.first_name as firstName', 'prs.last_name as lastName']),
+      'user' => $category->user()->get(['id', 'first_name as firstName', 'last_name as lastName', 'email'])->first()
     ];
   }
 }
