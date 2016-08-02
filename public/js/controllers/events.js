@@ -34,6 +34,108 @@ angular.module("myControllers").controller("EventsController", function ($locati
     $location.path(path);
   };
 
+  vm.openPartecipantsPrs = function(event) {
+    var body = [[
+      { text: 'Partecipante', style: 'tableHeader' },
+      { text: 'Pr', style: 'tableHeader' }
+    ]];
+
+    angular.forEach(event.partecipants, function(partecipant) {
+      body.push([
+        { text: partecipant.name, style: 'tableText' },
+        { text: partecipant.pr.firstName + ' ' + partecipant.pr.lastName, style: 'tableText' }
+      ])
+    })
+
+    var pdf = {
+      content: [{
+        text: event.name,
+        style: 'header'
+      }, {
+        style: 'table',
+        table: {
+          widths: ['*', '*'],
+          headerRows: 1,
+          body: body
+        }
+      }],
+      styles: {
+        header: {
+          alignment: 'center',
+          bold: true,
+          fontSize: 18,
+          margin: [0, 0, 0, 10]
+        },
+        table: {
+          margin: [0, 15, 0, 15]
+        },
+        tableHeader: {
+          alignment: 'center',
+          bold: true,
+          fontSize: 12,
+          margin: [0, 2, 0, 2]
+        },
+        tableText: {
+          alignment: 'center',
+          fontSize: 10,
+          margin: [0, 2, 0, 2]
+        }
+      }
+    };
+
+    pdfMake.createPdf(pdf).open();
+  };
+
+  vm.downloadPartecipants = function(event) {
+    var body = [[
+      { text: 'Partecipante', style: 'tableHeader' }
+    ]];
+
+    angular.forEach(event.partecipants, function(partecipant) {
+      body.push([
+        { text: partecipant.name, style: 'tableText' }
+      ])
+    })
+
+    var pdf = {
+      content: [{
+        text: event.name,
+        style: 'header'
+      }, {
+        style: 'table',
+        table: {
+          widths: ['*'],
+          headerRows: 1,
+          body: body
+        }
+      }],
+      styles: {
+        header: {
+          alignment: 'center',
+          bold: true,
+          fontSize: 18,
+          margin: [0, 0, 0, 10]
+        },
+        table: {
+          margin: [0, 15, 0, 15]
+        },
+        tableHeader: {
+          alignment: 'center',
+          bold: true,
+          fontSize: 12,
+          margin: [0, 2, 0, 2]
+        },
+        tableText: {
+          alignment: 'center',
+          fontSize: 10,
+          margin: [0, 2, 0, 2]
+        }
+      }
+    };
+
+    pdfMake.createPdf(pdf).download(event.name);
+  };
+
   vm.addPartecipant = function(name, event, pr) {
 
     partecipantService.create({
@@ -63,5 +165,4 @@ angular.module("myControllers").controller("EventsController", function ($locati
     });
 
   };
-
 });
