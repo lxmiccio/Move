@@ -59,7 +59,7 @@ class AuthController extends Controller
       return $this->response->error('token_invalid', $exception->getStatusCode());
     }
 
-    return response()->json(compact('user'));
+    return response()->json(compact('token'));
   }
 
   public function login(Request $request)
