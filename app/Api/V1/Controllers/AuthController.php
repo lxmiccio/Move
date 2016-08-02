@@ -95,9 +95,10 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
-    $validator = Validator::make($request->only(['first_name', 'last_name', 'email', 'password']), [
+    $validator = Validator::make($request->only(['first_name', 'last_name', 'username', 'email', 'password']), [
       'first_name' => 'required',
       'last_name' => 'required',
+      'username' => 'required|unique:users,username',
       'email' => 'required|email|unique:users,email',
       'password' => 'required|min:6'
     ]);
@@ -123,15 +124,17 @@ class AuthController extends Controller
 
   public function recovery(Request $request)
   {
-    $validator = Validator::make($request->only('email'), [
-      'email' => 'required|email|exists:users,email'
+    $validator = Validator::make($request->only(['username']), [
+      'username' => 'required|exists:users,username'
     ]);
 
     if($validator->fails()) {
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+    $email = User::where('username', $request->only(['username']))->first()->email;
+
+    $response = Password::sendResetLink(['email' => $email], function (Message $message) {
       $message->subject(Config::get('boilerplate.recovery_email_subject'));
     });
 
@@ -145,18 +148,20 @@ class AuthController extends Controller
 
   public function reset(Request $request)
   {
-    $validator = Validator::make($request->only(['token', 'email', 'password', 'password_confirmation']), [
+    $validator = Validator::make($request->only(['token', 'username', 'password', 'password_confirmation']), [
       'token' => 'required',
-      'email' => 'required|email',
+      'username' => 'required|exists:users,username',
       'password' => 'required|confirmed|min:6',
-      'password_confirmation' => 'required|confirmed|min:6',
+      'password_confirmation' => 'required|min:6',
     ]);
 
     if($validator->fails()) {
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $response = Password::reset($request->only(['token', 'email', 'password', 'password_confirmation']), function ($user, $password) {
+    $email = User::where('username', $request->only(['username']))->first()->email;
+
+    $response = Password::reset(['token' => $request->get('token'), 'email' => $email, 'password' => $request->get('password'), 'password_confirmation' => $request->get('password_confirmation')], function ($user, $password) {
       $user->password = $password;
       $user->save();
     });

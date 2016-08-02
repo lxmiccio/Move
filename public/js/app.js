@@ -27,6 +27,12 @@ angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUplo
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
+  }).when('/utente/password/recupera', {
+    templateUrl: 'views/recoverPassword.html',
+    controller: 'RecoverPasswordController as ctrl'
+  }).when('/utente/password/reimposta/:token', {
+    templateUrl: 'views/resetPassword.html',
+    controller: 'ResetPasswordController as ctrl'
   })/*.otherwise({
     redirectTo: '/'
   })*/;

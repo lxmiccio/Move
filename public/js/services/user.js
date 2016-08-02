@@ -57,6 +57,26 @@ angular.module('myServices').factory('userService', function ($http, localStorag
 
   };
 
+  function recoverPassword(data, onSuccess, onError) {
+
+    $http.post('/api/auth/recovery', data).then(function(response) {
+      onSuccess(response);
+    }, function(response) {
+      onError(response);
+    });
+
+  };
+
+  function resetPassword(data, onSuccess, onError) {
+
+    $http.post('/api/auth/reset', data).then(function(response) {
+      onSuccess(response);
+    }, function(response) {
+      onError(response);
+    });
+
+  };
+
   function getToken() {
 
     return localStorageService.get('token');
@@ -67,8 +87,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
 
     if (localStorageService.get('token')) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   };
@@ -79,6 +98,8 @@ angular.module('myServices').factory('userService', function ($http, localStorag
     logout: logout,
     login: login,
     signup: signup,
+    recoverPassword: recoverPassword,
+    resetPassword: resetPassword,
     getToken: getToken,
     isAuthenticated,
   };
