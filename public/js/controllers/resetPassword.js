@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("ResetPasswordController", function ($routeParams, userService) {
+angular.module("myControllers").controller("ResetPasswordController", function ($location, $routeParams, userService) {
 
   var vm  = this;
 
@@ -9,10 +9,14 @@ angular.module("myControllers").controller("ResetPasswordController", function (
       password: password,
       password_confirmation: passwordConfirmation
     }, function(response) {
-      console.log(response);
+      $location.path('login');
     }, function(response) {
       console.log(response);
     });
   };
+
+  vm.isAuthenticated = function () {
+    return userService.isAuthenticated();
+  }
 
 });

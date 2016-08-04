@@ -1,79 +1,24 @@
 angular.module('myServices').factory('paginationService', function ($http, categoryService) {
 
-  var items;
+  var events = [];
 
-  function getAllCategories(onSuccess, onError) {
+  function paginate(category, objectsPerPage) {
 
-    if(items) {
-      onSuccess();
-    } else {
-      categoryService.getAll(function(response) {
-        items = [];
+    events.length = 0;
 
-        angular.forEach(response.data.data, function(category) {
-          items[category.id - 1] = category;
-        });
-
-        onSuccess();
-      }, function(response) {
-        onError(response);
-      });
-    }
-
-  };
-
-  function refreshAllCategories(onSuccess, onError) {
-
-    categoryService.getAll(function(response) {
-      items.length = 0;
-
-      angular.forEach(response.data.data, function(category) {
-        items[category.id - 1] = category;
-      });
-
-      onSuccess();
-    }, function(response) {
-      onError(response);
-    });
-
-  };
-
-  var categories = [];
-
-  function paginate(objectPerPage) {
-
-    angular.forEach(items, function(category) {
-
-      events = [];
-
-      angular.forEach(category.events, function(event, index) {
-        if(index == 0 || index % objectPerPage == 0) {
-          events.push([event]);
-        } else {
-          events[events.length - 1].push(event);
-        }
-      });
-
-      categories.push({
-        id: category.id,
-        events: events
-      });
-
-    });
-
-  };
-
-  function getPagination(id, page) {
-
-    var category;
-
-    angular.forEach(categories, function(entry) {
-      if(entry.id == id) {
-        category = entry;
+    angular.forEach(category.events, function(event, index) {
+      if(index == 0 || index % objectsPerPage == 0) {
+        events.push([event]);
+      } else {
+        events[events.length - 1].push(event);
       }
-    })
+    });
 
-    var totalPages = category.events.length;
+  };
+
+  function getPagination(page) {
+
+    var totalPages = events.length;
     var startingPage, endingPage;
 
     if (totalPages <= 10) {
@@ -95,7 +40,7 @@ angular.module('myServices').factory('paginationService', function ($http, categ
     }
 
     return {
-      events: category.events[page - 1],
+      events: events[page - 1],
       pages: _.range(startingPage, endingPage + 1),
       page: page,
       totalPages: totalPages
@@ -104,8 +49,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
   };
 
   return {
-    getAllCategories: getAllCategories,
-    refreshAllCategories: refreshAllCategories,
     paginate: paginate,
     getPagination: getPagination
   };

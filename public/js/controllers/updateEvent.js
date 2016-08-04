@@ -26,12 +26,12 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
     vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
   };
 
-  vm.removeImage = function(image) {
+  vm.removeImage = function() {
     vm.image = null;
   };
 
-  vm.restoreImage = function() {
-    vm.image = vm.event.image;
+  vm.restoreImage = function(image) {
+    vm.image = image;
   };
 
   vm.changeImage = function(image) {
@@ -40,7 +40,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
     }
   };
 
-  vm.updateEvent = function(event, name, startingDate, maximumPartecipants, description, image) {
+  vm.updateEvent = function(name, startingDate, maximumPartecipants, description, image, event) {
 
     if(image && event.image && image != event.image) {
 
@@ -61,7 +61,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
             description: description,
             image: response.data.path
           }, function(response) {
-            console.log(response);
+            $location.path('categoria/' + event.category.id + '/pagina/1');
           }, function(response) {
             console.log(response);
           });
@@ -83,7 +83,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
         description: description,
         image: image
       }, function(response) {
-        console.log(response);
+        $location.path('categoria/' + event.category.id + '/pagina/1');
       }, function(response) {
         console.log(response);
       });
@@ -103,7 +103,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
           description: description,
           image: response.data.path
         }, function(response) {
-          console.log(response);
+          $location.path('categoria/' + event.category.id + '/pagina/1');
         }, function(response) {
           console.log(response);
         });
@@ -125,7 +125,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
           description: description,
           image: image
         }, function(response) {
-          console.log(response);
+          $location.path('categoria/' + event.category.id + '/pagina/1');
         }, function(response) {
           console.log(response);
         });
@@ -143,12 +143,13 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
         description: description,
         image: image
       }, function(response) {
-        console.log(response);
+        $location.path('categoria/' + event.category.id + '/pagina/1');
       }, function(response) {
         console.log(response);
       });
 
     }
+
   };
 
 });

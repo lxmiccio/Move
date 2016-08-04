@@ -13,14 +13,14 @@ angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUplo
   }).when('/modifica/categoria/:id', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/categoria/:id/crea/evento', {
+    templateUrl: 'views/createEvent.html',
+    controller: 'CreateEventController as ctrl'
   }).when('/categoria/:id', {
     redirectTo: '/categoria/:id/pagina/1'
   }).when('/categoria/:id/pagina/:page', {
     templateUrl: 'views/events.html',
     controller: 'EventsController as ctrl'
-  }).when('/categoria/:id/crea/evento', {
-    templateUrl: 'views/createEvent.html',
-    controller: 'CreateEventController as ctrl'
   }).when('/modifica/evento/:id', {
     templateUrl: 'views/updateEvent.html',
     controller: 'UpdateEventController as ctrl'
@@ -33,9 +33,9 @@ angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUplo
   }).when('/utente/password/reimposta/:token', {
     templateUrl: 'views/resetPassword.html',
     controller: 'ResetPasswordController as ctrl'
-  })/*.otherwise({
+  }).otherwise({
     redirectTo: '/'
-  })*/;
+  });
 })
 
 .run(function($rootScope) {

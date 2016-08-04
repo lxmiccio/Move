@@ -12,4 +12,8 @@ angular.module("myControllers").controller("RecoverPasswordController", function
     });
   };
 
+  vm.isAuthenticated = function () {
+    return userService.isAuthenticated();
+  }
+
 });

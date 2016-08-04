@@ -6,6 +6,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
       $http.get('/api/auth/me?token=' + getToken()).then(function(response) {
         onSuccess(response);
       }, function(response) {
+        localStorageService.remove('token');
         onError(response);
       });
     }

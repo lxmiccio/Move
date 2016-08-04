@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateCategoryController", function ($location, $routeParams, categoryService, imageService, userService) {
+angular.module("myControllers").controller("UpdateCategoryController", function ($location, $rootScope, $routeParams, categoryService, imageService, userService) {
 
   var vm  = this;
 
@@ -9,11 +9,13 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
   });
 
   categoryService.getById($routeParams.id, function(response) {
+
     vm.category = response.data.data;
 
     vm.name = vm.category.name;
     vm.description = vm.category.description;
     vm.image = vm.category.image;
+
   }, function(response) {
     console.log(response);
   });
@@ -51,7 +53,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
             description: description,
             image: response.data.path
           }, function(response) {
-            $location.path('/');
+            $location.path($rootScope.previous);
           }, function(response) {
             console.log(response);
           });
@@ -71,7 +73,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         description: description,
         image: image
       }, function(response) {
-        $location.path('/');
+        $location.path($rootScope.previous);
       }, function(response) {
         console.log(response);
       });
@@ -89,7 +91,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           description: description,
           image: response.data.path
         }, function(response) {
-          $location.path('/');
+          $location.path($rootScope.previous);
         }, function(response) {
           console.log(response);
         });
@@ -109,7 +111,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           description: description,
           image: image
         }, function(response) {
-          $location.path('/');
+          $location.path($rootScope.previous);
         }, function(response) {
           console.log(response);
         });
@@ -125,12 +127,13 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         description: description,
         image: image
       }, function(response) {
-        $location.path('/');
+        $location.path($rootScope.previous);
       }, function(response) {
         console.log(response);
       });
 
     }
+
   };
 
 });

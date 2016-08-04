@@ -6,6 +6,6 @@
 
     <p>{{url('http://localhost:8080/#/utente/password/reimposta/' . $token)}}</p>
 
-    <p>Il Link per modificare la Password sarà valido solamente per 60 minuti e potrà essere utilizzato solamente una volta.</p>
+    <p>Il link per modificare la Password sarà valido solamente per 60 minuti e potrà essere utilizzato solamente una volta.</p>
   </body>
 </html>

@@ -9,20 +9,39 @@ angular.module("myControllers").controller("EventsController", function ($locati
   });
 
   categoryService.getById($routeParams.id, function(response) {
-
     vm.category = response.data.data;
 
-    paginationService.getAllCategories(function(response) {
-      paginationService.paginate(1);
+    paginationService.paginate(vm.category, 1);
 
-      vm.pagination = paginationService.getPagination(vm.category.id, $routeParams.page);
+    vm.pagination = paginationService.getPagination($routeParams.page);
+  }, function(response)  {
+    console.log(response);
+  });
+
+  vm.addPartecipant = function(name, event, pr) {
+
+    partecipantService.create({
+      name: name,
+      event_id: event.id,
+      pr_id: pr.id
+    }, function(response) {
+      categoryService.getById($routeParams.id, function(response) {
+        vm.category = response.data.data;
+
+        paginationService.paginate(vm.category, 1);
+
+        vm.pagination = paginationService.getPagination($routeParams.page);
+
+        vm.name = null;
+      }, function(response)  {
+        console.log(response);
+      });
+
     }, function(response) {
       console.log(response);
     });
 
-  }, function(response)  {
-    console.log(response);
-  });
+  };
 
   vm.redirectToPage = function(page) {
     if(page > 0 && page <= vm.pagination.totalPages) {
@@ -34,7 +53,8 @@ angular.module("myControllers").controller("EventsController", function ($locati
     $location.path(path);
   };
 
-  vm.openPartecipantsPrs = function(event) {
+  vm.openPartecipantsPrsPdf = function(event) {
+
     var prs = [];
 
     var partecipants = [[
@@ -124,9 +144,11 @@ angular.module("myControllers").controller("EventsController", function ($locati
     };
 
     pdfMake.createPdf(pdf).open();
+
   };
 
-  vm.openPartecipants = function(event) {
+  vm.openPartecipantsPdf = function(event) {
+
     var body = [[
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
@@ -174,35 +196,7 @@ angular.module("myControllers").controller("EventsController", function ($locati
     };
 
     pdfMake.createPdf(pdf).open();
-  };
-
-  vm.addPartecipant = function(name, event, pr) {
-
-    partecipantService.create({
-      name: name,
-      event_id: event,
-      pr_id: pr.description.id
-    }, function(response) {
-
-      categoryService.getById($routeParams.id, function(response) {
-
-        vm.category = response.data.data;
-
-        paginationService.refreshAllCategories(function(response) {
-          paginationService.paginate(1);
-
-          vm.pagination = paginationService.getPagination(vm.category.id, $routeParams.page);
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response)  {
-        console.log(response);
-      });
-
-    }, function(response) {
-      console.log(response);
-    });
 
   };
+
 });
