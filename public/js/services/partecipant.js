@@ -22,7 +22,7 @@ angular.module('myServices').factory('partecipantService', function ($http, user
 
 	function create(data, onSuccess, onError) {
 
-		$http.post('api/partecipants?token=' + userService.getToken(), data).then(function(response) {
+		$http.post('api/partecipants', data).then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);

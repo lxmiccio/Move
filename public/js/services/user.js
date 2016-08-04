@@ -86,7 +86,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
 
   function isAuthenticated() {
 
-    if (localStorageService.get('token')) {
+    if(localStorageService.get('token')) {
       return true;
     } else {
       return false;

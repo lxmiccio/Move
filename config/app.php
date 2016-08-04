@@ -160,6 +160,7 @@ return [
          * Third Party Providers...
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
     ],

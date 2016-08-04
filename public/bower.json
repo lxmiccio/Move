@@ -23,7 +23,8 @@
     "angular-bootstrap-datetimepicker": "^1.0.1",
     "moment": "^2.14.1",
     "angucomplete-alt": "^2.4.1",
-    "angular-sanitize": "^1.5.8"
+    "angular-sanitize": "^1.5.8",
+    "angular-random-string": "^0.1.0"
   },
   "resolutions": {
     "angular-local-storage": "^0.3.0",

@@ -19,6 +19,7 @@ class CategoryTransformer extends Fractal\TransformerAbstract
         $partecipants[] = [
           'id' => $partecipant->id,
           'name' => $partecipant->name,
+          'token' => $partecipant->token,
 
           'pr' => $partecipant->pr()->get(['id', 'first_name as firstName', 'last_name as lastName'])->first()
         ];

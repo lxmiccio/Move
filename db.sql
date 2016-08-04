@@ -15,8 +15,9 @@ INSERT INTO `categories` (`id`, `name`, `description`, `image`, `user_id`, `crea
 (6, 'name6', 'description6', 'images/categories/6.jpg', 6, '2016-07-31 10:00:00', '2016-07-31 10:00:00');
 
 INSERT INTO `prs` (`id`, `first_name`, `last_name`, `created_at`, `updated_at`) VALUES
-('1', 'Federico', 'Braconi', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-('2', 'Roland', 'Boga', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
+('1', '', 'Nessuno', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+('2', 'firstname1', 'lastname1', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
+('3', 'firstname2', 'lastname2', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
 
 INSERT INTO `category_pr` (`id`, `category_id`, `pr_id`, `created_at`, `updated_at`) VALUES
 ('1', '1', '1', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
@@ -26,11 +27,6 @@ INSERT INTO `category_pr` (`id`, `category_id`, `pr_id`, `created_at`, `updated_
 INSERT INTO `events` (`id`, `name`, `description`, `starting_date`, `maximum_partecipants`, `image`, `category_id`, `created_at`, `updated_at`) VALUES
 (1, 'name1', 'description1', '2016-07-31 10:00:00', 10, 'images/events/1.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
 (2, 'name2', 'description2', '2016-07-31 11:00:00', 20, 'images/events/2.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00');
-
-INSERT INTO `partecipants` (`id`, `name`, `event_id`, `pr_id`, `created_at`, `updated_at`) VALUES
-(1, 'Alex Miccio', '1', '1', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(2, 'Lorenzo Alberetti', '1', '2', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(3, 'Luca Giovannetti', '2', '1', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
 
 INSERT INTO `counters` (`id`, `visitors`, `created_at`, `updated_at`) VALUES
 ('1', '0', '2016-07-31 10:00:00', '2016-07-31 10:00:00');

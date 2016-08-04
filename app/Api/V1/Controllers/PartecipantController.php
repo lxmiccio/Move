@@ -41,8 +41,9 @@ class PartecipantController extends Controller
 
   public function store(Request $request)
   {
-    $validator = Validator::make($request->only(['name', 'event_id', 'pr_id']), [
+    $validator = Validator::make($request->only(['name', 'token', 'event_id', 'pr_id']), [
       'name' => 'required',
+      'token' => 'required|unique_with:partecipants,event_id',
       'event_id' => 'required|exists:events,id',
       'pr_id' => 'required|exists:prs,id'
     ]);
@@ -54,11 +55,12 @@ class PartecipantController extends Controller
     $partecipant = new Partecipant;
 
     $partecipant->name = $request->get('name');
+    $partecipant->token = $request->get('token');
     $partecipant->event_id = $request->get('event_id');
     $partecipant->pr_id = $request->get('pr_id');
 
     if($partecipant->save()) {
-      return $this->response->item(Partecipant::find($partecipant->save()), new PartecipantTransformer);
+      return $this->response->item(Partecipant::find($partecipant->id), new PartecipantTransformer);
     }
     else {
       return $this->response->errorInternal('could_not_create_partecipant');
@@ -67,7 +69,7 @@ class PartecipantController extends Controller
 
   public function update(Request $request, $id)
   {
-    $$validator = Validator::make(array_merge(['id' => $id], $request->only(['name'])), [
+    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name'])), [
       'id' => 'required|exists:partecipants,id',
       'name' => 'required'
     ]);

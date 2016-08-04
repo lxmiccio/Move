@@ -17,11 +17,15 @@ class CreatePartecipantsTable extends Migration
 
       $table->string('name');
 
+      $table->string('token');
+
       $table->integer('event_id')->unsigned();
       $table->foreign('event_id')->references('id')->on('events');
 
       $table->integer('pr_id')->unsigned();
       $table->foreign('pr_id')->references('id')->on('prs');
+
+      $table->unique(array('token','event_id'));
 
       $table->timestamps();
     });

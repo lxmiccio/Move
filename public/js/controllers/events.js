@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("EventsController", function ($location, $routeParams, categoryService, paginationService, partecipantService, userService) {
+angular.module("myControllers").controller("EventsController", function ($location, $routeParams, localStorageService, randomString, categoryService, paginationService, partecipantService, userService) {
 
   var vm  = this;
 
@@ -14,14 +14,35 @@ angular.module("myControllers").controller("EventsController", function ($locati
     paginationService.paginate(vm.category, 1);
 
     vm.pagination = paginationService.getPagination($routeParams.page);
+
+    angular.forEach(vm.pagination.events, function(event, index) {
+      vm.pagination.events[index].show = true;
+
+      angular.forEach(event.partecipants, function(partecipant) {
+        if(partecipant.token == localStorageService.get('userToken')) {
+          vm.pagination.events[index].show = false;
+        }
+      });
+    });
   }, function(response)  {
     console.log(response);
   });
 
   vm.addPartecipant = function(name, event, pr) {
 
+    if(!localStorageService.get('userToken')) {
+      localStorageService.set('userToken', randomString(255));
+    }
+
+    if(!pr) {
+      pr = {
+        id: 1
+      };
+    }
+
     partecipantService.create({
       name: name,
+      token: localStorageService.get('userToken'),
       event_id: event.id,
       pr_id: pr.id
     }, function(response) {
@@ -32,7 +53,13 @@ angular.module("myControllers").controller("EventsController", function ($locati
 
         vm.pagination = paginationService.getPagination($routeParams.page);
 
-        vm.name = null;
+        angular.forEach(vm.pagination.events, function(event, index) {
+          angular.forEach(event.partecipants, function(partecipant) {
+            if(partecipant.token == localStorageService.get('userToken')) {
+              vm.pagination.events[index].show = false;
+            }
+          });
+        });
       }, function(response)  {
         console.log(response);
       });

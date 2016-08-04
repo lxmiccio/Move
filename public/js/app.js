@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
