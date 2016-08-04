@@ -16,6 +16,11 @@ class CounterController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth', ['except' => ['index', 'show', 'increase']]);
+  }
+
   public function index()
   {
     return $this->response->collection(Counter::all(), new CounterTransformer);

@@ -23,6 +23,11 @@ class AuthController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth', ['except' => ['login', 'signup', 'recovery', 'reset']]);
+  }
+
   public function me()
   {
     try {

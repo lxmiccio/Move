@@ -14,6 +14,11 @@ class ImageController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth');
+  }
+
   public function upload(Request $request)
   {
     $validator = Validator::make(array_merge(['image' => $_FILES['image']], $request->only(['directory', 'filename'])), [

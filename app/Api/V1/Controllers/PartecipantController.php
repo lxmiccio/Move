@@ -16,6 +16,11 @@ class PartecipantController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth', ['except' => ['index', 'show', 'store']]);
+  }
+
   public function index()
   {
     return $this->response->collection(Partecipant::all(), new PartecipantTransformer);

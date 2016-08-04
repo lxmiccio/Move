@@ -16,6 +16,11 @@ class PrController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+  }
+
   public function index()
   {
     return $this->response->collection(Pr::all(), new PrTransformer);

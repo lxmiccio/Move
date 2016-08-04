@@ -16,6 +16,11 @@ class EventController extends Controller
 {
   use Helpers;
 
+  public function __construct()
+  {
+    $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+  }
+
   public function index()
   {
     return $this->response->collection(Event::all(), new EventTransformer);
