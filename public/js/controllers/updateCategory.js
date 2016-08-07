@@ -136,4 +136,24 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
   };
 
+  vm.detachPr = function(pr, category) {
+    categoryService.detachPr(category.id, {
+      pr_id: pr.id
+    }, function(response) {
+
+      categoryService.getById(category.id, function(response) {
+        vm.category = response.data.data;
+      }, function(response) {
+        console.log(response);
+      });
+
+    }, function(response) {
+      console.log(response);
+    });
+  }
+
+  vm.redirect = function(path) {
+    $location.path(path);
+  };
+
 });

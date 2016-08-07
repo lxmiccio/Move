@@ -40,7 +40,7 @@ angular.module("myControllers").controller("AddPrController", function ($locatio
     console.log(response);
   });
 
-  vm.addPrs = function (prs, category) {
+  vm.attachPrs = function (prs, category) {
     angular.forEach(prs, function(pr) {
       categoryService.attachPr(category.id, {
         pr_id: pr.id

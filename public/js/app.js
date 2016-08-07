@@ -13,12 +13,12 @@ angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-m
   }).when('/modifica/categoria/:id', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/modifica/categoria/:id/aggiungi/pr', {
+    templateUrl: 'views/addPr.html',
+    controller: 'AddPrController as ctrl'
   }).when('/categoria/:id/crea/evento', {
     templateUrl: 'views/createEvent.html',
     controller: 'CreateEventController as ctrl'
-  }).when('/categoria/:id/aggiungi/pr', {
-    templateUrl: 'views/addPr.html',
-    controller: 'AddPrController as ctrl'
   }).when('/categoria/:id', {
     redirectTo: '/categoria/:id/pagina/1'
   }).when('/categoria/:id/pagina/:page', {
