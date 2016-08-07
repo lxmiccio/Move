@@ -35,6 +35,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
   };
 
   vm.createEvent = function (name, startingDate, maximumPartecipants, description, image, category) {
+
     if(image) {
 
       eventService.create({
@@ -86,9 +87,8 @@ angular.module("myControllers").controller("CreateEventController", function ($f
       }, function(response) {
         console.log(response);
       });
-
     }
 
-  }
+  };
 
 });
