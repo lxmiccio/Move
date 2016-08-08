@@ -9,7 +9,6 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
   });
 
   eventService.getById($routeParams.id, function(response) {
-
     vm.event = response.data.data;
 
     vm.name = vm.event.name;
@@ -17,7 +16,6 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
     vm.maximumPartecipants = vm.event.maximumPartecipants;
     vm.description = vm.event.description;
     vm.image = vm.event.image;
-
   }, function(response) {
     console.log(response);
   });
@@ -41,11 +39,9 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
   };
 
   vm.updateEvent = function(name, startingDate, maximumPartecipants, description, image, event) {
-
     if(image && event.image && image != event.image) {
-
       imageService.remove({
-        path: event.image
+        image: event.image
       }, function(response) {
 
         imageService.upload({
@@ -59,7 +55,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
             starting_date: startingDate,
             maximum_partecipants: maximumPartecipants,
             description: description,
-            image: response.data.path
+            image: response.data.image
           }, function(response) {
             $location.path('categoria/' + event.category.id + '/pagina/1');
           }, function(response) {
@@ -73,9 +69,8 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
       }, function(response) {
         console.log(response);
       });
-
-    } else if(image && event.image && image == event.image) {
-
+    }
+    else if(image && event.image && image == event.image) {
       eventService.update(event.id, {
         name: name,
         starting_date: startingDate,
@@ -87,9 +82,8 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
       }, function(response) {
         console.log(response);
       });
-
-    } else if(image && !event.image) {
-
+    }
+    else if(image && !event.image) {
       imageService.upload({
         'image': image,
         'directory': 'events',
@@ -101,7 +95,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
           starting_date: startingDate,
           maximum_partecipants: maximumPartecipants,
           description: description,
-          image: response.data.path
+          image: response.data.image
         }, function(response) {
           $location.path('categoria/' + event.category.id + '/pagina/1');
         }, function(response) {
@@ -111,11 +105,10 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
       }, function(response) {
         console.log(response);
       });
-
-    } else if(!image && event.image) {
-
+    }
+    else if(!image && event.image) {
       imageService.remove({
-        path: event.image
+        image: event.image
       }, function(response) {
 
         eventService.update(event.id, {
@@ -133,9 +126,8 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
       }, function(response) {
         console.log(response);
       });
-
-    } else if(!image && !event.image) {
-
+    }
+    else if(!image && !event.image) {
       eventService.update(event.id, {
         name: name,
         starting_date: startingDate,
@@ -147,9 +139,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
       }, function(response) {
         console.log(response);
       });
-
     }
-
   };
 
 });

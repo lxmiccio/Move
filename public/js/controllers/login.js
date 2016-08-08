@@ -15,6 +15,6 @@ angular.module("myControllers").controller("LoginController", function ($locatio
 
   vm.isAuthenticated = function () {
     return userService.isAuthenticated();
-  }
+  };
 
 });

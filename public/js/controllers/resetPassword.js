@@ -17,6 +17,6 @@ angular.module("myControllers").controller("ResetPasswordController", function (
 
   vm.isAuthenticated = function () {
     return userService.isAuthenticated();
-  }
+  };
 
 });

@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateCategoryController", function ($location, $rootScope, $routeParams, categoryService, imageService, userService) {
+angular.module("myControllers").controller("UpdateCategoryController", function ($filter, $location, $routeParams, categoryService, imageService, prService, userService) {
 
   var vm  = this;
 
@@ -9,12 +9,18 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
   });
 
   categoryService.getById($routeParams.id, function(response) {
-
     vm.category = response.data.data;
 
     vm.name = vm.category.name;
     vm.description = vm.category.description;
     vm.image = vm.category.image;
+
+    prService.getAll(function(response) {
+      vm.allPrs = response.data.data;
+      vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+    }, function(response) {
+      console.log(response);
+    });
 
   }, function(response) {
     console.log(response);
@@ -35,11 +41,9 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
   };
 
   vm.updateCategory = function(name, description, image, category) {
-
     if(image && category.image && image != category.image) {
-
       imageService.remove({
-        path: category.image
+        image: category.image
       }, function(response) {
 
         imageService.upload({
@@ -51,9 +55,10 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           categoryService.update(category.id, {
             name: name,
             description: description,
-            image: response.data.path
+            image: response.data.image
           }, function(response) {
-            $location.path($rootScope.previous);
+            vm.category = response.data.data;
+            vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
           }, function(response) {
             console.log(response);
           });
@@ -65,21 +70,20 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
       }, function(response) {
         console.log(response);
       });
-
-    } else if(image && category.image && image == category.image) {
-
+    }
+    else if(image && category.image && image == category.image) {
       categoryService.update(category.id, {
         name: name,
         description: description,
         image: image
       }, function(response) {
-        $location.path($rootScope.previous);
+        vm.category = response.data.data;
+        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
-
-    } else if(image && !category.image) {
-
+    }
+    else if(image && !category.image) {
       imageService.upload({
         'image': image,
         'directory': 'categories',
@@ -89,9 +93,10 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         categoryService.update(category.id, {
           name: name,
           description: description,
-          image: response.data.path
+          image: response.data.image
         }, function(response) {
-          $location.path($rootScope.previous);
+          vm.category = response.data.data;
+          vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
         }, function(response) {
           console.log(response);
         });
@@ -99,11 +104,10 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
       }, function(response) {
         console.log(response);
       });
-
-    } else if(!image && category.image) {
-
+    }
+    else if(!image && category.image) {
       imageService.remove({
-        path: category.image
+        image: category.image
       }, function(response) {
 
         categoryService.update(category.id, {
@@ -111,7 +115,8 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           description: description,
           image: image
         }, function(response) {
-          $location.path($rootScope.previous);
+          vm.category = response.data.data;
+          vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
         }, function(response) {
           console.log(response);
         });
@@ -119,21 +124,52 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
       }, function(response) {
         console.log(response);
       });
-
-    } else if(!image && !category.image) {
-
+    }
+    else if(!image && !category.image) {
       categoryService.update(category.id, {
         name: name,
         description: description,
         image: image
+      }, function(response) {s
+        vm.category = response.data.data;
+        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
       }, function(response) {
-        $location.path($rootScope.previous);
+        console.log(response);
+      });
+    }
+  };
+
+  vm.createPr = function(firstName, lastName, category) {
+    prService.create({
+      first_name: firstName,
+      last_name: lastName
+    }, function(response) {
+
+      categoryService.attachPr(category.id, {
+        pr_id: response.data.data.id
+      }, function(response) {
+        vm.category = response.data.data;
+        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
 
-    }
+    }, function(response) {
+      console.log(response);
+    });
+  };
 
+  vm.attachPrs = function(prs, category) {
+    angular.forEach(prs, function(pr) {
+      categoryService.attachPr(category.id, {
+        pr_id: pr.id
+      }, function(response) {
+        vm.category = response.data.data;
+        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+      }, function(response) {
+        console.log(response);
+      });
+    });
   };
 
   vm.detachPr = function(pr, category) {
@@ -143,6 +179,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
       categoryService.getById(category.id, function(response) {
         vm.category = response.data.data;
+        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });

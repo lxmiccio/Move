@@ -3,7 +3,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
   var events = [];
 
   function paginate(category, objectsPerPage) {
-
     events.length = 0;
 
     angular.forEach(category.events, function(event, index) {
@@ -13,11 +12,9 @@ angular.module('myServices').factory('paginationService', function ($http, categ
         events[events.length - 1].push(event);
       }
     });
-
   };
 
   function getPagination(page) {
-
     var totalPages = events.length;
     var startingPage, endingPage;
 
@@ -25,7 +22,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
       startingPage = 1;
       endingPage = totalPages;
     } else {
-
       if (page <= 6) {
         startingPage = 1;
         endingPage = 10;
@@ -36,7 +32,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
         startingPage = page - 5;
         endingPage = page + 4;
       }
-
     }
 
     return {
@@ -45,7 +40,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
       page: page,
       totalPages: totalPages
     };
-
   };
 
   return {

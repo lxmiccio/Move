@@ -12,7 +12,6 @@ angular.module("myControllers").controller("EventsController", function ($locati
     vm.category = response.data.data;
 
     paginationService.paginate(vm.category, 1);
-
     vm.pagination = paginationService.getPagination($routeParams.page);
 
     angular.forEach(vm.pagination.events, function(event, index) {
@@ -29,7 +28,6 @@ angular.module("myControllers").controller("EventsController", function ($locati
   });
 
   vm.addPartecipant = function(name, event, pr) {
-
     if(!localStorageService.get('userToken')) {
       localStorageService.set('userToken', randomString(255));
     }
@@ -46,14 +44,16 @@ angular.module("myControllers").controller("EventsController", function ($locati
       event_id: event.id,
       pr_id: pr.id
     }, function(response) {
+
       categoryService.getById($routeParams.id, function(response) {
         vm.category = response.data.data;
 
         paginationService.paginate(vm.category, 1);
-
         vm.pagination = paginationService.getPagination($routeParams.page);
 
         angular.forEach(vm.pagination.events, function(event, index) {
+          vm.pagination.events[index].show = true;
+
           angular.forEach(event.partecipants, function(partecipant) {
             if(partecipant.token == localStorageService.get('userToken')) {
               vm.pagination.events[index].show = false;
@@ -70,18 +70,17 @@ angular.module("myControllers").controller("EventsController", function ($locati
 
   };
 
+  vm.redirect = function(path) {
+    $location.path(path);
+  };
+
   vm.redirectToPage = function(page) {
     if(page > 0 && page <= vm.pagination.totalPages) {
       $location.path('categoria/' + $routeParams.id + '/pagina/' + page)
     }
   };
 
-  vm.redirect = function(path) {
-    $location.path(path);
-  };
-
   vm.openPartecipantsPrsPdf = function(event) {
-
     var prs = [];
 
     var partecipants = [[
@@ -90,11 +89,10 @@ angular.module("myControllers").controller("EventsController", function ($locati
     ]];
 
     angular.forEach(event.partecipants, function(partecipant) {
-
       partecipants.push([
         { text: partecipant.name, style: 'tableText' },
         { text: partecipant.pr.firstName + ' ' + partecipant.pr.lastName, style: 'tableText' }
-      ])
+      ]);
 
       var found = false;
       angular.forEach(prs, function(pr, index) {
@@ -111,7 +109,6 @@ angular.module("myControllers").controller("EventsController", function ($locati
           partecipants: 1
         });
       }
-
     });
 
     var partecipantsPerPr = [[
@@ -123,8 +120,7 @@ angular.module("myControllers").controller("EventsController", function ($locati
       partecipantsPerPr.push([
         { text: pr.name, style: 'tableText' },
         { text: pr.partecipants.toString(), style: 'tableText' }
-      ])
-
+      ]);
     });
 
     var pdf = {
@@ -171,11 +167,9 @@ angular.module("myControllers").controller("EventsController", function ($locati
     };
 
     pdfMake.createPdf(pdf).open();
-
   };
 
   vm.openPartecipantsPdf = function(event) {
-
     var body = [[
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
@@ -183,8 +177,8 @@ angular.module("myControllers").controller("EventsController", function ($locati
     angular.forEach(event.partecipants, function(partecipant) {
       body.push([
         { text: partecipant.name, style: 'tableText' }
-      ])
-    })
+      ]);
+    });
 
     var pdf = {
       content: [{
@@ -223,7 +217,6 @@ angular.module("myControllers").controller("EventsController", function ($locati
     };
 
     pdfMake.createPdf(pdf).open();
-
   };
 
 });

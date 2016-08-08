@@ -19,7 +19,6 @@ class PartecipantController extends Controller
   public function __construct()
   {
     $this->middleware('jwt.auth', ['except' => ['index', 'show', 'store']]);
-    $this->middleware('jwt.refresh', ['except' => ['index', 'show', 'store']]);
   }
 
   public function index()

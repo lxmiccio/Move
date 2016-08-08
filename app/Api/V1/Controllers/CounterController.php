@@ -19,7 +19,6 @@ class CounterController extends Controller
   public function __construct()
   {
     $this->middleware('jwt.auth', ['except' => ['index', 'show', 'increase']]);
-    $this->middleware('jwt.refresh', ['except' => ['index', 'show', 'increase']]);
   }
 
   public function index()

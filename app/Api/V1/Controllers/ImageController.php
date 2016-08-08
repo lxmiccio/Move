@@ -17,7 +17,6 @@ class ImageController extends Controller
   public function __construct()
   {
     $this->middleware('jwt.auth');
-    $this->middleware('jwt.refresh');
   }
 
   public function upload(Request $request)
@@ -43,10 +42,10 @@ class ImageController extends Controller
     $name = $_FILES['image']['name'];
     $temp = $_FILES['image']['tmp_name'];
 
-    $path = 'images/' . $request->get('directory') . '/' . $request->get('filename') . '.' . pathinfo($name, PATHINFO_EXTENSION);
+    $image = 'images/' . $request->get('directory') . '/' . $request->get('filename') . '.' . pathinfo($name, PATHINFO_EXTENSION);
 
-    if(move_uploaded_file($temp, $path)) {
-      return response()->json(compact('path'));
+    if(move_uploaded_file($temp, $image)) {
+      return response()->json(compact('image'));
     }
     else {
       return $this->response->errorInternal('could_not_upload_image');
@@ -55,16 +54,16 @@ class ImageController extends Controller
 
   public function remove(Request $request)
   {
-    $validator = Validator::make($request->only(['path']), [
-      'path' => 'required'
+    $validator = Validator::make($request->only(['image']), [
+      'image' => 'required'
     ]);
 
     if($validator->fails()) {
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    if(file_exists($request->get('path'))) {
-      if(unlink($request->get('path'))) {
+    if(file_exists($request->get('image'))) {
+      if(unlink($request->get('image'))) {
         return $this->response->noContent();
       }
       else {

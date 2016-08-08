@@ -25,6 +25,6 @@ angular.module("myControllers").controller("IndexController", function ($http, $
 
   vm.isAuthenticated = function () {
     return userService.isAuthenticated();
-  }
+  };
 
 });

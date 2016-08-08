@@ -35,9 +35,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
   };
 
   vm.createEvent = function (name, startingDate, maximumPartecipants, description, image, category) {
-
     if(image) {
-
       eventService.create({
         'name': name,
         'starting_date': startingDate,
@@ -59,9 +57,9 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             'starting_date': startingDate,
             'maximum_partecipants': maximumPartecipants,
             'description': description,
-            'image': response.data.path
+            'image': response.data.image
           }, function(response) {
-            $location.path('/');
+            $location.path('/categoria/' + category.id);
           }, function(response) {
             console.log(response);
           });
@@ -73,9 +71,8 @@ angular.module("myControllers").controller("CreateEventController", function ($f
       }, function(response) {
         console.log(response);
       });
-
-    } else {
-
+    }
+    else {
       eventService.create({
         'name': name,
         'starting_date': startingDate,
@@ -83,12 +80,11 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         'description': description,
         'category_id': category.id
       }, function(response) {
-        $location.path('/');
+        $location.path('/categoria/' + category.id);
       }, function(response) {
         console.log(response);
       });
     }
-
   };
 
 });
