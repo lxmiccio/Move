@@ -19,6 +19,7 @@ class EventController extends Controller
   public function __construct()
   {
     $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+    $this->middleware('jwt.refresh', ['except' => ['index', 'show']]);
   }
 
   public function index()

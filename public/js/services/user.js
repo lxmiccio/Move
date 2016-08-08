@@ -3,7 +3,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
   function me(onSuccess, onError) {
 
     if (isAuthenticated()) {
-      $http.get('/api/auth/me?token=' + getToken()).then(function(response) {
+      $http.get('/api/auth/me').then(function(response) {
         onSuccess(response);
       }, function(response) {
         localStorageService.remove('token');
@@ -40,7 +40,9 @@ angular.module('myServices').factory('userService', function ($http, localStorag
   function login(data, onSuccess, onError) {
 
     $http.post('/api/auth/login', data).then(function(response) {
+      console.log(response.data)
       localStorageService.set('token', response.data.token);
+      console.log(localStorageService.get('token'))
       onSuccess(response);
     }, function(response) {
       onError(response);

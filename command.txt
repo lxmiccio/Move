@@ -1,4 +1,0 @@
-php artisan migrate
-php artisan make:migration create_examples_table
-php artisan make:model Example
-php artisan make:controller ExampleController

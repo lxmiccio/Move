@@ -1,4 +1,4 @@
-angular.module('myServices').factory('eventService', function ($http, userService) {
+angular.module('myServices').factory('eventService', function ($http, localStorageService, userService) {
 
 	function getAll(onSuccess, onError) {
 
@@ -32,7 +32,8 @@ angular.module('myServices').factory('eventService', function ($http, userServic
 
 	function update(id, data, onSuccess, onError) {
 
-		$http.put('api/events/' + id + '?token=' + userService.getToken(), data).then(function(response) {
+		$http.put('api/events/' + id, data).then(function(response) {
+		localStorageService.set('token', response.headers('Authorization'));
 			onSuccess(response);
 		}, function(response) {
 			onError(response);

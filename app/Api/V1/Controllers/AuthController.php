@@ -15,9 +15,9 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -25,7 +25,8 @@ class AuthController extends Controller
 
   public function __construct()
   {
-    $this->middleware('jwt.auth', ['except' => ['login', 'signup', 'recovery', 'reset']]);
+    $this->middleware('jwt.auth', ['only' => ['me', 'logout']]);
+    $this->middleware('jwt.refresh', ['only' => ['me']]);
   }
 
   public function me()
@@ -48,25 +49,6 @@ class AuthController extends Controller
     return $this->response->item($user, new UserTransformer);
   }
 
-  public function refresh()
-  {
-    if(!$token = JWTAuth::getToken()) {
-      return $this->response->errorBadRequest('token_not_provided');
-    }
-
-    try {
-      $token = JWTAuth::refresh($token);
-    }
-    catch(TokenExpiredException $exception) {
-      return $this->response->error('token_expired', $exception->getStatusCode());
-    }
-    catch(TokenInvalidException $exception) {
-      return $this->response->error('token_invalid', $exception->getStatusCode());
-    }
-
-    return response()->json(compact('token'));
-  }
-
   public function login(Request $request)
   {
     $validator = Validator::make($request->only(['username', 'password']), [
@@ -78,10 +60,8 @@ class AuthController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $email = User::where('username', $request->only(['username']))->first()->email;
-
     try {
-      if(!$token = JWTAuth::attempt(array_merge(['email' => $email], $request->only(['password'])))) {
+      if(!$token = JWTAuth::attempt(array_merge(['email' => User::where('username', $request->only(['username']))->first()->email], $request->only(['password'])))) {
         return $this->response->errorUnauthorized('could_not_login');
       }
     } catch(JWTException $exception) {
@@ -93,9 +73,12 @@ class AuthController extends Controller
 
   public function logout()
   {
-    JWTAuth::parseToken()->invalidate();
-
-    return $this->response->noContent();
+    if(JWTAuth::parseToken()->invalidate()) {
+      return $this->response->noContent();
+    }
+    else {
+      return $this->response->errorInternal('could_not_logout');
+    }
   }
 
   public function signup(Request $request)
@@ -116,6 +99,7 @@ class AuthController extends Controller
 
     $user->first_name = $request->get('first_name');
     $user->last_name = $request->get('last_name');
+    $user->username = $request->get('username');
     $user->email = $request->get('email');
     $user->password = $request->get('password');
 
@@ -137,10 +121,8 @@ class AuthController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $email = User::where('username', $request->only(['username']))->first()->email;
-
-    $response = Password::sendResetLink(['email' => $email], function (Message $message) {
-      $message->subject(Config::get('boilerplate.recovery_email_subject'));
+    $response = Password::sendResetLink(['email' => User::where('username', $request->only(['username']))->first()->email], function (Message $message) {
+      $message->subject('Move - Modifica la tua Password');
     });
 
     if($response == Password::RESET_LINK_SENT) {
@@ -164,9 +146,7 @@ class AuthController extends Controller
       throw new ValidationHttpException($validator->errors()->all());
     }
 
-    $email = User::where('username', $request->only(['username']))->first()->email;
-
-    $response = Password::reset(['token' => $request->get('token'), 'email' => $email, 'password' => $request->get('password'), 'password_confirmation' => $request->get('password_confirmation')], function ($user, $password) {
+    $response = Password::reset(array_merge(['email' => User::where('username', $request->only(['username']))->first()->email], $request->only(['token', 'password', 'password_confirmation'])), function ($user, $password) {
       $user->password = $password;
       $user->save();
     });
