@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, userService) {
+angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, paginationService, userService) {
 
   var vm  = this;
 
@@ -22,7 +22,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
     if(!Number.isInteger(maximumPartecipants) || maximumPartecipants < 0) {
       vm.maximumPartecipants = 0;
     }
-  }
+  };
 
   vm.removeImage = function() {
     vm.image = null;
@@ -59,7 +59,13 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             'description': description,
             'image': response.data.image
           }, function(response) {
-            $location.path('/categoria/' + category.id);
+
+            paginationService.getPage(category.id, 1, response.data.data, function(response) {
+              $location.path('categoria/' + category.id + '/pagina/' + response);
+            }, function(response) {
+              console.log(response);
+            });
+
           }, function(response) {
             console.log(response);
           });
@@ -80,7 +86,13 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         'description': description,
         'category_id': category.id
       }, function(response) {
-        $location.path('/categoria/' + category.id);
+
+        paginationService.getPage(category.id, 1, response.data.data, function(response) {
+          $location.path('categoria/' + category.id + '/pagina/' + response);
+        }, function(response) {
+          console.log(response);
+        });
+
       }, function(response) {
         console.log(response);
       });

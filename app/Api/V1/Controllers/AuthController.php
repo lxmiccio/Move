@@ -35,14 +35,11 @@ class AuthController extends Controller
       if(!$user = JWTAuth::parseToken()->authenticate()) {
         return $this->response->errorNotFound('user_not_found');
       }
-    }
-    catch(TokenExpiredException $exception) {
+    } catch(TokenExpiredException $exception) {
       return $this->response->error('token_expired', $exception->getStatusCode());
-    }
-    catch(TokenInvalidException $exception) {
+    } catch(TokenInvalidException $exception) {
       return $this->response->error('token_invalid', $exception->getStatusCode());
-    }
-    catch(JWTException $exception) {
+    } catch(JWTException $exception) {
       return $this->response->error('token_absent', $exception->getStatusCode());
     }
 

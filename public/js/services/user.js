@@ -13,7 +13,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
 
   function login(data, onSuccess, onError) {
     $http.post('/api/auth/login', data).then(function(response) {
-      localStorageService.set('token', response.data.token);
+      localStorageService.set('token', 'Bearer ' + response.data.token);
       onSuccess(response);
     }, function(response) {
       onError(response);
