@@ -2,12 +2,6 @@ angular.module("myControllers").controller("IndexController", function ($http, $
 
   var vm  = this;
 
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
-
   counterService.increase(1, {
   }, function(response) {
     vm.counter = response.data.data;

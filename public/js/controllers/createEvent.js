@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, paginationService, userService) {
+angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, redirectService, userService) {
 
   var vm  = this;
 
@@ -60,8 +60,10 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             'image': response.data.image
           }, function(response) {
 
-            paginationService.getPage(category.id, 1, response.data.data, function(response) {
-              $location.path('categoria/' + category.id + '/pagina/' + response);
+            var event = response.data.data;
+
+            categoryService.getById(category.id, function(response) {
+              $location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
             }, function(response) {
               console.log(response);
             });
@@ -87,8 +89,10 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         'category_id': category.id
       }, function(response) {
 
-        paginationService.getPage(category.id, 1, response.data.data, function(response) {
-          $location.path('categoria/' + category.id + '/pagina/' + response);
+        var event = response.data.data;
+
+        categoryService.getById(category.id, function(response) {
+          $location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
         }, function(response) {
           console.log(response);
         });

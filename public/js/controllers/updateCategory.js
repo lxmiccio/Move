@@ -17,7 +17,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
     prService.getAll(function(response) {
       vm.allPrs = response.data.data;
-      vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+      vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
     }, function(response) {
       console.log(response);
     });
@@ -58,7 +58,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
             image: response.data.image
           }, function(response) {
             vm.category = response.data.data;
-            vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+            vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
           }, function(response) {
             console.log(response);
           });
@@ -78,7 +78,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         image: image
       }, function(response) {
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
@@ -96,7 +96,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           image: response.data.image
         }, function(response) {
           vm.category = response.data.data;
-          vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+          vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
         }, function(response) {
           console.log(response);
         });
@@ -116,7 +116,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
           image: image
         }, function(response) {
           vm.category = response.data.data;
-          vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+          vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
         }, function(response) {
           console.log(response);
         });
@@ -132,7 +132,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         image: image
       }, function(response) {s
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
@@ -149,7 +149,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         pr_id: response.data.data.id
       }, function(response) {
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
@@ -165,7 +165,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
         pr_id: pr.id
       }, function(response) {
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });
@@ -179,7 +179,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
       categoryService.getById(category.id, function(response) {
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('new')(vm.allPrs, vm.category);
+        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
       }, function(response) {
         console.log(response);
       });

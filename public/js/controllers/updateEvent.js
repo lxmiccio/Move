@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateEventController", function ($location, $routeParams, eventService, imageService, userService) {
+angular.module("myControllers").controller("UpdateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, redirectService, userService) {
 
   var vm  = this;
 
@@ -57,7 +57,15 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
             description: description,
             image: response.data.image
           }, function(response) {
-            $location.path('categoria/' + event.category.id + '/pagina/1');
+
+            var event = response.data.data;
+
+            categoryService.getById(event.category.id, function(response) {
+              $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+            }, function(response) {
+              console.log(response);
+            });
+
           }, function(response) {
             console.log(response);
           });
@@ -78,7 +86,15 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
         description: description,
         image: image
       }, function(response) {
-        $location.path('categoria/' + event.category.id + '/pagina/1');
+
+        var event = response.data.data;
+
+        categoryService.getById(event.category.id, function(response) {
+          $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+        }, function(response) {
+          console.log(response);
+        });
+
       }, function(response) {
         console.log(response);
       });
@@ -97,7 +113,15 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
           description: description,
           image: response.data.image
         }, function(response) {
-          $location.path('categoria/' + event.category.id + '/pagina/1');
+
+          var event = response.data.data;
+
+          categoryService.getById(event.category.id, function(response) {
+            $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+          }, function(response) {
+            console.log(response);
+          });
+
         }, function(response) {
           console.log(response);
         });
@@ -118,7 +142,15 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
           description: description,
           image: image
         }, function(response) {
-          $location.path('categoria/' + event.category.id + '/pagina/1');
+
+          var event = response.data.data;
+
+          categoryService.getById(event.category.id, function(response) {
+            $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+          }, function(response) {
+            console.log(response);
+          });
+
         }, function(response) {
           console.log(response);
         });
@@ -135,7 +167,15 @@ angular.module("myControllers").controller("UpdateEventController", function ($l
         description: description,
         image: image
       }, function(response) {
-        $location.path('categoria/' + event.category.id + '/pagina/1');
+
+        var event = response.data.data;
+
+        categoryService.getById(event.category.id, function(response) {
+          $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+        }, function(response) {
+          console.log(response);
+        });
+
       }, function(response) {
         console.log(response);
       });

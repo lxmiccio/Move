@@ -1,4 +1,4 @@
-angular.module('myFilters').filter('new', function() {
+angular.module('myFilters').filter('newPrs', function() {
   return function (prs, category) {
     if(angular.isArray(prs) && angular.isArray(category.prs)) {
       var newPrs = [];

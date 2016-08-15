@@ -1,41 +1,16 @@
-angular.module('myServices').factory('paginationService', function ($http, categoryService) {
+angular.module('myServices').factory('paginationService', function ($filter, $http) {
 
   var events = [];
 
   function paginate(category, objectsPerPage) {
     events.length = 0;
-
-    angular.forEach(category.events, function(event, index) {
+    angular.forEach($filter('newEvents')(category.events), function(event, index) {
       if(index == 0 || index % objectsPerPage == 0) {
         events.push([event]);
       } else {
         events[events.length - 1].push(event);
       }
     });
-  };
-
-  function getPage(category, objectsPerPage, event, onSuccess, onError) {
-    categoryService.getById(category, function(response) {
-      var array = [];
-      var page = 0;
-
-      angular.forEach(response.data.data.events, function(entry, index) {
-        if(entry.id == event.id) {
-          page = array.length;
-        }
-        if(index == 0 || index % objectsPerPage == 0) {
-          array.push([entry]);
-        } else {
-          array[array.length - 1].push(entry);
-        }
-      });
-
-      onSuccess(page + 1);
-    }, function(response) {
-      onError(response);
-    })
-
-
   };
 
   function getPagination(page) {
@@ -68,7 +43,6 @@ angular.module('myServices').factory('paginationService', function ($http, categ
 
   return {
     paginate: paginate,
-    getPage: getPage,
     getPagination: getPagination
   };
 

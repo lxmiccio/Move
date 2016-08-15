@@ -48,10 +48,10 @@ angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-m
   })
 })
 
-.factory('AuthHttpInterceptor', function($injector, $q, localStorageService) {
+.factory('AuthHttpInterceptor', function(localStorageService) {
   return {
     request: function(config) {
-      config.headers.Authorization = 'Bearer ' + localStorageService.get('token');
+      config.headers.Authorization = localStorageService.get('token');
       return config;
     },
     response: function(response) {
@@ -61,7 +61,7 @@ angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-m
       return response;
     },
     responseError: function(response) {
-      
+      return response;
     }
   };
 });
