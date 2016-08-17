@@ -1,3 +1,26 @@
+<div class="row" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
+  <div class="col-md-10 col-md-offset-1 col-xs-12">
+    <div class="row">
+      <div class="funkyradio">
+        <div class="col-sm-6">
+          <div class="funkyradio-primary">
+            <input type="radio" name="radio" id="radio1" ng-click="ctrl.onShowNewEventsClick(ctrl.category)" ng-checked="ctrl.getPaginateNewEvents()"/>
+            <label for="radio1">Eventi nuovi</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="funkyradio-info">
+            <input type="radio" name="radio" id="radio2" ng-click="ctrl.onShowOldEventsClick(ctrl.category)" ng-checked="!ctrl.getPaginateNewEvents()"/>
+            <label for="radio2">Eventi trascorsi</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row br-lg"></div>
+
 <div class="row">
   <div class="col-md-10 col-md-offset-1 col-xs-12" ng-repeat="event in ctrl.pagination.events">
     <div class="jumbotron well-sm">
@@ -32,12 +55,12 @@
             </div>
           </div>
 
-          <div class="row br-lg"></div>
+          <div class="row br-lg" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1"></div>
 
-          <div class="row">
+          <div class="row" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
             <div class="col-xs-12">
               <div class="text-center">
-                <button type="button" class="btn btn-success" ng-click="ctrl.redirect('evento/' + event.id + '/modifica')" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">Modifica</button>
+                <button type="button" class="btn btn-success" ng-click="ctrl.redirect('evento/' + event.id + '/modifica')">Modifica</button>
                 <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPrsPdf(event)">Partecipante/Pr</button>
                 <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPdf(event)">Partecipanti</button>
               </div>
@@ -71,7 +94,11 @@
 
       <div class="row br-lg"></div>
     </div>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-xs-12">
     <div class="text-center">
       <ul class="pagination" ng-if="ctrl.pagination">
         <li ng-class="{disabled: ctrl.pagination.page == 1}">

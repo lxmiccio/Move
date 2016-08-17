@@ -27,6 +27,16 @@ angular.module("myControllers").controller("EventsController", function ($locati
     console.log(response);
   });
 
+  vm.onShowNewEventsClick = function(category) {
+    paginationService.setPaginateNewEvents(true);
+    $location.path('categoria/' + $routeParams.id)
+  };
+
+  vm.onShowOldEventsClick = function(category) {
+    paginationService.setPaginateNewEvents(false);
+    $location.path('categoria/' + $routeParams.id)
+  };
+
   vm.addPartecipant = function(name, event, pr) {
     if(!localStorageService.get('userToken')) {
       localStorageService.set('userToken', randomString(255));
@@ -70,6 +80,10 @@ angular.module("myControllers").controller("EventsController", function ($locati
 
   };
 
+  vm.getPaginateNewEvents = function() {
+    return paginationService.getPaginateNewEvents();
+  };
+
   vm.redirect = function(path) {
     $location.path(path);
   };
@@ -81,12 +95,14 @@ angular.module("myControllers").controller("EventsController", function ($locati
   };
 
   vm.openPartecipantsPrsPdf = function(event) {
-    var prs = [];
-
     var partecipants = [[
       { text: 'Partecipante', style: 'tableHeader' },
       { text: 'Pr', style: 'tableHeader' }
     ]];
+
+    var prs = [];
+
+    var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {
       partecipants.push([
@@ -109,6 +125,8 @@ angular.module("myControllers").controller("EventsController", function ($locati
           partecipants: 1
         });
       }
+
+      totalPartecipants++;
     });
 
     var partecipantsPerPr = [[
@@ -141,6 +159,9 @@ angular.module("myControllers").controller("EventsController", function ($locati
           headerRows: 1,
           body: partecipantsPerPr
         }
+      }, {
+        style: 'text',
+        text: 'Partecipanti: ' + totalPartecipants
       }],
       styles: {
         header: {
@@ -162,6 +183,11 @@ angular.module("myControllers").controller("EventsController", function ($locati
           alignment: 'center',
           fontSize: 10,
           margin: [0, 2, 0, 2]
+        },
+        text: {
+          alignment: 'center',
+          fontSize: 12,
+          margin: [0, 15, 0, 15]
         }
       }
     };
@@ -174,10 +200,14 @@ angular.module("myControllers").controller("EventsController", function ($locati
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
 
+    var totalPartecipants = 0;
+
     angular.forEach(event.partecipants, function(partecipant) {
       body.push([
         { text: partecipant.name, style: 'tableText' }
       ]);
+
+      totalPartecipants++;
     });
 
     var pdf = {
@@ -191,6 +221,9 @@ angular.module("myControllers").controller("EventsController", function ($locati
           headerRows: 1,
           body: body
         }
+      }, {
+        style: 'text',
+        text: 'Partecipanti: ' + totalPartecipants
       }],
       styles: {
         header: {
@@ -212,6 +245,11 @@ angular.module("myControllers").controller("EventsController", function ($locati
           alignment: 'center',
           fontSize: 10,
           margin: [0, 2, 0, 2]
+        },
+        text: {
+          alignment: 'center',
+          fontSize: 12,
+          margin: [0, 15, 0, 15]
         }
       }
     };

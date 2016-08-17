@@ -1,16 +1,37 @@
 angular.module('myServices').factory('paginationService', function ($filter, $http) {
 
+  var paginateNewEvents = true;
+
+  function getPaginateNewEvents() {
+    return paginateNewEvents;
+  }
+
+  function setPaginateNewEvents(boolean) {
+    paginateNewEvents = boolean;
+  };
+
   var events = [];
 
   function paginate(category, objectsPerPage) {
     events.length = 0;
-    angular.forEach($filter('newEvents')(category.events), function(event, index) {
-      if(index == 0 || index % objectsPerPage == 0) {
-        events.push([event]);
-      } else {
-        events[events.length - 1].push(event);
-      }
-    });
+
+    if(paginateNewEvents) {
+      angular.forEach($filter('newEvents')(category.events), function(event, index) {
+        if(index == 0 || index % objectsPerPage == 0) {
+          events.push([event]);
+        } else {
+          events[events.length - 1].push(event);
+        }
+      });
+    } else {
+      angular.forEach($filter('oldEvents')(category.events), function(event, index) {
+        if(index == 0 || index % objectsPerPage == 0) {
+          events.push([event]);
+        } else {
+          events[events.length - 1].push(event);
+        }
+      });
+    }
   };
 
   function getPagination(page) {
@@ -42,6 +63,8 @@ angular.module('myServices').factory('paginationService', function ($filter, $ht
   };
 
   return {
+    getPaginateNewEvents: getPaginateNewEvents,
+    setPaginateNewEvents: setPaginateNewEvents,
     paginate: paginate,
     getPagination: getPagination
   };

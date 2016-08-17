@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomString', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
 
 .config(function (localStorageServiceProvider) {
   localStorageServiceProvider.setPrefix('moveApp').setStorageType('localStorage');
@@ -6,6 +6,50 @@ angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-m
 
 .config(function($httpProvider) {
   $httpProvider.interceptors.push('AuthHttpInterceptor');
+})
+
+.factory('AuthHttpInterceptor', function(localStorageService) {
+  return {
+    request: function(config) {
+      config.headers.Authorization = localStorageService.get('token');
+      return config;
+    },
+    // response: function(response) {
+    //   if(response.headers('Authorization')) {
+    //     localStorageService.set('token', response.headers('Authorization'));
+    //   }
+    //   return response;
+    // },
+    // responseError: function(response) {
+    //   return response;
+    // }
+  };
+})
+
+.config(function($httpProvider, jwtInterceptorProvider) {
+  jwtInterceptorProvider.refreshToken = function($http, jwtHelper, localStorageService) {
+    var token = localStorageService.get('token');
+
+    if(token) {
+      if(jwtHelper.isTokenExpired(token)) {
+        return $http.get('api/auth/refresh').then(function(response) {
+          localStorageService.set('token', response.data.token);
+          return localStorageService.get('token');
+        }, function(response) {
+          token = localStorageService.get('token');
+          if(!jwtHelper.isTokenExpired(token)) {
+            return localStorageService.get('token');
+          } else {
+            localStorageService.remove('token');
+          }
+        });
+      } else {
+        return token;
+      }
+    }
+  }
+
+  $httpProvider.interceptors.push('jwtInterceptor');
 })
 
 .config(function ($locationProvider, $routeProvider) {
@@ -46,22 +90,4 @@ angular.module('moveApp', ['angucomplete-alt', 'angularRandomString', 'isteven-m
   $rootScope.$on('$locationChangeStart', function() {
     $rootScope.previous = location.pathname;
   })
-})
-
-.factory('AuthHttpInterceptor', function(localStorageService) {
-  return {
-    request: function(config) {
-      config.headers.Authorization = localStorageService.get('token');
-      return config;
-    },
-    response: function(response) {
-      if(response.headers('Authorization')) {
-        localStorageService.set('token', response.headers('Authorization'));
-      }
-      return response;
-    },
-    responseError: function(response) {
-      return response;
-    }
-  };
 });

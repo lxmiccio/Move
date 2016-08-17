@@ -26,7 +26,7 @@ class AuthController extends Controller
   public function __construct()
   {
     $this->middleware('jwt.auth', ['only' => ['me', 'logout']]);
-    $this->middleware('jwt.refresh', ['only' => ['me']]);
+    $this->middleware('jwt.refresh', ['only' => ['refresh']]);
   }
 
   public function me()
@@ -44,6 +44,10 @@ class AuthController extends Controller
     }
 
     return $this->response->item($user, new UserTransformer);
+  }
+
+  public function refresh() {
+
   }
 
   public function login(Request $request)
