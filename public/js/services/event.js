@@ -53,6 +53,7 @@ angular.module('myServices').factory('eventService', function ($http, localStora
 		getById: getById,
 		create: create,
 		update: update,
+		increase: increase,
 		remove: remove
 	};
 

@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, redirectService, userService) {
+angular.module("myControllers").controller("UpdateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, userService) {
 
   var vm  = this;
 
@@ -10,7 +10,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
 
   eventService.getById($routeParams.id, function(response) {
     vm.event = response.data.data;
-
+    
     vm.name = vm.event.name;
     vm.startingDate = vm.event.startingDate;
     vm.maximumPartecipants = vm.event.maximumPartecipants;
@@ -61,7 +61,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
             var event = response.data.data;
 
             categoryService.getById(event.category.id, function(response) {
-              $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+              $location.path('categoria/' + event.category.id);
             }, function(response) {
               console.log(response);
             });
@@ -90,7 +90,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         var event = response.data.data;
 
         categoryService.getById(event.category.id, function(response) {
-          $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+          $location.path('categoria/' + event.category.id);
         }, function(response) {
           console.log(response);
         });
@@ -117,7 +117,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
           var event = response.data.data;
 
           categoryService.getById(event.category.id, function(response) {
-            $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+            $location.path('categoria/' + event.category.id);
           }, function(response) {
             console.log(response);
           });
@@ -146,7 +146,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
           var event = response.data.data;
 
           categoryService.getById(event.category.id, function(response) {
-            $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+            $location.path('categoria/' + event.category.id);
           }, function(response) {
             console.log(response);
           });
@@ -171,7 +171,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         var event = response.data.data;
 
         categoryService.getById(event.category.id, function(response) {
-          $location.path('categoria/' + event.category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+          $location.path('categoria/' + event.category.id);
         }, function(response) {
           console.log(response);
         });

@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("EventsController", function ($filter, $location, $routeParams, localStorageService, randomString, categoryService, paginationService, partecipantService, userService) {
+angular.module("myControllers").controller("EventController", function ($filter, $location, $routeParams, localStorageService, randomString, categoryService, eventService, paginationService, partecipantService, userService) {
 
   var vm  = this;
 
@@ -11,22 +11,97 @@ angular.module("myControllers").controller("EventsController", function ($filter
   categoryService.getById($routeParams.id, function(response) {
     vm.category = response.data.data;
 
-    vm.category.events = $filter('oldEvents')(vm.category.events.reverse());
+    vm.events = $filter('newEvents')(vm.category.events);
 
-    paginationService.paginate(vm.category, 1);
-    vm.pagination = paginationService.getPagination($routeParams.page);
+    angular.forEach(vm.events, function(event, index) {
+      vm.events[index].show = true;
+
+      angular.forEach(event.partecipants, function(partecipant) {
+        if(partecipant.token == localStorageService.get('userToken')) {
+          vm.events[index].show = false;
+        }
+      });
+    });
   }, function(response)  {
     console.log(response);
   });
 
-  vm.redirect = function(path) {
-    $location.path(path);
+  vm.addPartecipant = function(name, event, pr) {
+    if(!localStorageService.get('userToken')) {
+      localStorageService.set('userToken', randomString(255));
+    }
+
+    if(!pr) {
+      pr = {
+        id: 1
+      };
+    }
+
+    partecipantService.create({
+      name: name,
+      token: localStorageService.get('userToken'),
+      event_id: event.id,
+      pr_id: pr.id
+    }, function(response) {
+
+      eventService.increase(event.id, function(response) {
+
+        categoryService.getById($routeParams.id, function(response) {
+          vm.category = response.data.data;
+
+          vm.events = $filter('newEvents')(vm.category.events);
+
+          angular.forEach(vm.events, function(event, index) {
+            vm.events[index].show = true;
+
+            angular.forEach(event.partecipants, function(partecipant) {
+              if(partecipant.token == localStorageService.get('userToken')) {
+                vm.events[index].show = false;
+              }
+            });
+          });
+        }, function(response)  {
+          console.log(response);
+        });
+
+      }, function(response) {
+        console.log(response);
+      });
+
+    }, function(response) {
+      console.log(response);
+    });
+
   };
 
-  vm.redirectToPage = function(page) {
-    if(page > 0 && page <= vm.pagination.totalPages) {
-      $location.path('categoria/' + $routeParams.id + '/pagina/' + page)
-    }
+  vm.increasePartecipantsCounter = function(event) {
+    eventService.increase(event.id, function(response) {
+
+      categoryService.getById($routeParams.id, function(response) {
+        vm.category = response.data.data;
+
+        vm.events = $filter('newEvents')(vm.category.events);
+
+        angular.forEach(vm.events, function(event, index) {
+          vm.events[index].show = true;
+
+          angular.forEach(event.partecipants, function(partecipant) {
+            if(partecipant.token == localStorageService.get('userToken')) {
+              vm.events[index].show = false;
+            }
+          });
+        });
+      }, function(response)  {
+        console.log(response);
+      });
+
+    }, function(response) {
+      console.log(response);
+    });
+  };
+
+  vm.redirect = function(path) {
+    $location.path(path);
   };
 
   vm.openPartecipantsPrsPdf = function(event) {

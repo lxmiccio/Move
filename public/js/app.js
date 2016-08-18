@@ -13,7 +13,8 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
     templateUrl: 'views/createEvent.html',
     controller: 'CreateEventController as ctrl'
   }).when('/categoria/:id', {
-    redirectTo: '/categoria/:id/pagina/1'
+    templateUrl: 'views/event.html',
+    controller: 'EventController as ctrl'
   }).when('/categoria/:id/pagina/:page', {
     templateUrl: 'views/events.html',
     controller: 'EventsController as ctrl'
@@ -29,9 +30,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/utente/password/reimposta/:token', {
     templateUrl: 'views/resetPassword.html',
     controller: 'ResetPasswordController as ctrl'
-  }).otherwise({
+  })/*.otherwise({
     redirectTo: '/'
-  });
+  })*/;
 })
 
 .config(function($httpProvider) {
