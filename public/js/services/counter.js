@@ -32,8 +32,8 @@ angular.module('myServices').factory('counterService', function ($http) {
 		});
 	};
 
-	function increase(id, data, onSuccess, onError) {
-		$http.put('api/counters/' + id + '/increase', data).then(function(response) {
+	function increase(id, onSuccess, onError) {
+		$http.put('api/counters/' + id + '/increase').then(function(response) {
 			onSuccess(response);
 		}, function(response) {
 			onError(response);

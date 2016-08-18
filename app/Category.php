@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 	protected $fillable = [
-		'name', 'description', 'image',
+		'name', 'image',
 	];
 
 	protected $hidden = [
     'pivot'
   ];
 
-	/**
-	* Get the user that owns the category.
-	*/
-	public function user()
-	{
-		return $this->belongsTo('App\User');
-	}
+  /**
+  * Get the users for the category.
+  */
+  public function users()
+  {
+    return $this->hasMany('App\User');
+  }
 
 	/**
 	* Get the events for the category.

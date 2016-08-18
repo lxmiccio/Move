@@ -11,11 +11,16 @@ class UserTransformer extends Fractal\TransformerAbstract
 	{
 		return [
 			'id' => $user->id,
-			'email' => $user->email,
 			'firstName' => $user->first_name,
 			'lastName' => $user->last_name,
+			'username' => $user->username,
 
-			'category' => $user->category()->get(['id', 'description', 'name'])->first()
+			'category' => $user->category()->get([
+				'id',
+				'name',
+				'image'
+			])
+			->first()
 		];
 	}
 }

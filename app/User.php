@@ -12,7 +12,7 @@ class User extends Authenticatable
   * @var array
   */
   protected $fillable = [
-    'first_name', 'last_name', 'user', 'email', 'password'
+    'first_name', 'last_name', 'user', 'password'
   ];
 
   /**
@@ -24,21 +24,13 @@ class User extends Authenticatable
     'password'
   ];
 
-  /**
-  * Get the category record associated with the user.
-  */
-  public function category()
-  {
-    return $this->hasOne('App\Category');
-  }
-
-  /**
-  * Get the password resets for the user.
-  */
-  public function password_resets()
-  {
-    return $this->hasMany('App\PasswordReset');
-  }
+	/**
+	* Get the category that owns the user.
+	*/
+	public function category()
+	{
+		return $this->belongsTo('App\Category');
+	}
 
   /**
   * This mutator automatically hashes the password.

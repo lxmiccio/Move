@@ -95,26 +95,18 @@ angular.module("myControllers").controller("EventsController", function ($locati
   };
 
   vm.openPartecipantsPrsPdf = function(event) {
-    var partecipants = [[
-      { text: 'Partecipante', style: 'tableHeader' },
-      { text: 'Pr', style: 'tableHeader' }
-    ]];
-
     var prs = [];
 
     var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {
-      partecipants.push([
-        { text: partecipant.name, style: 'tableText' },
-        { text: partecipant.pr.firstName + ' ' + partecipant.pr.lastName, style: 'tableText' }
-      ]);
-
       var found = false;
+
       angular.forEach(prs, function(pr, index) {
         if(pr.id == partecipant.pr.id) {
           found = true;
-          prs[index].partecipants++;
+          prs[index].partecipants += ', ' + partecipant.name;
+          prs[index].totalPartecipants++;
         }
       });
 
@@ -122,12 +114,18 @@ angular.module("myControllers").controller("EventsController", function ($locati
         prs.push({
           id: partecipant.pr.id,
           name: partecipant.pr.firstName + ' ' + partecipant.pr.lastName,
-          partecipants: 1
+          partecipants: partecipant.name,
+          totalPartecipants: 1
         });
       }
 
       totalPartecipants++;
     });
+
+    var partecipants = [[
+      { text: 'Pr', style: 'tableHeader' },
+      { text: 'Partecipanti', style: 'tableHeader' }
+    ]];
 
     var partecipantsPerPr = [[
       { text: 'Pr', style: 'tableHeader' },
@@ -135,9 +133,14 @@ angular.module("myControllers").controller("EventsController", function ($locati
     ]];
 
     angular.forEach(prs, function(pr) {
+      partecipants.push([
+        { text: pr.name, style: 'tableText' },
+        { text: pr.partecipants, style: 'tableText' }
+      ]);
+
       partecipantsPerPr.push([
         { text: pr.name, style: 'tableText' },
-        { text: pr.partecipants.toString(), style: 'tableText' }
+        { text: pr.totalPartecipants.toString(), style: 'tableText' }
       ]);
     });
 

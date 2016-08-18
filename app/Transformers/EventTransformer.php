@@ -13,11 +13,16 @@ class EventTransformer extends Fractal\TransformerAbstract
 
     foreach($event->partecipants()->orderBy('name')->get() as $partecipant) {
       $partecipants[] = [
-  			'id' => $partecipant->id,
-  			'name' => $partecipant->name,
-  			'token' => $partecipant->token,
+        'id' => $partecipant->id,
+        'name' => $partecipant->name,
+        'token' => $partecipant->token,
 
-        'pr' => $partecipant->pr()->get(['id', 'first_name as firstName', 'last_name as lastName'])->first()
+        'pr' => $partecipant->pr()->get([
+          'id',
+          'first_name as firstName',
+          'last_name as lastName'
+        ])
+        ->first()
       ];
     }
 
@@ -27,9 +32,15 @@ class EventTransformer extends Fractal\TransformerAbstract
       'image' => $event->image,
       'maximumPartecipants' => $event->maximum_partecipants,
       'name' => $event->name,
+      'partecipantsCounter' => $event->partecipants_counter,
       'startingDate' => $event->starting_date,
 
-      'category' => $event->category()->get(['id', 'description', 'name'])->first(),
+      'category' => $event->category()->get([
+        'id',
+        'name'
+      ])
+      ->first(),
+
       'partecipants' => $partecipants
     ];
   }

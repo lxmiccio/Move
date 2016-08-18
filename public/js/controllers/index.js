@@ -2,8 +2,7 @@ angular.module("myControllers").controller("IndexController", function ($http, $
 
   var vm  = this;
 
-  counterService.increase(1, {
-  }, function(response) {
+  counterService.increase(1, function(response) {
     vm.counter = response.data.data;
   }, function(response) {
     console.log(response);
@@ -16,6 +15,14 @@ angular.module("myControllers").controller("IndexController", function ($http, $
       console.log(response);
     });
   };
+
+  vm.increaseCounter = function() {
+    counterService.increase(1, function(response) {
+      vm.counter = response.data.data;
+    }, function(response) {
+      console.log(response)
+    });
+  }
 
   vm.isAuthenticated = function () {
     return userService.isAuthenticated();

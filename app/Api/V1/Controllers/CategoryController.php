@@ -52,7 +52,6 @@ class CategoryController extends Controller
     $category = new Category;
 
     $category->name = $request->get('name');
-    $category->description = $request->get('description');
     $category->image = $request->get('image');
 
     if($category->save()) {
@@ -77,7 +76,6 @@ class CategoryController extends Controller
     $category = Category::find($id);
 
     $category->name = $request->get('name');
-    $category->description = $request->get('description');
     $category->image = $request->get('image');
 
     if($category->save()) {

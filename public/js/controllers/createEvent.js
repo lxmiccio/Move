@@ -15,7 +15,11 @@ angular.module("myControllers").controller("CreateEventController", function ($f
   });
 
   vm.onStartingDateChange = function(startingDate) {
-    vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
+    if(startingDate >= new Date()) {
+      vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
+    } else {
+      vm.startingDate = '';
+    }
   };
 
   vm.onMaximumPartecipantsChange = function(maximumPartecipants) {
@@ -63,7 +67,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             var event = response.data.data;
 
             categoryService.getById(category.id, function(response) {
-              $location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+              //$location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
             }, function(response) {
               console.log(response);
             });
@@ -92,7 +96,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         var event = response.data.data;
 
         categoryService.getById(category.id, function(response) {
-          $location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
+          //$location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
         }, function(response) {
           console.log(response);
         });

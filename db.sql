@@ -1,32 +1,21 @@
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Alex', 'Miccio', 'miccio.alex', 'miccio.alex@gmail.com', '$2y$10$xSvy/MRMx7lNHodW3Vbi7OxUvGa4t.vyn.6rUYliwVZirKb7NO9JW', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(2, 'Alex', 'Miccio', 'miccio.alex1', 'miccio.alex.1@gmail.com', '$2y$10$dTJNIi8vAtZRG.8EBNvisemh4HNQHRkyXCt1.MwDL31qALY.dd/LO', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(3, 'Alex', 'Miccio', 'miccio.alex2', 'miccio.alex.2@gmail.com', '$2y$10$7hIEJV8koeSdhu1KzugPe.naC8dgXbsKivd0aS.nVU3n9lVzupGS.', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(4, 'Alex', 'Miccio', 'miccio.alex3', 'miccio.alex.3@gmail.com', '$2y$10$D7Spsq9kVwAgWrSTpTs5SuDHbQRTyDIoEogSK9qfS6eulNwTUvMka', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(5, 'Alex', 'Miccio', 'miccio.alex4', 'miccio.alex.4@gmail.com', '$2y$10$bNM2nehmdqNr19dgcMjM/O92b1K..Pfl7LXTLbcavvbanu19XppPC', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(6, 'Alex', 'Miccio', 'miccio.alex5', 'miccio.alex.5@gmail.com', '$2y$10$Cpk/SlLzXTctkvB/f.UyBehMCqEhY6uXe3cNeIZU4bp3lrJ6vqYhe', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
+INSERT INTO `categories` (`id`, `name`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'YOUNG PROJECT', 'images/categories/1.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(2, 'SHOWCASE HOUSE GROUP', 'images/categories/2.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(3, 'MEETING & SPORT', 'images/categories/3.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(4, 'APERITIVI', 'images/categories/4.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(5, 'PARTY UNIVERSITARI', 'images/categories/5.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(6, 'GRANDI EVENTI', 'images/categories/6.jpg', '2016-08-17 10:00:00', '2016-08-17 10:00:00');
 
-INSERT INTO `categories` (`id`, `name`, `description`, `image`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'name1', 'description1', 'images/categories/1.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(2, 'name2', 'description2', 'images/categories/2.jpg', 2, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(3, 'name3', 'description3', 'images/categories/3.jpg', 3, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(4, 'name4', 'description4', 'images/categories/4.jpg', 4, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(5, 'name5', 'description5', 'images/categories/5.jpg', 5, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(6, 'name6', 'description6', 'images/categories/6.jpg', 6, '2016-07-31 10:00:00', '2016-07-31 10:00:00');
-
-INSERT INTO `prs` (`id`, `first_name`, `last_name`, `created_at`, `updated_at`) VALUES
-('1', '', 'Nessuno', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-('2', 'firstname1', 'lastname1', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-('3', 'firstname2', 'lastname2', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
-
-INSERT INTO `category_pr` (`id`, `category_id`, `pr_id`, `created_at`, `updated_at`) VALUES
-('1', '1', '1', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-('2', '1', '2', '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-('3', '2', '1', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
-
-INSERT INTO `events` (`id`, `name`, `description`, `starting_date`, `maximum_partecipants`, `image`, `category_id`, `created_at`, `updated_at`) VALUES
-(1, 'name1', 'description1', '2016-07-31 10:00:00', 10, 'images/events/1.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00'),
-(2, 'name2', 'description2', '2016-07-31 11:00:00', 20, 'images/events/2.jpg', 1, '2016-07-31 10:00:00', '2016-07-31 10:00:00');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `category_id`, `created_at`, `updated_at`) VALUES
+(1, 'Federico', 'Braconi', 'federico', '$2y$10$WRwbazpcsIwfw4wO.1SuTuZsZ1QoTleB4sq5y5LeONaPmPs4tR4Cq', 1, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(2, 'Nicolò', 'Gobbi', 'nicolò', '$2y$10$auvx0QFjNBHawPvAuy3FwORsZiOl1F3ROCA9b9ks2dBKjyvAzU5lG', 1, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(3, 'Eleonora', 'Grigioni', 'eleonora', '$2y$10$sASKpUH1is07Btj0yRTwqOaXFZLQcbDd4zH8tcptsyQh94RM4Xn5C', 2, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(4, 'Alberto', 'Frisso', 'alberto', '$2y$10$s0jH56kT2saWlhLaQw6FAual2sL5cghalJURIj9/L4EgC8yEAp.Dq', 2, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(5, 'Giorgio', 'Bonsignore', 'giorgio', '$2y$10$yiiO6acoK.8l83KgIaZ0vueizoohXL6SwGCoWAHHqL9vjtHJg/8uy', 3, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(6, 'Simone', 'Tesorini', 'simone', '$2y$10$7HtOM0/VKL17eYPWhtYBvufUMGiWnRI4dEIJakGq1.nOF1A3Doqm2', 4, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(7, 'Michelangelo', 'Baldoni', 'michelangelo', '$2y$10$wLfO7iKPWQDBCyVe3MrUeO.YpNYKCZ..TYD4gUcsir5OFXpzHuDuq', 5, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(8, 'Lorenzo', 'Baldoni', 'lorenzo', '$2y$10$ji2touVZcjugr3YLNt7JE.rNfr27la4Zo.ScERjJEHqNe05sgs1ti', 5, '2016-08-17 10:00:00', '2016-08-17 10:00:00'),
+(9, 'Vincenzo', 'D''Alvia', 'vincenzo', '$2y$10$oaePAa.4l4StqVdnxJ6WwOGgrX.tuYs0eEjWMyT7YXyxG9OcY8B0.', 6, '2016-08-17 10:00:00', '2016-08-17 10:00:00');
 
 INSERT INTO `counters` (`id`, `visitors`, `created_at`, `updated_at`) VALUES
-('1', '0', '2016-07-31 10:00:00', '2016-07-31 10:00:00');
+('1', '0', '2016-08-17 10:00:00', '2016-08-17 10:00:00');

@@ -86,9 +86,32 @@ class EventController extends Controller
 
     $event->name = $request->get('name');
     $event->starting_date = $request->get('starting_date');
+    $event->partecipants_counter = $request->get('partecipants_counter');
     $event->maximum_partecipants = $request->get('maximum_partecipants');
     $event->description = $request->get('description');
     $event->image = $request->get('image');
+
+    if($event->save()) {
+      return $this->response->item(Event::find($event->id), new EventTransformer);
+    }
+    else {
+      return $this->response->errorInternal('could_not_update_event');
+    }
+  }
+
+  public function increase($id)
+  {
+    $validator = Validator::make(['id' => $id], [
+      'id' => 'required|exists:events,id'
+    ]);
+
+    if($validator->fails()) {
+      throw new ValidationHttpException($validator->errors()->all());
+    }
+
+    $event = Event::find($id);
+
+    $event->partecipants_counter += 1;
 
     if($event->save()) {
       return $this->response->item(Event::find($event->id), new EventTransformer);

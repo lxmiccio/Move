@@ -14,8 +14,19 @@ class PartecipantTransformer extends Fractal\TransformerAbstract
 			'name' => $partecipant->name,
 			'token' => $partecipant->token,
 
-			'event' => $partecipant->event()->get(['id', 'description', 'name'])->first(),
-			'pr' => $partecipant->pr()->get(['id', 'first_name as firstName', 'last_name as lastName'])->first()
+			'event' => $partecipant->event()->get([
+				'id',
+				'description',
+				'name'
+			])
+			->first(),
+
+			'pr' => $partecipant->pr()->get([
+				'id',
+				'first_name as firstName',
+				'last_name as lastName'
+			])
+			->first()
 		];
 	}
 }

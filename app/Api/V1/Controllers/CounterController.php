@@ -78,10 +78,10 @@ class CounterController extends Controller
     }
   }
 
-  public function increase(Request $request, $id)
+  public function increase($id)
   {
-    $validator = Validator::make(array_merge(['id' => $id], $request->only(['visitors'])), [
-      'id' => 'required|exists:counters,id',
+    $validator = Validator::make(['id' => $id], [
+      'id' => 'required|exists:counters,id'
     ]);
 
     if($validator->fails()) {
@@ -90,12 +90,7 @@ class CounterController extends Controller
 
     $counter = Counter::find($id);
 
-    if($request->get('visitors')) {
-      $counter->visitors += $request->get('visitors');
-    }
-    else {
-      $counter->visitors += 1;
-    }
+    $counter->visitors += 1;
 
     if($counter->save()) {
       return $this->response->item(Counter::find($counter->id), new CounterTransformer);

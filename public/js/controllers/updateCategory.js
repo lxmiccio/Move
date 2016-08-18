@@ -12,7 +12,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     vm.category = response.data.data;
 
     vm.name = vm.category.name;
-    vm.description = vm.category.description;
     vm.image = vm.category.image;
 
     prService.getAll(function(response) {
@@ -40,7 +39,7 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     }
   };
 
-  vm.updateCategory = function(name, description, image, category) {
+  vm.updateCategory = function(name, image, category) {
     if(image && category.image && image != category.image) {
       imageService.remove({
         image: category.image
@@ -54,7 +53,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
           categoryService.update(category.id, {
             name: name,
-            description: description,
             image: response.data.image
           }, function(response) {
             vm.category = response.data.data;
@@ -74,7 +72,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     else if(image && category.image && image == category.image) {
       categoryService.update(category.id, {
         name: name,
-        description: description,
         image: image
       }, function(response) {
         vm.category = response.data.data;
@@ -92,7 +89,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
         categoryService.update(category.id, {
           name: name,
-          description: description,
           image: response.data.image
         }, function(response) {
           vm.category = response.data.data;
@@ -112,7 +108,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
 
         categoryService.update(category.id, {
           name: name,
-          description: description,
           image: image
         }, function(response) {
           vm.category = response.data.data;
@@ -128,7 +123,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     else if(!image && !category.image) {
       categoryService.update(category.id, {
         name: name,
-        description: description,
         image: image
       }, function(response) {s
         vm.category = response.data.data;
@@ -148,8 +142,19 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
       categoryService.attachPr(category.id, {
         pr_id: response.data.data.id
       }, function(response) {
+
         vm.category = response.data.data;
-        vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
+
+        prService.getAll(function(response) {
+          vm.firstName = '';
+          vm.lastName = '';
+
+          vm.allPrs = response.data.data;
+          vm.filteredPrs = $filter('newPrs')(vm.allPrs, vm.category);
+        }, function(response) {
+          console.log(response);
+        });
+
       }, function(response) {
         console.log(response);
       });

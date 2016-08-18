@@ -1,7 +1,7 @@
 angular.module('myServices').factory('userService', function ($http, localStorageService) {
 
   function me(onSuccess, onError) {
-    if (isAuthenticated()) {
+    if(isAuthenticated()) {
       $http.get('/api/auth/me').then(function(response) {
         onSuccess(response);
       }, function(response) {
@@ -21,36 +21,14 @@ angular.module('myServices').factory('userService', function ($http, localStorag
   };
 
   function logout(onSuccess, onError) {
-    $http.get('/api/auth/logout').then(function(response) {
-      localStorageService.remove('token');
-      onSuccess(response);
-    }, function(response) {
-      onError(response);
-    });
-  };
-
-  function signup(data, onSuccess, onError) {
-    $http.post('/api/auth/signup', data).then(function(response) {
-      onSuccess(response);
-    }, function(response) {
-      onError(response);
-    });
-  };
-
-  function recoverPassword(data, onSuccess, onError) {
-    $http.post('/api/auth/recovery', data).then(function(response) {
-      onSuccess(response);
-    }, function(response) {
-      onError(response);
-    });
-  };
-
-  function resetPassword(data, onSuccess, onError) {
-    $http.post('/api/auth/reset', data).then(function(response) {
-      onSuccess(response);
-    }, function(response) {
-      onError(response);
-    });
+    if(isAuthenticated()) {
+      $http.get('/api/auth/logout').then(function(response) {
+        localStorageService.remove('token');
+        onSuccess(response);
+      }, function(response) {
+        onError(response);
+      });
+    }
   };
 
   function isAuthenticated() {
@@ -65,9 +43,6 @@ angular.module('myServices').factory('userService', function ($http, localStorag
     me: me,
     login: login,
     logout: logout,
-    signup: signup,
-    recoverPassword: recoverPassword,
-    resetPassword: resetPassword,
     isAuthenticated,
   };
 
