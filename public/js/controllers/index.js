@@ -22,7 +22,7 @@ angular.module("myControllers").controller("IndexController", function ($http, $
     }, function(response) {
       console.log(response)
     });
-  }
+  };
 
   vm.isAuthenticated = function () {
     return userService.isAuthenticated();

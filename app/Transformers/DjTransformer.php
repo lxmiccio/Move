@@ -11,9 +11,10 @@ class DjTransformer extends Fractal\TransformerAbstract
   {
     return [
       'id' => $dj->id,
+      'description' => $dj->description,
       'firstName' => $dj->first_name,
-      'lastName' => $dj->last_name,
-      'description' => $dj->description
+      'image' => $dj->image,
+      'lastName' => $dj->last_name
     ];
   }
 }

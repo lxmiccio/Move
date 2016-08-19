@@ -45,12 +45,16 @@
 
   <script src="js/controllers/module.js"></script>
   <script src="js/controllers/categories.js"></script>
+  <script src="js/controllers/createDj.js"></script>
   <script src="js/controllers/createEvent.js"></script>
+  <script src="js/controllers/dj.js"></script>
+  <script src="js/controllers/djs.js"></script>
   <script src="js/controllers/event.js"></script>
   <script src="js/controllers/events.js"></script>
   <script src="js/controllers/index.js"></script>
   <script src="js/controllers/login.js"></script>
   <script src="js/controllers/updateCategory.js"></script>
+  <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
 
   <script src="js/filters/module.js"></script>
@@ -62,6 +66,7 @@
   <script src="js/services/module.js"></script>
   <script src="js/services/category.js"></script>
   <script src="js/services/counter.js"></script>
+  <script src="js/services/dj.js"></script>
   <script src="js/services/event.js"></script>
   <script src="js/services/image.js"></script>
   <script src="js/services/pagination.js"></script>
@@ -86,7 +91,12 @@
       </div>
       <nav class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/#/">Home</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/dj">Dj</a></li>
+          <!--
+          <li><a href="">Chi siamo</a></li>
+          <li><a href="">Dove siamo</a></li>
+          -->
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>

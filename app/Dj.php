@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Dj extends Model
 {
   protected $fillable = [
-    'first_name', 'last_name', 'description'
+    'first_name', 'last_name', 'description', 'image'
   ];
 }

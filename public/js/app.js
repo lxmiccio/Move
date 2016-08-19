@@ -21,18 +21,24 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/evento/:id/modifica', {
     templateUrl: 'views/updateEvent.html',
     controller: 'UpdateEventController as ctrl'
+  }).when('/dj/crea', {
+    templateUrl: 'views/createDj.html',
+    controller: 'CreateDjController as ctrl'
+  }).when('/dj/:id/modifica', {
+    templateUrl: 'views/updateDj.html',
+    controller: 'UpdateDjController as ctrl'
+  }).when('/dj', {
+    templateUrl: 'views/djs.html',
+    controller: 'DjsController as ctrl'
+  }).when('/dj/:id', {
+    templateUrl: 'views/dj.html',
+    controller: 'DjController as ctrl'
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
-  }).when('/utente/password/recupera', {
-    templateUrl: 'views/recoverPassword.html',
-    controller: 'RecoverPasswordController as ctrl'
-  }).when('/utente/password/reimposta/:token', {
-    templateUrl: 'views/resetPassword.html',
-    controller: 'ResetPasswordController as ctrl'
-  })/*.otherwise({
+  }).otherwise({
     redirectTo: '/'
-  })*/;
+  });
 })
 
 .config(function($httpProvider) {

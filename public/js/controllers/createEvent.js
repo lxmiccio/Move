@@ -63,15 +63,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             'description': description,
             'image': response.data.image
           }, function(response) {
-
-            var event = response.data.data;
-
-            categoryService.getById(category.id, function(response) {
-              //$location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
-            }, function(response) {
-              console.log(response);
-            });
-
+            $location.path('categoria/' + category.id);
           }, function(response) {
             console.log(response);
           });
@@ -92,15 +84,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         'description': description,
         'category_id': category.id
       }, function(response) {
-
-        var event = response.data.data;
-
-        categoryService.getById(category.id, function(response) {
-          //$location.path('categoria/' + category.id + '/pagina/' + redirectService.getPageToRedirectTo(response.data.data, event, 1));
-        }, function(response) {
-          console.log(response);
-        });
-
+        $location.path('categoria/' + category.id);
       }, function(response) {
         console.log(response);
       });
