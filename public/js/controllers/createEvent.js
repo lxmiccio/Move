@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, redirectService, userService) {
+angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, userService) {
 
   var vm  = this;
 
