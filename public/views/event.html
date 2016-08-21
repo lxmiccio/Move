@@ -50,8 +50,24 @@
           <div class="row br-lg"></div>
 
           <div class="row">
-            <div class="col-xs-12">
-              <p class="text-center">Partecipanti: {{event.partecipantsCounter}}/{{event.maximumPartecipants}}&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-xs" ng-click="ctrl.increasePartecipantsCounter(event)" ng-if="event.partecipantsCounter < event.maximumPartecipants"><i class="fa fa-plus" aria-hidden="true"></i></a></p>
+            <div class="col-xs-12" ng-if="index.user.id == 1">
+              <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="text-right" style="margin-right: -25px;">Visitatori:</div>
+              </div>
+              <div class="col-md-5 col-sm-5 col-xs-5" style="margin-top: -3px;">
+                <div class="input-group add-on">
+                  <input type="number" class="form-control input-sm" style="height: 22px;" ng-change="ctrl.onPartecipantsCounterChange(ctrl.event[event.id].visitors, event)" ng-model="ctrl.event[event.id].visitors" ng-value="event.partecipantsCounter">
+                  <div class="input-group-btn">
+                    <button class="btn btn-success btn-xs" type="submit" ng-click="ctrl.increasePartecipantsCounter(ctrl.event[event.id].visitors, event)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                <div style="margin-left: -25px;">/{{event.maximumPartecipants}}</div>
+              </div>
+            </div>
+            <div class="col-xs-12" ng-if="!index.user || index.user.id != 1">
+              <p class="text-center">Partecipanti: {{event.partecipantsCounter}}/{{event.maximumPartecipants}}</p>
             </div>
           </div>
 

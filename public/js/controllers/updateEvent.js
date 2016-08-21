@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, userService) {
+angular.module("myControllers").controller("UpdateEventController", function ($filter, $routeParams, $window, categoryService, eventService, imageService, userService) {
 
   var vm  = this;
 
@@ -10,7 +10,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
 
   eventService.getById($routeParams.id, function(response) {
     vm.event = response.data.data;
-    
+
     vm.name = vm.event.name;
     vm.startingDate = vm.event.startingDate;
     vm.maximumPartecipants = vm.event.maximumPartecipants;
@@ -53,6 +53,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
           eventService.update(event.id, {
             name: name,
             starting_date: startingDate,
+            partecipants_counter: event.partecipantsCounter,
             maximum_partecipants: maximumPartecipants,
             description: description,
             image: response.data.image
@@ -61,7 +62,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
             var event = response.data.data;
 
             categoryService.getById(event.category.id, function(response) {
-              $location.path('categoria/' + event.category.id);
+              $window.location.href = 'categoria/' + event.category.id;
             }, function(response) {
               console.log(response);
             });
@@ -82,6 +83,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
       eventService.update(event.id, {
         name: name,
         starting_date: startingDate,
+        partecipants_counter: event.partecipantsCounter,
         maximum_partecipants: maximumPartecipants,
         description: description,
         image: image
@@ -90,7 +92,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         var event = response.data.data;
 
         categoryService.getById(event.category.id, function(response) {
-          $location.path('categoria/' + event.category.id);
+          $window.location.href = 'categoria/' + event.category.id;
         }, function(response) {
           console.log(response);
         });
@@ -109,6 +111,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         eventService.update(event.id, {
           name: name,
           starting_date: startingDate,
+          partecipants_counter: event.partecipantsCounter,
           maximum_partecipants: maximumPartecipants,
           description: description,
           image: response.data.image
@@ -117,7 +120,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
           var event = response.data.data;
 
           categoryService.getById(event.category.id, function(response) {
-            $location.path('categoria/' + event.category.id);
+            $window.location.href = 'categoria/' + event.category.id;
           }, function(response) {
             console.log(response);
           });
@@ -138,6 +141,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         eventService.update(event.id, {
           name: name,
           starting_date: startingDate,
+          partecipants_counter: event.partecipantsCounter,
           maximum_partecipants: maximumPartecipants,
           description: description,
           image: image
@@ -146,7 +150,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
           var event = response.data.data;
 
           categoryService.getById(event.category.id, function(response) {
-            $location.path('categoria/' + event.category.id);
+            $window.location.href = 'categoria/' + event.category.id;
           }, function(response) {
             console.log(response);
           });
@@ -163,6 +167,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
       eventService.update(event.id, {
         name: name,
         starting_date: startingDate,
+        partecipants_counter: event.partecipantsCounter,
         maximum_partecipants: maximumPartecipants,
         description: description,
         image: image
@@ -171,7 +176,7 @@ angular.module("myControllers").controller("UpdateEventController", function ($f
         var event = response.data.data;
 
         categoryService.getById(event.category.id, function(response) {
-          $location.path('categoria/' + event.category.id);
+          $window.location.href = 'categoria/' + event.category.id;
         }, function(response) {
           console.log(response);
         });

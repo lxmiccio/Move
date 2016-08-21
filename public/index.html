@@ -73,6 +73,20 @@
   <script src="js/services/partecipant.js"></script>
   <script src="js/services/pr.js"></script>
   <script src="js/services/user.js"></script>
+
+  <style>
+  .add-on .input-group-btn > .btn {
+    border-left-width:0;left:-2px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+  /* stop the glowing blue shadow */
+  .add-on .form-control:focus {
+    box-shadow:none;
+    -webkit-box-shadow:none;
+    border-color:#cccccc;
+  }
+  </style>
 </head>
 
 <body>
@@ -112,7 +126,35 @@
 
   <footer class="footer-inverse">
     <div class="container">
-      <p class="text-center">Visitatori: {{index.counter.visitors}}&nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-xs" ng-click="index.increaseCounter()"><i class="fa fa-plus" aria-hidden="true"></i></a></p>
+      <div class="row" ng-if="index.user.id == 1">
+        <div class="col-xs-12">
+          <div class="col-md-10 col-sm-9 col-xs-8">
+            <div class="text-right" style="margin-right: -25px;">Visitatori:</div>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-4" style="margin-top: -7px;">
+            <div class="input-group add-on">
+              <input type="number" class="form-control input-sm" style="height: 22px;" ng-model="index.visitors" ng-value="index.counter.visitors">
+              <div class="input-group-btn">
+                <button class="btn btn-success btn-xs" type="submit" ng-click="index.increaseCounter(index.visitors)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-if="!index.user || index.user.id != 1">
+        <div class="col-xs-12">
+          <div class="text-center">
+            Visitatori: {{index.counter.visitors}}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-right">
+            <div class="col-xs-12">Sviluppo e Web Design a cura di <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 </body>

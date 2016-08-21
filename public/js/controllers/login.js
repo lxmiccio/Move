@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("LoginController", function ($location, $rootScope, userService) {
+angular.module("myControllers").controller("LoginController", function ($rootScope, $window, userService) {
 
   var vm  = this;
 
@@ -7,7 +7,7 @@ angular.module("myControllers").controller("LoginController", function ($locatio
       username: username,
       password: password
     }, function(response) {
-      $location.path($rootScope.previous);
+      $window.location.href = $rootScope.previous;
     }, function(response) {
       console.log(response);
     });

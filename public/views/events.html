@@ -101,7 +101,7 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1 col-xs-12">
         <div class="text-center">
-          <ul class="pagination" ng-if="ctrl.pagination">
+          <ul class="pagination" ng-if="ctrl.pagination.length">
             <li ng-class="{disabled: ctrl.pagination.page == 1}">
               <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(1)">Inizio</a>
               <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(1)"><i class="fa fa-fast-backward" aria-hidden="true"></i></a>

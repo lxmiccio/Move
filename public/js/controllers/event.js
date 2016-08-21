@@ -74,8 +74,27 @@ angular.module("myControllers").controller("EventController", function ($filter,
 
   };
 
-  vm.increasePartecipantsCounter = function(event) {
-    eventService.increase(event.id, function(response) {
+  vm.onPartecipantsCounterChange = function(partecipantsCounter, event) {
+    if(!Number.isInteger(partecipantsCounter)) {
+      vm.event[event.id].visitors = event.partecipantsCounter;
+    }
+    if(partecipantsCounter < 0) {
+      vm.event[event.id].visitors = 0;
+    }
+    if(partecipantsCounter > event.maximumPartecipants) {
+      vm.event[event.id].visitors = event.maximumPartecipants;
+    }
+  };
+
+  vm.increasePartecipantsCounter = function(partecipantsCounter, event) {
+    eventService.update(event.id, {
+      name: event.name,
+      starting_date: event.startingDate,
+      partecipants_counter: partecipantsCounter,
+      maximum_partecipants: event.maximumPartecipants,
+      description: event.description,
+      image: event.image
+    }, function(response) {
 
       categoryService.getById($routeParams.id, function(response) {
         vm.category = response.data.data;
