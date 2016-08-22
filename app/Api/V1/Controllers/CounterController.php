@@ -11,6 +11,7 @@ use App\Transformers\CounterTransformer;
 use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
+use LRedis;
 
 class CounterController extends Controller
 {
@@ -71,9 +72,13 @@ class CounterController extends Controller
     $counter->visitors = $request->get('visitors');
 
     if($counter->save()) {
-      return $this->response->item(Counter::find($counter->id), new CounterTransformer);
-    }
-    else {
+      $redis = LRedis::connection();
+      $redis->publish('counter.increase', json_encode([
+        'counter' => (new CounterTransformer)->transform(Counter::find($counter->id))
+      ]));
+
+      return $this->response->noContent();
+    }else {
       return $this->response->errorInternal('could_not_update_counter');
     }
   }
@@ -93,7 +98,12 @@ class CounterController extends Controller
     $counter->visitors += 1;
 
     if($counter->save()) {
-      return $this->response->item(Counter::find($counter->id), new CounterTransformer);
+      $redis = LRedis::connection();
+      $redis->publish('counter.increase', json_encode([
+        'counter' => (new CounterTransformer)->transform(Counter::find($counter->id))
+      ]));
+
+      return $this->response->noContent();
     }
     else {
       return $this->response->errorInternal('could_not_update_counter');

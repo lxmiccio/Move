@@ -1,16 +1,17 @@
 {
-    "name": "francescomalatesta/laravel-api-boilerplate-jwt",
-    "description": "An API Boilerplate to create a ready-to-use REST API in seconds.",
-    "keywords": ["laravel", "api", "boilerplate", "jwt"],
+    "name": "lxmiccio/move",
+    "description": "",
+    "keywords": ["laravel", "jwt", "angularjs"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-	    "tymon/jwt-auth": "0.5.*",
-        "dingo/api": "1.0.*@dev",
         "barryvdh/laravel-cors": "^0.7.1",
-        "felixkiss/uniquewith-validator": "2.*"
+        "dingo/api": "1.0.*@dev",
+        "felixkiss/uniquewith-validator": "2.*",
+        "predis/predis": "~1.1@dev",
+	      "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

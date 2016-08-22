@@ -11,6 +11,6 @@
 |
 */
 
-Route::any('{path?}', function () {
+Route::any('{path?}', function() {
   return File::get(public_path() . '\index.html');
 })->where("path", ".+");

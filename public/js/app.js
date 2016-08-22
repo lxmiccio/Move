@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomString', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomString', 'btford.socket-io', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
 
 .config(function ($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true);
@@ -36,9 +36,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
-  }).otherwise({
+  })/*.otherwise({
     redirectTo: '/'
-  });
+  })*/;
 })
 
 .config(function($httpProvider) {

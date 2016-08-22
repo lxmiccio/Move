@@ -4,6 +4,7 @@
   <base href="/">
 
   <meta charset="utf-8">
+  <meta name="keywords" content="moveperugia move moveentertainment">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Move</title>
@@ -27,6 +28,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/lodash/dist/lodash.min.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/socket.io-client/socket.io.js"></script>
   <script src="bower_components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
   <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
   <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
@@ -36,6 +38,7 @@
   <script src="bower_components/angular-random-string/src/angular-random-string.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-socket-io/socket.min.js"></script>
   <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
   <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
   <script src='bower_components/pdfmake/build/pdfmake.min.js'></script>
@@ -57,22 +60,23 @@
   <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
 
+  <script src="js/factories/module.js"></script>
+  <script src="js/factories/category.js"></script>
+  <script src="js/factories/counter.js"></script>
+  <script src="js/factories/dj.js"></script>
+  <script src="js/factories/event.js"></script>
+  <script src="js/factories/image.js"></script>
+  <script src="js/factories/pagination.js"></script>
+  <script src="js/factories/partecipant.js"></script>
+  <script src="js/factories/pr.js"></script>
+  <script src="js/factories/socket.js"></script>
+  <script src="js/factories/user.js"></script>
+
   <script src="js/filters/module.js"></script>
   <script src="js/filters/decache.js"></script>
   <script src="js/filters/newEvents.js"></script>
   <script src="js/filters/newPrs.js"></script>
   <script src="js/filters/oldEvents.js"></script>
-
-  <script src="js/services/module.js"></script>
-  <script src="js/services/category.js"></script>
-  <script src="js/services/counter.js"></script>
-  <script src="js/services/dj.js"></script>
-  <script src="js/services/event.js"></script>
-  <script src="js/services/image.js"></script>
-  <script src="js/services/pagination.js"></script>
-  <script src="js/services/partecipant.js"></script>
-  <script src="js/services/pr.js"></script>
-  <script src="js/services/user.js"></script>
 
   <style>
   .add-on .input-group-btn > .btn {
@@ -107,10 +111,6 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
-          <!--
-          <li><a href="">Chi siamo</a></li>
-          <li><a href="">Dove siamo</a></li>
-          -->
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>
