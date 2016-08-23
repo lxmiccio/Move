@@ -42,16 +42,36 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <p class="text-right"><a ng-click="ctrl.removeImage()">Rimuovi Immagine</a></p>
+        <p class="text-right"><a ng-click="ctrl.removeExternalImage()">Rimuovi Immagine</a></p>
 
-        <div class="form-control" ngf-select ngf-drop ngf-change="ctrl.changeImage(image)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="!ctrl.image" ng-model="image">
-          <div class="placeholder">Immagine...</div>
+        <div class="form-control" ngf-select ngf-drop ngf-change="ctrl.changeExternalImage(externalImage)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="!ctrl.externalImage" ng-model="externalImage">
+          <div class="placeholder">Immagine Esterna...</div>
         </div>
 
-        <div class="form-control form-control-image" ngf-select ngf-drop ngf-change="ctrl.changeImage(image)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="ctrl.image" ng-model="image">
+        <div class="form-control form-control-image" ngf-select ngf-drop ngf-change="ctrl.changeExternalImage(externalImage)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="ctrl.externalImage" ng-model="externalImage">
           <div class="row">
             <div class="col-xs-12">
-              <img ngf-src="ctrl.image" class="img-responsive img-rounded center-block">
+              <img ngf-src="ctrl.externalImage" class="img-responsive img-rounded center-block">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row br-xs"></div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p class="text-right"><a ng-click="ctrl.removeInternalImage()">Rimuovi Immagine</a></p>
+
+        <div class="form-control" ngf-select ngf-drop ngf-change="ctrl.changeInternalImage(internalImage)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="!ctrl.internalImage" ng-model="internalImage">
+          <div class="placeholder">Immagine Interna...</div>
+        </div>
+
+        <div class="form-control form-control-image" ngf-select ngf-drop ngf-change="ctrl.changeInternalImage(internalImage)" ngf-accept="'image/*'" ngf-pattern="'image/*'" ng-if="ctrl.internalImage" ng-model="internalImage">
+          <div class="row">
+            <div class="col-xs-12">
+              <img ngf-src="ctrl.internalImage" class="img-responsive img-rounded center-block">
             </div>
           </div>
         </div>
@@ -63,7 +83,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="text-center">
-          <button type="button" class="btn btn-success" ng-click="ctrl.createDj(ctrl.firstName, ctrl.lastName, ctrl.description, ctrl.image)">Crea</button>
+          <button type="button" class="btn btn-success" ng-click="ctrl.createDj(ctrl.firstName, ctrl.lastName, ctrl.description, ctrl.externalImage, ctrl.internalImage)">Crea</button>
         </div>
       </div>
     </div>

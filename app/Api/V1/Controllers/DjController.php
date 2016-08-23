@@ -55,7 +55,8 @@ class DjController extends Controller
     $dj->first_name = $request->get('first_name');
     $dj->last_name = $request->get('last_name');
     $dj->description = $request->get('description');
-    $dj->image = $request->get('image');
+    $dj->external_image = $request->get('external_image');
+    $dj->internal_image = $request->get('internal_image');
 
     if($dj->save()) {
       return $this->response->item(Dj::find($dj->id), new DjTransformer);
@@ -82,7 +83,8 @@ class DjController extends Controller
     $dj->first_name = $request->get('first_name');
     $dj->last_name = $request->get('last_name');
     $dj->description = $request->get('description');
-    $dj->image = $request->get('image');
+    $dj->external_image = $request->get('external_image');
+    $dj->internal_image = $request->get('internal_image');
 
     if($dj->save()) {
       return $this->response->item(Dj::find($id), new DjTransformer);

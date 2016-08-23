@@ -13,7 +13,8 @@ class DjTransformer extends Fractal\TransformerAbstract
       'id' => $dj->id,
       'description' => $dj->description,
       'firstName' => $dj->first_name,
-      'image' => $dj->image,
+      'externalImage' => $dj->external_image,
+      'internalImage' => $dj->internal_image,
       'lastName' => $dj->last_name
     ];
   }

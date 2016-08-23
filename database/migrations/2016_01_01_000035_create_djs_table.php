@@ -18,7 +18,8 @@ class CreateDjsTable extends Migration
       $table->string('first_name');
       $table->string('last_name');
       $table->text('description')->nullable();
-      $table->string('image')->nullable();
+      $table->string('external_image')->nullable();
+      $table->string('internal_image')->nullable();
 
       $table->timestamps();
     });

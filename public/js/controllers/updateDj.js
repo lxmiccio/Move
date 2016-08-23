@@ -19,17 +19,31 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
     console.log(response);
   });
 
-  vm.removeImage = function() {
-    vm.image = null;
+  vm.removeExternalImage = function() {
+    vm.externalImage = null;
   };
 
-  vm.restoreImage = function(image) {
-    vm.image = image;
+  vm.restoreExternalImage = function(externalImage) {
+    vm.externalImage = externalImage;
   };
 
-  vm.changeImage = function(image) {
-    if(image) {
-      vm.image = image;
+  vm.changeExternalImage = function(externalImage) {
+    if(externalImage) {
+      vm.externalImage = externalImage;
+    }
+  };
+
+  vm.removeInternalImage = function() {
+    vm.internalImage = null;
+  };
+
+  vm.restoreInternalImage = function(internalImage) {
+    vm.internalImage = internalImage;
+  };
+
+  vm.changeInternalImage = function(internalImage) {
+    if(internalImage) {
+      vm.internalImage = internalImage;
     }
   };
 
