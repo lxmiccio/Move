@@ -29,98 +29,65 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
   };
 
   vm.createDj = function (firstName, lastName, description, externalImage, internalImage) {
-    if(externalImage && internalImage) {
-      djService.create({
-        'first_name': firstName,
-        'last_name': lastName,
-        'description': description
-      }, function(response) {
+    djService.create({
+      'first_name': firstName,
+      'last_name': lastName,
+      'description': description
+    }, function(response) {
 
-        var id = response.data.data.id;
+      var id = response.data.data.id;
 
+      if(externalImage) {
         imageService.upload({
           'image': externalImage,
           'directory': 'djs/' + id,
           'filename': 1
         }, function(response) {
 
-          var externalImage = response.data.image;
+          if(internalImage) {
+            var externalImage = response.data.image;
 
-          imageService.upload({
-            'image': internalImage,
-            'directory': 'djs/' + id,
-            'filename': 2
-          }, function(response) {
+            imageService.upload({
+              'image': internalImage,
+              'directory': 'djs/' + id,
+              'filename': 2
+            }, function(response) {
 
+              djService.update(id, {
+                'first_name': firstName,
+                'last_name': lastName,
+                'description': description,
+                'external_image': externalImage,
+                'internal_image': response.data.image
+              }, function(response) {
+                $location.path('dj/' + id);
+              }, function(response) {
+                console.log(response);
+              });
+
+            }, function(response) {
+              console.log(response);
+            });
+          }
+          else {
             djService.update(id, {
               'first_name': firstName,
               'last_name': lastName,
               'description': description,
-              'external_image': externalImage,
-              'internal_image': response.data.image
+              'external_image': response.data.image,
+              'internal_image': internalImage
             }, function(response) {
               $location.path('dj/' + id);
             }, function(response) {
               console.log(response);
             });
-
-          }, function(response) {
-            console.log(response);
-          });
+          }
 
         }, function(response) {
           console.log(response);
         });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(externalImage) {
-      djService.create({
-        'first_name': firstName,
-        'last_name': lastName,
-        'description': description
-      }, function(response) {
-
-        var id = response.data.data.id;
-
-        imageService.upload({
-          'image': externalImage,
-          'directory': 'djs/' + id,
-          'filename': 1
-        }, function(response) {
-
-          djService.update(id, {
-            'first_name': firstName,
-            'last_name': lastName,
-            'description': description,
-            'external_image': response.data.image,
-            'internal_image': internalImage
-          }, function(response) {
-            $location.path('dj/' + id);
-          }, function(response) {
-            console.log(response);
-          });
-
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(internalImage) {
-      console.log('xgs')
-      djService.create({
-        'first_name': firstName,
-        'last_name': lastName,
-        'description': description
-      }, function(response) {
-
-        var id = response.data.data.id;
-
+      }
+      else if(internalImage) {
         imageService.upload({
           'image': internalImage,
           'directory': 'djs/' + id,
@@ -142,26 +109,13 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
         }, function(response) {
           console.log(response);
         });
-
       }, function(response) {
         console.log(response);
       });
-    }
-    else {
-      djService.create({
-        'first_name': firstName,
-        'last_name': lastName,
-        'description': description
-      }, function(response) {
-        $location.path('dj/' + response.data.data.id);
-      }, function(response) {
-        console.log(response);
-      });
-    }
-  };
+    };
 
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
-  };
+    vm.isAuthenticated = function () {
+      return userService.isAuthenticated();
+    };
 
-});
+  });

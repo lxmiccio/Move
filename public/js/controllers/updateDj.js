@@ -50,11 +50,11 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
 
   vm.updateDj = function(firstName, lastName, description, externalImage, internalImage, dj) {
     imageService.remove({
-      image: event.externalImage
+      image: dj.externalImage
     }, function(response) {
 
       imageService.remove({
-        image: event.internalImage
+        image: dj.internalImage
       }, function(response) {
 
         if(externalImage) {
