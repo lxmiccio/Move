@@ -1,5 +1,5 @@
 angular.module('myServices').factory('socket', function (socketFactory) {
-  var ioSocket = io.connect('http://localhost:8080');
+  var ioSocket = io.connect('http://moveperugia.com');
 
   socket = socketFactory({
     ioSocket: ioSocket
