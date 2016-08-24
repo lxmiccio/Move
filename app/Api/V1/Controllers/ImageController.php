@@ -59,7 +59,7 @@ class ImageController extends Controller
     ]);
 
     if($validator->fails()) {
-      throw new ValidationHttpException($validator->errors()->all());
+      return $this->response->noContent();
     }
 
     if(file_exists($request->get('image'))) {

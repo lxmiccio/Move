@@ -14,7 +14,8 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
     vm.firstName = vm.dj.firstName;
     vm.lastName = vm.dj.lastName;
     vm.description = vm.dj.description;
-    vm.image = vm.dj.image;
+    vm.externalImage = vm.dj.externalImage;
+    vm.internalImage = vm.dj.internalImage;
   }, function(response) {
     console.log(response);
   });
