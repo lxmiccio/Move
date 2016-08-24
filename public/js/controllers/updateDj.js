@@ -60,7 +60,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
         if(externalImage) {
           imageService.upload({
             'image': externalImage,
-            'directory': 'djs/' + id,
+            'directory': 'djs/' + dj.id,
             'filename': 1
           }, function(response) {
 
@@ -69,18 +69,18 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
 
               imageService.upload({
                 'image': internalImage,
-                'directory': 'djs/' + id,
+                'directory': 'djs/' + dj.id,
                 'filename': 2
               }, function(response) {
 
-                djService.update(id, {
+                djService.update(dj.id, {
                   'first_name': firstName,
                   'last_name': lastName,
                   'description': description,
                   'external_image': externalImage,
                   'internal_image': response.data.image
                 }, function(response) {
-                  $location.path('dj/' + id);
+                  $location.path('dj/' + dj.id);
                 }, function(response) {
                   console.log(response);
                 });
@@ -90,14 +90,14 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               });
             }
             else {
-              djService.update(id, {
+              djService.update(dj.id, {
                 'first_name': firstName,
                 'last_name': lastName,
                 'description': description,
                 'external_image': response.data.image,
                 'internal_image': internalImage
               }, function(response) {
-                $location.path('dj/' + id);
+                $location.path('dj/' + dj.id);
               }, function(response) {
                 console.log(response);
               });
@@ -109,18 +109,18 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
         } else if(internalImage) {
           imageService.upload({
             'image': internalImage,
-            'directory': 'djs/' + id,
+            'directory': 'djs/' + dj.id,
             'filename': 2
           }, function(response) {
 
-            djService.update(id, {
+            djService.update(dj.id, {
               'first_name': firstName,
               'last_name': lastName,
               'description': description,
               'external_image': externalImage,
               'internal_image': response.data.image
             }, function(response) {
-              $location.path('dj/' + id);
+              $location.path('dj/' + dj.id);
             }, function(response) {
               console.log(response);
             });
@@ -129,14 +129,14 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
             console.log(response);
           });
         } else {
-          djService.update(id, {
+          djService.update(dj.id, {
             'first_name': firstName,
             'last_name': lastName,
             'description': description,
             'external_image': externalImage,
             'internal_image': internalImage
           }, function(response) {
-            $location.path('dj/' + id);
+            $location.path('dj/' + dj.id);
           }, function(response) {
             console.log(response);
           });
