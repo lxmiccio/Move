@@ -109,13 +109,14 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
         }, function(response) {
           console.log(response);
         });
-      }, function(response) {
-        console.log(response);
-      });
-    };
+      }
+    }, function(response) {
+      console.log(response);
+    });
+  };
 
-    vm.isAuthenticated = function () {
-      return userService.isAuthenticated();
-    };
+  vm.isAuthenticated = function () {
+    return userService.isAuthenticated();
+  };
 
-  });
+});
