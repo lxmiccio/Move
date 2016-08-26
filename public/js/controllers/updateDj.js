@@ -2,6 +2,9 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
 
   var vm  = this;
 
+  vm.changedExternalImage = false;
+  vm.changedInternalImage = false;
+
   userService.me(function(response) {
     vm.user = response.data.data;
   }, function(response) {
@@ -22,50 +25,116 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
 
   vm.removeExternalImage = function() {
     vm.externalImage = null;
+    vm.changedExternalImage = true;
   };
 
   vm.restoreExternalImage = function(externalImage) {
     vm.externalImage = externalImage;
+    vm.changedExternalImage = false;
   };
 
   vm.changeExternalImage = function(externalImage) {
     if(externalImage) {
       vm.externalImage = externalImage;
+      vm.changedExternalImage = true;
     }
   };
 
   vm.removeInternalImage = function() {
     vm.internalImage = null;
+    vm.changedInternalImage = true;
   };
 
   vm.restoreInternalImage = function(internalImage) {
     vm.internalImage = internalImage;
+    vm.changedInternalImage = false;
   };
 
   vm.changeInternalImage = function(internalImage) {
     if(internalImage) {
       vm.internalImage = internalImage;
+      vm.changedInternalImage = true;
     }
   };
 
   vm.updateDj = function(firstName, lastName, description, externalImage, internalImage, dj) {
-    imageService.remove({
-      image: dj.externalImage
-    }, function(response) {
 
-      imageService.remove({
-        image: dj.internalImage
-      }, function(response) {
+    if(!vm.changedExternalImage) {
+      if(!vm.changedInternalImage) {
+        djService.update(dj.id, {
+          'first_name': firstName,
+          'last_name': lastName,
+          'description': description,
+          'external_image': externalImage,
+          'internal_image': internalImage
+        }, function(response) {
+          $location.path('dj/' + dj.id);
+        }, function(response) {
+          console.log(response);
+        });
+      }
+      else {
+        imageService.remove({
+          image: dj.internalImage
+        }, function(response) {
 
-        if(externalImage) {
           imageService.upload({
-            'image': externalImage,
+            'image': internalImage,
             'directory': 'djs/' + dj.id,
-            'filename': 1
+            'filename': 2
           }, function(response) {
 
-            if(internalImage) {
-              var externalImage = response.data.image;
+            djService.update(dj.id, {
+              'first_name': firstName,
+              'last_name': lastName,
+              'description': description,
+              'external_image': externalImage,
+              'internal_image': response.data.image
+            }, function(response) {
+              $location.path('dj/' + dj.id);
+            }, function(response) {
+              console.log(response);
+            });
+
+          }, function(response) {
+            console.log(response);
+          });
+
+        }, function(response) {
+          console.log(response);
+        });
+      }
+    }
+    else {
+      imageService.remove({
+        image: dj.externalImage
+      }, function(response) {
+
+        imageService.upload({
+          'image': externalImage,
+          'directory': 'djs/' + dj.id,
+          'filename': 1
+        }, function(response) {
+
+          if(!vm.changedInternalImage) {
+            djService.update(dj.id, {
+              'first_name': firstName,
+              'last_name': lastName,
+              'description': description,
+              'external_image': externalImage,
+              'internal_image': response.data.image
+            }, function(response) {
+              $location.path('dj/' + dj.id);
+            }, function(response) {
+              console.log(response);
+            });
+          }
+          else {
+            var externalImage = response.data.image;
+
+            imageService.remove({
+              image: dj.internalImage
+            }, function(response) {
 
               imageService.upload({
                 'image': internalImage,
@@ -88,67 +157,20 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               }, function(response) {
                 console.log(response);
               });
-            }
-            else {
-              djService.update(dj.id, {
-                'first_name': firstName,
-                'last_name': lastName,
-                'description': description,
-                'external_image': response.data.image,
-                'internal_image': internalImage
-              }, function(response) {
-                $location.path('dj/' + dj.id);
-              }, function(response) {
-                console.log(response);
-              });
-            }
 
-          }, function(response) {
-            console.log(response);
-          });
-        } else if(internalImage) {
-          imageService.upload({
-            'image': internalImage,
-            'directory': 'djs/' + dj.id,
-            'filename': 2
-          }, function(response) {
-
-            djService.update(dj.id, {
-              'first_name': firstName,
-              'last_name': lastName,
-              'description': description,
-              'external_image': externalImage,
-              'internal_image': response.data.image
-            }, function(response) {
-              $location.path('dj/' + dj.id);
             }, function(response) {
               console.log(response);
             });
+          }
 
-          }, function(response) {
-            console.log(response);
-          });
-        } else {
-          djService.update(dj.id, {
-            'first_name': firstName,
-            'last_name': lastName,
-            'description': description,
-            'external_image': externalImage,
-            'internal_image': internalImage
-          }, function(response) {
-            $location.path('dj/' + dj.id);
-          }, function(response) {
-            console.log(response);
-          });
-        }
+        }, function(response) {
+          console.log(response);
+        });
 
       }, function(response) {
         console.log(response);
       });
-
-    }, function(response) {
-      console.log(response);
-    });
+    }
   };
 
   vm.isAuthenticated = function () {
