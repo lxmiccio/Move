@@ -151,7 +151,10 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-right">
-            <div class="col-xs-12">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
+            <div class="col-xs-12" ng-if="index.user.id == 1">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
+            <div class="col-xs-12" ng-if="!index.user || index.user.id != 1">
+              <div class="text-center">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
+            </div>
           </div>
         </div>
       </div>
