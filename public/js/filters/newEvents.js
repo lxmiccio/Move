@@ -4,7 +4,7 @@ angular.module('myFilters').filter('newEvents', function() {
       var newEvents = [];
 
       angular.forEach(events, function(event) {
-        if(new Date(event.startingDate) > new Date()) {
+        if(new Date(event.startingDate.replace(/-/g, "/")) > new Date()) {
           newEvents.push(event);
         }
       });
