@@ -43,7 +43,8 @@
 
           <div class="row">
             <div class="col-xs-12">
-              <p class="text-center" ng-bind-html="event.description | json | linky | newLine"></p>
+              <!--<p class="text-center" ng-bind-html="event.description | json | linky | newLine"></p>-->
+              <p class="text-center" ng-bind-html="event.description | linky"></p>
             </div>
           </div>
 
