@@ -43,7 +43,7 @@ angular.module('myServices').factory('userService', function ($http, localStorag
     me: me,
     login: login,
     logout: logout,
-    isAuthenticated,
+    isAuthenticated: isAuthenticated
   };
 
 });
