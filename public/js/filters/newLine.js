@@ -3,8 +3,9 @@ angular.module('myFilters').filter("newLine", function() {
     if (!string) {
       return string;
     } else {
-      // return string.replace(/\\n\r?/g, '<br />');
-      return string;
+      return string.replace(/\\n\r?/g, '<br />');
     }
   };
+
+
 });

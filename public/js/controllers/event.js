@@ -76,13 +76,13 @@ angular.module("myControllers").controller("EventController", function ($filter,
 
   vm.onPartecipantsCounterChange = function(partecipantsCounter, event) {
     if(!Number.isInteger(partecipantsCounter)) {
-      vm.event[event.id].visitors = event.partecipantsCounter;
+      vm.event[event.id].partecipantsCounter = event.partecipantsCounter;
     }
     if(partecipantsCounter < 0) {
-      vm.event[event.id].visitors = 0;
+      vm.event[event.id].partecipantsCounter = 0;
     }
     if(partecipantsCounter > event.maximumPartecipants) {
-      vm.event[event.id].visitors = event.maximumPartecipants;
+      vm.event[event.id].partecipantsCounter = event.maximumPartecipants;
     }
   };
 
