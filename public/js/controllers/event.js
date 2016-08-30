@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("EventController", function ($filter, $location, $routeParams, localStorageService, randomString, categoryService, eventService, paginationService, partecipantService, userService) {
+angular.module('myControllers').controller('EventController', function ($filter, $routeParams, $window, localStorageService, randomString, categoryService, eventService, imageService, paginationService, partecipantService, userService) {
 
   var vm  = this;
 
@@ -119,8 +119,20 @@ angular.module("myControllers").controller("EventController", function ($filter,
     });
   };
 
-  vm.redirect = function(path) {
-    $location.path(path);
+  vm.remove = function(event) {
+    imageService.remove({
+      image: event.image
+    }, function(response) {
+
+      eventService.remove(event.id, function(response) {
+        $window.location.href = '';
+      }, function(response) {
+        console.log(response);
+      });
+
+    }, function(response) {
+      console.log(response);
+    });
   };
 
   vm.openPartecipantsPrsPdf = function(event) {

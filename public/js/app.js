@@ -62,6 +62,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/login', {
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
+  }).when('/sponsor', {
+    templateUrl: 'views/sponsor.html',
+    controller: 'SponsorController as ctrl'
   })/*.otherwise({
     redirectTo: '/'
   })*/;

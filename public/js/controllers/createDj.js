@@ -1,12 +1,6 @@
-angular.module("myControllers").controller("CreateDjController", function ($location, djService, imageService, userService) {
+angular.module('myControllers').controller('CreateDjController', function ($window, djService, imageService) {
 
   var vm  = this;
-
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
 
   vm.removeExternalImage = function() {
     vm.externalImage = null;
@@ -60,7 +54,7 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
                 'external_image': externalImage,
                 'internal_image': response.data.image
               }, function(response) {
-                $location.path('dj/' + id);
+                $window.location.href = 'dj/' + id;
               }, function(response) {
                 console.log(response);
               });
@@ -77,7 +71,7 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
               'external_image': response.data.image,
               'internal_image': internalImage
             }, function(response) {
-              $location.path('dj/' + id);
+              $window.location.href = 'dj/' + id;
             }, function(response) {
               console.log(response);
             });
@@ -101,7 +95,7 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
             'external_image': externalImage,
             'internal_image': response.data.image
           }, function(response) {
-            $location.path('dj/' + id);
+            $window.location.href = 'dj/' + id;
           }, function(response) {
             console.log(response);
           });
@@ -113,10 +107,6 @@ angular.module("myControllers").controller("CreateDjController", function ($loca
     }, function(response) {
       console.log(response);
     });
-  };
-
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
   };
 
 });

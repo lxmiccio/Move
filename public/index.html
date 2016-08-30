@@ -60,6 +60,7 @@
   <script src="js/controllers/events.js"></script>
   <script src="js/controllers/index.js"></script>
   <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/sponsor.js"></script>
   <script src="js/controllers/updateCategory.js"></script>
   <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
@@ -107,6 +108,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
+          <li><a href="/sponsor">Sponsor</a></li>
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
           <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
@@ -142,16 +144,6 @@
         <div class="col-xs-12">
           <div class="text-center">
             Visitatori: {{index.counter.visitors}}
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="text-right">
-            <div class="col-xs-12" ng-if="index.user.id == 1">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
-            <div class="col-xs-12" ng-if="!index.user || index.user.id != 1">
-              <div class="text-center">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
-            </div>
           </div>
         </div>
       </div>

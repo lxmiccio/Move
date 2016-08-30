@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateDjController", function ($filter, $location, $routeParams, djService, imageService, userService) {
+angular.module('myControllers').controller('UpdateDjController', function ($filter, $window, $routeParams, djService, imageService, userService) {
 
   var vm  = this;
 
@@ -68,7 +68,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
           'external_image': externalImage,
           'internal_image': internalImage
         }, function(response) {
-          $location.path('dj/' + dj.id);
+          $window.location.href = 'dj/' + dj.id;
         }, function(response) {
           console.log(response);
         });
@@ -91,7 +91,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               'external_image': externalImage,
               'internal_image': response.data.image
             }, function(response) {
-              $location.path('dj/' + dj.id);
+              $window.location.href = 'dj/' + dj.id;
             }, function(response) {
               console.log(response);
             });
@@ -124,7 +124,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               'external_image': externalImage,
               'internal_image': response.data.image
             }, function(response) {
-              $location.path('dj/' + dj.id);
+              $window.location.href = 'dj/' + dj.id;
             }, function(response) {
               console.log(response);
             });
@@ -149,7 +149,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
                   'external_image': externalImage,
                   'internal_image': response.data.image
                 }, function(response) {
-                  $location.path('dj/' + dj.id);
+                  $window.location.href = 'dj/' + dj.id;
                 }, function(response) {
                   console.log(response);
                 });
@@ -171,10 +171,6 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
         console.log(response);
       });
     }
-  };
-
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
   };
 
 });

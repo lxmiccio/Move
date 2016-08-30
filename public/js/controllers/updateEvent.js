@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateEventController", function ($filter, $routeParams, $window, categoryService, eventService, imageService, userService) {
+angular.module('myControllers').controller('UpdateEventController', function ($filter, $routeParams, $window, categoryService, eventService, imageService, userService) {
 
   var vm  = this;
 

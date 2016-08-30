@@ -1,5 +1,5 @@
 body {
-  margin-bottom: 65px;
+  margin-bottom: 50px;
 }
 
 html {
@@ -10,7 +10,7 @@ html {
 footer {
   bottom: 0px;
   color: #FFF;
-  height: 65px;
+  height: 50px;
   min-width: 300px;
   padding-top: 15px;
   position: absolute;

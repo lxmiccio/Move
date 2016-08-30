@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("EventsController", function ($filter, $location, $routeParams, localStorageService, randomString, categoryService, paginationService, partecipantService, userService) {
+angular.module('myControllers').controller('EventsController', function ($filter, $window, $routeParams, localStorageService, randomString, categoryService, paginationService, partecipantService, userService) {
 
   var vm  = this;
 
@@ -19,13 +19,9 @@ angular.module("myControllers").controller("EventsController", function ($filter
     console.log(response);
   });
 
-  vm.redirect = function(path) {
-    $location.path(path);
-  };
-
   vm.redirectToPage = function(page) {
     if(page > 0 && page <= vm.pagination.totalPages) {
-      $location.path('categoria/' + $routeParams.id + '/pagina/' + page)
+      $window.location.href = 'categoria/' + $routeParams.id + '/pagina/' + page;
     }
   };
 

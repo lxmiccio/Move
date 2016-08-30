@@ -1,12 +1,6 @@
-angular.module("myControllers").controller("CreateEventController", function ($filter, $location, $routeParams, categoryService, eventService, imageService, userService) {
+angular.module('myControllers').controller('CreateEventController', function ($filter, $window, $routeParams, categoryService, eventService, imageService) {
 
   var vm  = this;
-
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
 
   categoryService.getById($routeParams.id, function(response) {
     vm.category = response.data.data;
@@ -63,7 +57,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
             'description': description,
             'image': response.data.image
           }, function(response) {
-            $location.path('categoria/' + category.id);
+            $window.location.href = 'categoria/' + category.id;
           }, function(response) {
             console.log(response);
           });
@@ -84,7 +78,7 @@ angular.module("myControllers").controller("CreateEventController", function ($f
         'description': description,
         'category_id': category.id
       }, function(response) {
-        $location.path('categoria/' + category.id);
+        $window.location.href = 'categoria/' + category.id;
       }, function(response) {
         console.log(response);
       });

@@ -1,3 +1,5 @@
+<!-- Flawless -->
+
 <div class="row">
   <div class="col-xs-12">
     <img src="images/logo.jpg" class="img-responsive img-rounded center-block"/>
@@ -22,8 +24,8 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + category.id + '/crea/evento')" ng-if="category.id == ctrl.user.category.id || ctrl.user.id == 1">Aggiungi</button>
-            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + category.id + '/modifica')" ng-if="category.id == ctrl.user.category.id || ctrl.user.id == 1">Modifica</button>
+            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + category.id + '/crea/evento')" ng-if="category.id == index.user.category.id || index.user.id == 1">Aggiungi</button>
+            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('categoria/' + category.id + '/modifica')" ng-if="category.id == index.user.category.id || index.user.id == 1">Modifica</button>
             <button type="button" class="btn btn-primary" ng-click="ctrl.redirect('categoria/' + category.id)">Vai</button>
           </div>
         </div>

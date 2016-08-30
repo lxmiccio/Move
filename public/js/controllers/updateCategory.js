@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("UpdateCategoryController", function ($filter, $location, $routeParams, categoryService, imageService, prService, userService) {
+angular.module('myControllers').controller('UpdateCategoryController', function ($filter, $routeParams, categoryService, imageService, prService, userService) {
 
   var vm  = this;
 
@@ -192,10 +192,6 @@ angular.module("myControllers").controller("UpdateCategoryController", function 
     }, function(response) {
       console.log(response);
     });
-  }
-
-  vm.redirect = function(path) {
-    $location.path(path);
   };
 
 });
