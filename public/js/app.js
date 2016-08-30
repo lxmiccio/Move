@@ -6,6 +6,32 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   $routeProvider.when('/', {
     templateUrl: 'views/categories.html',
     controller: 'CategoriesController as ctrl'
+  }).when('/amministrazione', {
+    templateUrl: 'views/administration.html'
+  }).when('/amministrazione/categorie', {
+    templateUrl: 'views/administerCategory.html',
+    controller: 'AdministerCategoryController as ctrl'
+  }).when('/amministrazione/categoria/:id/modifica', {
+    templateUrl: 'views/updateCategory.html',
+    controller: 'UpdateCategoryController as ctrl'
+  }).when('/amministrazione/dj', {
+    templateUrl: 'views/administerDj.html',
+    controller: 'AdministerDjController as ctrl'
+  }).when('/amministrazione/dj/:id/modifica', {
+    templateUrl: 'views/updateDj.html',
+    controller: 'UpdateDjController as ctrl'
+  }).when('/amministrazione/pr', {
+    templateUrl: 'views/administerPr.html',
+    controller: 'AdministerPrController as ctrl'
+  }).when('/amministrazione/pr/:id/modifica', {
+    templateUrl: 'views/updatePr.html',
+    controller: 'UpdatePrController as ctrl'
+  }).when('/amministrazione/sponsor', {
+    templateUrl: 'views/administerSponsor.html',
+    controller: 'AdministerSponsorController as ctrl'
+  }).when('/amministrazione/sponsor/:id/modifica', {
+    templateUrl: 'views/updateSponsor.html',
+    controller: 'UpdateSponsorController as ctrl'
   }).when('/categoria/:id/modifica', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'

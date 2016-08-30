@@ -47,6 +47,10 @@
   <script src="js/app.js"></script>
 
   <script src="js/controllers/module.js"></script>
+  <script src="js/controllers/administerCategory.js"></script>
+  <script src="js/controllers/administerDj.js"></script>
+  <script src="js/controllers/administerPr.js"></script>
+  <script src="js/controllers/administerSponsor.js"></script>
   <script src="js/controllers/categories.js"></script>
   <script src="js/controllers/createDj.js"></script>
   <script src="js/controllers/createEvent.js"></script>
@@ -59,6 +63,8 @@
   <script src="js/controllers/updateCategory.js"></script>
   <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
+  <script src="js/controllers/updatePr.js"></script>
+  <script src="js/controllers/updateSponsor.js"></script>
 
   <script src="js/factories/module.js"></script>
   <script src="js/factories/category.js"></script>
@@ -70,6 +76,7 @@
   <script src="js/factories/partecipant.js"></script>
   <script src="js/factories/pr.js"></script>
   <script src="js/factories/socket.js"></script>
+  <script src="js/factories/sponsor.js"></script>
   <script src="js/factories/user.js"></script>
 
   <script src="js/filters/module.js"></script>
@@ -80,20 +87,6 @@
   <script src="js/filters/oldEvents.js"></script>
   <script src="js/filters/parseUrl.js"></script>
   <script src="js/filters/removeEscape.js"></script>
-
-  <style>
-  .add-on .input-group-btn > .btn {
-    border-left-width:0;left:-2px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  }
-  /* stop the glowing blue shadow */
-  .add-on .form-control:focus {
-    box-shadow:none;
-    -webkit-box-shadow:none;
-    border-color:#cccccc;
-  }
-  </style>
 </head>
 
 <body>
@@ -115,6 +108,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
+          <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>
       </nav>

@@ -1,4 +1,4 @@
-<div class="row" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
+<div class="row" ng-hide="!ctrl.category || !ctrl.user" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
   <div class="col-md-10 col-md-offset-1 col-xs-12">
     <div class="row">
       <div class="funkyradio">
@@ -22,7 +22,7 @@
 <div class="row br-lg"></div>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1 col-xs-12" ng-repeat="event in ctrl.events">
+  <div class="col-md-10 col-md-offset-1 col-xs-12" ng-if="ctrl.events.length > 0" ng-repeat="event in ctrl.events">
     <div class="jumbotron well-sm">
       <div class="row">
         <div class="row br-lg"></div>
@@ -109,6 +109,12 @@
       </div>
 
       <div class="row br-lg"></div>
+    </div>
+  </div>
+
+  <div class="col-md-10 col-md-offset-1 col-xs-12" ng-if="ctrl.events.length == 0">
+    <div class="jumbotron">
+      <h3 class="text-center"><strong>Non sono presenti Eventi nella Categoria {{ctrl.category.name}}</strong></h3>
     </div>
   </div>
 </div>

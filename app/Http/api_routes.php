@@ -29,4 +29,6 @@ $api->version('v1', function ($api) {
 
 	$api->resource('prs', 'App\Api\V1\Controllers\PrController');
 
+	$api->resource('sponsors', 'App\Api\V1\Controllers\SponsorController');
+
 });

@@ -96,6 +96,8 @@ class PrController extends Controller
 
     $pr = Pr::find($id);
 
+    $pr->categories()->detach();
+
     if($pr->delete()) {
       return $this->response->noContent();
     }
