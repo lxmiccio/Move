@@ -108,7 +108,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div isteven-multi-select button-label="firstName lastName" item-label="firstName lastName" tick-property="ticked"
-          input-model="ctrl.filteredPrs" output-model="ctrl.prs" helper-elements="all none filter" max-labels="1"
+          input-model="ctrl.filteredPrs" output-model="ctrl.selectedPrs" helper-elements="all none filter" max-labels="1"
           translation="{ selectAll: 'Seleziona tutti', selectNone: 'Deseleziona tutti', search: 'Cerca Pr...', nothingSelected : 'Pr...' }"></div>
         </div>
       </div>
@@ -118,7 +118,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.attachPrs(ctrl.prs, ctrl.category)">Aggiungi</button>
+            <button type="button" class="btn btn-success" ng-click="ctrl.attachPrs(ctrl.selectedPrs, ctrl.category)">Aggiungi</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 // Flawless
 
-angular.module('myControllers').controller('AdministerDjController', function (djService, imageService) {
+angular.module('myControllers').controller('AdministerDjController', function(djService, imageService) {
 
   var vm  = this;
 

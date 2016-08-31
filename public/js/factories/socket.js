@@ -1,4 +1,4 @@
-angular.module('myServices').factory('socket', function (socketFactory) {
+angular.module('myServices').factory('socketService', function (socketFactory) {
   // Uncomment for server
   // var ioSocket = io.connect('http://moveperugia.com');
 

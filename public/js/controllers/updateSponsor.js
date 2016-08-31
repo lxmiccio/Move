@@ -1,6 +1,6 @@
 // Flawless
 
-angular.module('myControllers').controller('UpdateSponsorController', function ($routeParams, $window, imageService, sponsorService) {
+angular.module('myControllers').controller('UpdateSponsorController', function($routeParams, $window, imageService, sponsorService) {
 
   var vm  = this;
 
@@ -36,7 +36,6 @@ angular.module('myControllers').controller('UpdateSponsorController', function (
 
   vm.update = function(name, link, description, image, sponsor) {
     if(!vm.changedImage) {
-      console.log(name)
       sponsorService.update(sponsor.id, {
         'name': name,
         'link': link,

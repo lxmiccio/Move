@@ -1,47 +1,44 @@
-angular.module('myControllers').controller('EventController', function ($filter, $routeParams, $window, localStorageService, randomString, categoryService, eventService, imageService, paginationService, partecipantService, userService) {
+// Flawless
+
+angular.module('myControllers').controller('EventController', function($filter, $routeParams, $window, localStorageService, randomString, categoryService, eventService, imageService, partecipantService) {
 
   var vm  = this;
-
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
 
   categoryService.getById($routeParams.id, function(response) {
     vm.category = response.data.data;
 
-    vm.events = $filter('newEvents')(vm.category.events);
+    vm.event = $filter('newEvents')(vm.category.events)[0];
+    vm.event.show = true;
 
-    angular.forEach(vm.events, function(event, index) {
-      vm.events[index].show = true;
+    vm.partecipantsCounter = vm.event.partecipantsCounter;
 
-      angular.forEach(event.partecipants, function(partecipant) {
-        if(partecipant.token == localStorageService.get('userToken')) {
-          vm.events[index].show = false;
-        }
-      });
+    angular.forEach(vm.event.partecipants, function(partecipant) {
+      if(partecipant.token == localStorageService.get('userToken')) {
+        vm.event.show = false;
+      }
     });
   }, function(response)  {
     console.log(response);
   });
 
-  vm.addPartecipant = function(name, event, pr) {
+  vm.addPartecipant = function(name, selectedPr, event) {
     if(!localStorageService.get('userToken')) {
       localStorageService.set('userToken', randomString(255));
     }
 
-    if(!pr) {
-      pr = {
-        id: 1
+    if(!selectedPr) {
+      selectedPr = {
+        description: {
+          id: 1
+        }
       };
     }
 
     partecipantService.create({
       name: name,
       token: localStorageService.get('userToken'),
-      event_id: event.id,
-      pr_id: pr.id
+      pr_id: selectedPr.description.id,
+      event_id: event.id
     }, function(response) {
 
       eventService.increase(event.id, function(response) {
@@ -49,16 +46,15 @@ angular.module('myControllers').controller('EventController', function ($filter,
         categoryService.getById($routeParams.id, function(response) {
           vm.category = response.data.data;
 
-          vm.events = $filter('newEvents')(vm.category.events);
+          vm.event = $filter('newEvents')(vm.category.events)[0];
+          vm.event.show = true;
 
-          angular.forEach(vm.events, function(event, index) {
-            vm.events[index].show = true;
+          vm.partecipantsCounter = vm.event.partecipantsCounter;
 
-            angular.forEach(event.partecipants, function(partecipant) {
-              if(partecipant.token == localStorageService.get('userToken')) {
-                vm.events[index].show = false;
-              }
-            });
+          angular.forEach(vm.event.partecipants, function(partecipant) {
+            if(partecipant.token == localStorageService.get('userToken')) {
+              vm.event.show = false;
+            }
           });
         }, function(response)  {
           console.log(response);
@@ -71,15 +67,11 @@ angular.module('myControllers').controller('EventController', function ($filter,
     }, function(response) {
       console.log(response);
     });
-
   };
 
   vm.onPartecipantsCounterChange = function(partecipantsCounter, event) {
-    if(!Number.isInteger(partecipantsCounter)) {
-      vm.event[event.id].partecipantsCounter = event.partecipantsCounter;
-    }
-    if(partecipantsCounter < 0) {
-      vm.event[event.id].partecipantsCounter = 0;
+    if(!Number.isInteger(partecipantsCounter) || partecipantsCounter < event.partecipants.length) {
+      vm.partecipantsCounter = event.partecipants.length;
     }
     if(partecipantsCounter > event.maximumPartecipants) {
       vm.event[event.id].partecipantsCounter = event.maximumPartecipants;
@@ -99,16 +91,15 @@ angular.module('myControllers').controller('EventController', function ($filter,
       categoryService.getById($routeParams.id, function(response) {
         vm.category = response.data.data;
 
-        vm.events = $filter('newEvents')(vm.category.events);
+        vm.event = $filter('newEvents')(vm.category.events)[0];
+        vm.event.show = true;
 
-        angular.forEach(vm.events, function(event, index) {
-          vm.events[index].show = true;
+        vm.partecipantsCounter = vm.event.partecipantsCounter;
 
-          angular.forEach(event.partecipants, function(partecipant) {
-            if(partecipant.token == localStorageService.get('userToken')) {
-              vm.events[index].show = false;
-            }
-          });
+        angular.forEach(vm.event.partecipants, function(partecipant) {
+          if(partecipant.token == localStorageService.get('userToken')) {
+            vm.event.show = false;
+          }
         });
       }, function(response)  {
         console.log(response);
@@ -137,7 +128,6 @@ angular.module('myControllers').controller('EventController', function ($filter,
 
   vm.openPartecipantsPrsPdf = function(event) {
     var prs = [];
-
     var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {
@@ -243,7 +233,6 @@ angular.module('myControllers').controller('EventController', function ($filter,
     var body = [[
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
-
     var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {

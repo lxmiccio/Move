@@ -1,4 +1,4 @@
-<div class="row" ng-hide="!ctrl.category || !ctrl.user" ng-if="ctrl.category.id == index.user.category.id || index.user.id == 1">
+<div class="row" ng-if="ctrl.category.id == index.user.category.id || index.user.id == 1">
   <div class="col-md-10 col-md-offset-1 col-xs-12">
     <div class="row">
       <div class="funkyradio">
@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <div class="funkyradio-info">
-            <input type="radio" name="radio" id="radio2" ng-click="ctrl.redirect('categoria/' + ctrl.category.id + '/pagina/1')"/>
+            <input type="radio" name="radio" id="radio2" ng-click="index.locate('categoria/' + ctrl.category.id + '/pagina/1')"/>
             <label for="radio2">Eventi trascorsi</label>
           </div>
         </div>
@@ -22,20 +22,20 @@
 <div class="row br-lg"></div>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1 col-xs-12" ng-if="ctrl.events.length > 0" ng-repeat="event in ctrl.events">
+  <div class="col-md-10 col-md-offset-1 col-xs-12" ng-if="ctrl.event">
     <div class="jumbotron well-sm">
       <div class="row">
         <div class="row br-lg"></div>
 
         <div class="col-md-5 col-md-offset-0 col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-          <img ng-src="{{event.image | decache}}" class="img-responsive img-rounded center-block"/>
+          <img ng-src="{{ctrl.event.image | decache}}" class="img-responsive img-rounded center-block"/>
         </div>
         <div class="col-md-7 col-sm-7 col-xs-12">
           <div class="row br-lg visible-xs"></div>
 
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="text-center"><strong>{{event.name}}</strong></h2>
+              <h2 class="text-center"><strong>{{ctrl.event.name}}</strong></h2>
             </div>
           </div>
 
@@ -43,7 +43,7 @@
 
           <div class="row">
             <div class="col-xs-12">
-              <p class="text-center" ng-bind-html="event.description | json | newLine | parseUrl | removeEscape"></p>
+              <p class="text-center" ng-bind-html="ctrl.event.description | json | newLine | parseUrl | removeEscape"></p>
             </div>
           </div>
 
@@ -56,18 +56,18 @@
               </div>
               <div class="col-md-5 col-sm-5 col-xs-5" style="margin-top: -3px;">
                 <div class="input-group add-on">
-                  <input type="number" class="form-control input-sm" style="height: 22px;" ng-change="ctrl.onPartecipantsCounterChange(ctrl.event[event.id].partecipantsCounter, event)" ng-model="ctrl.event[event.id].partecipantsCounter" ng-value="event.partecipantsCounter">
+                  <input type="number" class="form-control input-sm" style="height: 22px;" ng-change="ctrl.onPartecipantsCounterChange(ctrl.partecipantsCounter, ctrl.event)" ng-model="ctrl.partecipantsCounter">
                   <div class="input-group-btn">
-                    <button class="btn btn-success btn-xs" type="submit" ng-click="ctrl.increasePartecipantsCounter(ctrl.event[event.id].partecipantsCounter, event)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button class="btn btn-success btn-xs" type="submit" ng-click="ctrl.increasePartecipantsCounter(ctrl.partecipantsCounter, event)"><i class="fa fa-plus" aria-hidden="true"></i></button>
                   </div>
                 </div>
               </div>
               <div class="col-md-3 col-sm-3 col-xs-3">
-                <div style="margin-left: -25px;">/{{event.maximumPartecipants}}</div>
+                <div style="margin-left: -25px;">/{{ctrl.event.maximumPartecipants}}</div>
               </div>
             </div>
             <div class="col-xs-12" ng-if="!index.user || index.user.id != 1">
-              <p class="text-center">Partecipanti: {{event.partecipantsCounter}}/{{event.maximumPartecipants}}</p>
+              <p class="text-center">Partecipanti: {{ctrl.event.partecipantsCounter}}/{{ctrl.event.maximumPartecipants}}</p>
             </div>
           </div>
 
@@ -76,17 +76,17 @@
           <div class="row" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
             <div class="col-xs-12">
               <div class="text-center">
-                <button type="button" class="btn btn-danger" ng-click="ctrl.remove(event)">Rimuovi</button>
-                <button type="button" class="btn btn-success" ng-click="ctrl.redirect('evento/' + event.id + '/modifica')">Modifica</button>
-                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPrsPdf(event)">Partecipante/Pr</button>
-                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPdf(event)">Partecipanti</button>
+                <button type="button" class="btn btn-danger" ng-click="ctrl.remove(ctrl.event)">Rimuovi</button>
+                <button type="button" class="btn btn-success" ng-click="ctrl.redirect('ctrl.evento/' + ctrl.event.id + '/modifica')">Modifica</button>
+                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPrsPdf(ctrl.event)">Partecipante/Pr</button>
+                <button type="button" class="btn btn-default" ng-click="ctrl.openPartecipantsPdf(ctrl.event)">Partecipanti</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row" ng-if="event.partecipantsCounter < event.maximumPartecipants && event.show">
+      <div class="row" ng-if="ctrl.event.partecipantsCounter < ctrl.event.maximumPartecipants && ctrl.event.show">
         <div class="row br-lg"></div>
 
         <div class="col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1">
@@ -97,14 +97,14 @@
           <div class="row br-xs visible-xs"></div>
 
           <div placeholder="Pr..." angucomplete-alt input-class="form-control" match-class="highlight" minlength="1" pause="100" text-no-results="Nessun Pr trovato"
-          local-data="ctrl.category.prs" selected-object="ctrl.pr" search-fields="firstName,lastName" title-field="firstName,lastName"></div>
+          local-data="ctrl.category.prs" selected-object="ctrl.selectedPr" search-fields="firstName,lastName" title-field="firstName,lastName"></div>
         </div>
 
         <div class="col-sm-2 col-sm-offset-0 col-xs-10 col-xs-offset-1">
           <div class="row br-xs visible-xs"></div>
 
           <div class="text-right">
-            <button type="button" class="btn btn-primary" ng-click="ctrl.addPartecipant(ctrl.name, event, ctrl.pr.description)">Partecipa</button>
+            <button type="button" class="btn btn-primary" ng-click="ctrl.addPartecipant(ctrl.name, ctrl.selectedPr, ctrl.event)">Partecipa</button>
           </div>
         </div>
       </div>

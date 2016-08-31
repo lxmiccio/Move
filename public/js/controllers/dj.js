@@ -1,4 +1,6 @@
-angular.module('myControllers').controller('DjController', function ($routeParams, djService) {
+//Flawless
+
+angular.module('myControllers').controller('DjController', function($routeParams, djService) {
 
   var vm  = this;
 

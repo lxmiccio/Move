@@ -1,6 +1,6 @@
 //Flawless
 
-angular.module('myControllers').controller('AdministerCategoryController', function (categoryService) {
+angular.module('myControllers').controller('AdministerCategoryController', function(categoryService) {
 
   var vm = this;
 

@@ -126,7 +126,7 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
 })
 
 .run(function($rootScope) {
-  $rootScope.$on('$locationChangeStart', function() {
-    $rootScope.previous = location.pathname;
-  })
+  // $rootScope.$on('$locationChangeStart', function() {
+  //   $rootScope.previous = location.pathname;
+  // });
 });

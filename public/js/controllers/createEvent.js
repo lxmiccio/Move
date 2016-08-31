@@ -1,4 +1,6 @@
-angular.module('myControllers').controller('CreateEventController', function ($filter, $window, $routeParams, categoryService, eventService, imageService) {
+//Flawless
+
+angular.module('myControllers').controller('CreateEventController', function ($filter, $routeParams, $window, categoryService, eventService, imageService) {
 
   var vm  = this;
 
@@ -33,15 +35,18 @@ angular.module('myControllers').controller('CreateEventController', function ($f
   };
 
   vm.createEvent = function (name, startingDate, maximumPartecipants, description, image, category) {
-    if(image) {
-      eventService.create({
-        'name': name,
-        'starting_date': startingDate,
-        'maximum_partecipants': maximumPartecipants,
-        'description': description,
-        'category_id': category.id
-      }, function(response) {
+    eventService.create({
+      'name': name,
+      'starting_date': startingDate,
+      'maximum_partecipants': maximumPartecipants,
+      'description': description,
+      'category_id': category.id
+    }, function(response) {
 
+      if(!image) {
+        $window.location.href = 'categoria/' + category.id;
+      }
+      else {
         var id = response.data.data.id;
 
         imageService.upload({
@@ -65,24 +70,11 @@ angular.module('myControllers').controller('CreateEventController', function ($f
         }, function(response) {
           console.log(response);
         });
+      }
 
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else {
-      eventService.create({
-        'name': name,
-        'starting_date': startingDate,
-        'maximum_partecipants': maximumPartecipants,
-        'description': description,
-        'category_id': category.id
-      }, function(response) {
-        $window.location.href = 'categoria/' + category.id;
-      }, function(response) {
-        console.log(response);
-      });
-    }
+    }, function(response) {
+      console.log(response);
+    });
   };
 
 });

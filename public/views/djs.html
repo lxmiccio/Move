@@ -22,8 +22,8 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('dj/' + dj.id + '/modifica')" ng-if="index.isAuthenticated()">Modifica</button>
-            <button type="button" class="btn btn-primary" ng-click="ctrl.redirect('dj/' + dj.id)">Vai</button>
+            <button type="button" class="btn btn-success" ng-click="index.locate('dj/' + dj.id + '/modifica')" ng-if="index.isAuthenticated()">Modifica</button>
+            <button type="button" class="btn btn-primary" ng-click="index.locate('dj/' + dj.id)">Vai</button>
           </div>
         </div>
       </div>

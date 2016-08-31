@@ -1,4 +1,6 @@
-angular.module('myControllers').controller('LoginController', function ($rootScope, $window, logService, userService) {
+// Flawless
+
+angular.module('myControllers').controller('LoginController', function ($window, logService, userService) {
 
   var vm  = this;
 
@@ -8,10 +10,8 @@ angular.module('myControllers').controller('LoginController', function ($rootSco
       password: password
     }, function(response) {
 
-      logService.create({
-
-      }, function(response) {
-        $window.location.href = $rootScope.previous;
+      logService.create({}, function(response) {
+        $window.location.href = '';
       }, function(response) {
         console.log(response);
       })

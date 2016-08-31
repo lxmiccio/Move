@@ -1,12 +1,10 @@
-angular.module('myControllers').controller('UpdateEventController', function ($filter, $routeParams, $window, categoryService, eventService, imageService, userService) {
+// Flawless
+
+angular.module('myControllers').controller('UpdateEventController', function($filter, $routeParams, $window, eventService, imageService) {
 
   var vm  = this;
 
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
+  vm.changedImage = false;
 
   eventService.getById($routeParams.id, function(response) {
     vm.event = response.data.data;
@@ -21,25 +19,50 @@ angular.module('myControllers').controller('UpdateEventController', function ($f
   });
 
   vm.onStartingDateChange = function(startingDate) {
-    vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
+    if(startingDate >= new Date()) {
+      vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
+    } else {
+      vm.startingDate = '';
+    }
+  };
+
+  vm.onMaximumPartecipantsChange = function(maximumPartecipants, event) {
+    if(!Number.isInteger(maximumPartecipants) || maximumPartecipants < event.partecipants.length) {
+      vm.maximumPartecipants = event.partecipants.length;
+    }
   };
 
   vm.removeImage = function() {
     vm.image = null;
+    vm.changedImage = true;
   };
 
   vm.restoreImage = function(image) {
     vm.image = image;
+    vm.changedImage = false;
   };
 
   vm.changeImage = function(image) {
     if(image) {
       vm.image = image;
+      vm.changedImage = true;
     }
   };
 
   vm.updateEvent = function(name, startingDate, maximumPartecipants, description, image, event) {
-    if(image && event.image && image != event.image) {
+    if(!vm.changedImage) {
+      eventService.update(event.id, {
+        'name': name,
+        'starting_date': startingDate,
+        'maximum_partecipants': maximumPartecipants,
+        'description': description
+      }, function(response) {
+        $window.location.href = 'categoria/' + event.category.id;
+      }, function(response) {
+        console.log(response);
+      });
+    }
+    else {
       imageService.remove({
         image: event.image
       }, function(response) {
@@ -50,133 +73,18 @@ angular.module('myControllers').controller('UpdateEventController', function ($f
           'filename': event.id
         }, function(response) {
 
-          eventService.update(event.id, {
-            name: name,
-            starting_date: startingDate,
-            partecipants_counter: event.partecipantsCounter,
-            maximum_partecipants: maximumPartecipants,
-            description: description,
-            image: response.data.image
+          eventService.update(sponsor.id, {
+            'name': name,
+            'starting_date': startingDate,
+            'maximum_partecipants': maximumPartecipants,
+            'description': description,
+            'image': response.data.image
           }, function(response) {
-
-            var event = response.data.data;
-
-            categoryService.getById(event.category.id, function(response) {
-              $window.location.href = 'categoria/' + event.category.id;
-            }, function(response) {
-              console.log(response);
-            });
-
-          }, function(response) {
-            console.log(response);
-          });
-
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(image && event.image && image == event.image) {
-      eventService.update(event.id, {
-        name: name,
-        starting_date: startingDate,
-        partecipants_counter: event.partecipantsCounter,
-        maximum_partecipants: maximumPartecipants,
-        description: description,
-        image: image
-      }, function(response) {
-
-        var event = response.data.data;
-
-        categoryService.getById(event.category.id, function(response) {
-          $window.location.href = 'categoria/' + event.category.id;
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(image && !event.image) {
-      imageService.upload({
-        'image': image,
-        'directory': 'events',
-        'filename': event.id
-      }, function(response) {
-
-        eventService.update(event.id, {
-          name: name,
-          starting_date: startingDate,
-          partecipants_counter: event.partecipantsCounter,
-          maximum_partecipants: maximumPartecipants,
-          description: description,
-          image: response.data.image
-        }, function(response) {
-
-          var event = response.data.data;
-
-          categoryService.getById(event.category.id, function(response) {
             $window.location.href = 'categoria/' + event.category.id;
           }, function(response) {
             console.log(response);
           });
 
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(!image && event.image) {
-      imageService.remove({
-        image: event.image
-      }, function(response) {
-
-        eventService.update(event.id, {
-          name: name,
-          starting_date: startingDate,
-          partecipants_counter: event.partecipantsCounter,
-          maximum_partecipants: maximumPartecipants,
-          description: description,
-          image: image
-        }, function(response) {
-
-          var event = response.data.data;
-
-          categoryService.getById(event.category.id, function(response) {
-            $window.location.href = 'categoria/' + event.category.id;
-          }, function(response) {
-            console.log(response);
-          });
-
-        }, function(response) {
-          console.log(response);
-        });
-
-      }, function(response) {
-        console.log(response);
-      });
-    }
-    else if(!image && !event.image) {
-      eventService.update(event.id, {
-        name: name,
-        starting_date: startingDate,
-        partecipants_counter: event.partecipantsCounter,
-        maximum_partecipants: maximumPartecipants,
-        description: description,
-        image: image
-      }, function(response) {
-
-        var event = response.data.data;
-
-        categoryService.getById(event.category.id, function(response) {
-          $window.location.href = 'categoria/' + event.category.id;
         }, function(response) {
           console.log(response);
         });

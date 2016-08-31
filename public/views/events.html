@@ -6,7 +6,7 @@
           <div class="funkyradio">
             <div class="col-sm-6">
               <div class="funkyradio-primary">
-                <input type="radio" name="radio" id="radio1" ng-click="ctrl.redirect('categoria/' + ctrl.category.id)" />
+                <input type="radio" name="radio" id="radio1" ng-click="index.locate('categoria/' + ctrl.category.id)" />
                 <label for="radio1">Evento corrente</label>
               </div>
             </div>
@@ -101,30 +101,30 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1 col-xs-12">
         <div class="text-center">
-          <ul class="pagination" ng-if="ctrl.pagination.length">
+          <ul class="pagination">
             <li ng-class="{disabled: ctrl.pagination.page == 1}">
-              <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(1)">Inizio</a>
-              <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(1)"><i class="fa fa-fast-backward" aria-hidden="true"></i></a>
+              <a class="hidden-sm hidden-xs" ng-click="ctrl.locateToPage(1, ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + 1)">Inizio</a>
+              <a class="visible-sm visible-xs" ng-click="ctrl.locateToPage(1, ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + 1)"><i class="fa fa-fast-backward" aria-hidden="true"></i></a>
             </li>
 
             <li ng-class="{disabled: ctrl.pagination.page == 1}">
-              <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1)">Precedente</a>
-              <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1)"><i class="fa fa-backward" aria-hidden="true"></i></a>
+              <a class="hidden-sm hidden-xs" ng-click="ctrl.locateToPage((ctrl.pagination.page - 1), ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + (ctrl.pagination.page - 1))">Precedente</a>
+              <a class="visible-sm visible-xs" ng-click="ctrl.locateToPage((ctrl.pagination.page - 1), ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + (ctrl.pagination.page - 1))"><i class="fa fa-backward" aria-hidden="true"></i></a>
             </li>
 
             <li ng-repeat="page in ctrl.pagination.pages" ng-class="{active: ctrl.pagination.page == page}">
-              <a ng-click="ctrl.redirectToPage(page)">{{page}}</a>
+              <a ng-click="ctrl.locateToPage(page, ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + page)">{{page}}</a>
             </li>
 
             <li ng-class="{disabled: ctrl.pagination.page == ctrl.pagination.totalPages}">
-              <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1 + 2)">Successivo</a>
-              <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.page - 1 + 2)"><i class="fa fa-forward" aria-hidden="true"></i></a>
+              <a class="hidden-sm hidden-xs" ng-click="ctrl.locateToPage((ctrl.pagination.page - 1 + 2), ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + (ctrl.pagination.page - 1 + 2))">Successivo</a>
+              <a class="visible-sm visible-xs" ng-click="ctrl.locateToPage((ctrl.pagination.page - 1 + 2), ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + (ctrl.pagination.page - 1 + 2))"><i class="fa fa-forward" aria-hidden="true"></i></a>
             </li>
 
             <li ng-class="{disabled: ctrl.pagination.page == ctrl.pagination.totalPages}">
-              <a class="hidden-sm hidden-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.totalPages)">Fine</a>
-              <a class="visible-sm visible-xs" ng-click="ctrl.redirectToPage(ctrl.pagination.totalPages)"><i class="fa fa-fast-forward" aria-hidden="true"></i></a>
-            </li>
+              <a class="hidden-sm hidden-xs" ng-click="ctrl.locateToPage(ctrl.pagination.totalPages, ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + ctrl.pagination.totalPages)">Fine</a>
+              <a class="visible-sm visible-xs" ng-click="ctrl.locateToPage(ctrl.pagination.totalPages, ctrl.pagination.totalPages, 'categoria/' + ctrl.category.id + '/pagina/' + ctrl.pagination.totalPages)"><i class="fa fa-fast-forward" aria-hidden="true"></i></a>
+            </liindex
           </ul>
         </div>
       </div>

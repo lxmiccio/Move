@@ -1,4 +1,6 @@
-angular.module('myControllers').controller('CreateDjController', function ($window, djService, imageService) {
+//Flawless
+
+angular.module('myControllers').controller('CreateDjController', function($window, djService, imageService) {
 
   var vm  = this;
 

@@ -1,6 +1,6 @@
 //Flawless
 
-angular.module('myControllers').controller('AdministerLogController', function ($filter, logService) {
+angular.module('myControllers').controller('AdministerLogController', function($filter, logService) {
 
   var vm = this;
 
