@@ -1,5 +1,5 @@
 angular.module('myFilters').filter('newEvents', function() {
-  return function (events) {
+  return function(events) {
     if(angular.isArray(events)) {
       var newEvents = [];
 

@@ -1,5 +1,5 @@
 angular.module('myFilters').filter('newPrs', function() {
-  return function (prs, category) {
+  return function(prs, category) {
     if(angular.isArray(prs) && angular.isArray(category.prs)) {
       var newPrs = [];
 
