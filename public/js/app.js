@@ -6,6 +6,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   $routeProvider.when('/', {
     templateUrl: 'views/categories.html',
     controller: 'CategoriesController as ctrl'
+  }).when('/login', {
+    templateUrl: 'views/login.html',
+    controller: 'LoginController as ctrl'
   }).when('/amministrazione', {
     templateUrl: 'views/administration.html'
   }).when('/amministrazione/categorie', {
@@ -14,6 +17,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/categoria/:id/modifica', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/amministrazione/categoria/:id/crea/evento', {
+    templateUrl: 'views/createEvent.html',
+    controller: 'CreateEventController as ctrl'
   }).when('/amministrazione/evento/:id/modifica', {
     templateUrl: 'views/updateEvent.html',
     controller: 'UpdateEventController as ctrl'
@@ -38,39 +44,24 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/sponsor/:id/modifica', {
     templateUrl: 'views/updateSponsor.html',
     controller: 'UpdateSponsorController as ctrl'
-  }).when('/categoria/:id/modifica', {
-    templateUrl: 'views/updateCategory.html',
-    controller: 'UpdateCategoryController as ctrl'
-  }).when('/categoria/:id/crea/evento', {
-    templateUrl: 'views/createEvent.html',
-    controller: 'CreateEventController as ctrl'
   }).when('/categoria/:id', {
     templateUrl: 'views/event.html',
     controller: 'EventController as ctrl'
   }).when('/categoria/:id/pagina/:page', {
     templateUrl: 'views/events.html',
     controller: 'EventsController as ctrl'
-  }).when('/dj/crea', {
-    templateUrl: 'views/createDj.html',
-    controller: 'CreateDjController as ctrl'
-  }).when('/dj/:id/modifica', {
-    templateUrl: 'views/updateDj.html',
-    controller: 'UpdateDjController as ctrl'
   }).when('/dj', {
     templateUrl: 'views/djs.html',
     controller: 'DjsController as ctrl'
   }).when('/dj/:id', {
     templateUrl: 'views/dj.html',
     controller: 'DjController as ctrl'
-  }).when('/login', {
-    templateUrl: 'views/login.html',
-    controller: 'LoginController as ctrl'
   }).when('/sponsor', {
     templateUrl: 'views/sponsors.html',
     controller: 'SponsorsController as ctrl'
-  })/*.otherwise({
+  }).otherwise({
     redirectTo: '/'
-  })*/;
+  });
 })
 
 .config(function($httpProvider) {
