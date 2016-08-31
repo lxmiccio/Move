@@ -1,20 +1,21 @@
-<div class="row" ng-if="ctrl.category.id == ctrl.user.category.id || ctrl.user.id == 1">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2 class="text-center"><strong>Modifica Categoria</strong></h2>
-          <div class="row br-lg"></div>
-        </div>
+<!-- Flawless -->
+
+<div class="row" ng-if="ctrl.category.id == index.user.category.id || index.user.id == 1">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="text-center"><strong>Modifica la Categoria</strong></h2>
       </div>
     </div>
+
+    <div class="row br-lg"></div>
   </div>
 
   <div class="row">
-    <div class="col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+    <div class="col-md-5 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
       <div class="row">
         <div class="col-xs-12">
-          <p class="text-center">Modifica la Categoria {{ctrl.category.name}}</p>
+          <h4 class="text-center">Modifica la Categoria <strong>{{ctrl.category.name}}</strong></h4>
         </div>
       </div>
 
@@ -26,7 +27,7 @@
         </div>
       </div>
 
-      <div class="row br-xs"></div>
+      <div class="row br-sm"></div>
 
       <div class="row">
         <div class="col-xs-12">
@@ -52,22 +53,24 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.updateCategory(ctrl.name, ctrl.image, ctrl.category)">Modifica</button>
+            <button type="button" class="btn btn-success" ng-click="ctrl.update(ctrl.name, ctrl.image, ctrl.category)">Modifica</button>
           </div>
         </div>
       </div>
 
-      <div class="row br-lg"></div>
+      <hr class="visible-sm visible-xs"/>
+      <hr class="visible-sm visible-xs"/>
+      <hr class="visible-sm visible-xs"/>
     </div>
 
-    <div class="col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+    <div class="col-md-5 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
       <div class="row">
         <div class="col-xs-12">
-          <p class="text-center">Crea un nuovo Pr e aggiungilo nella Categoria {{ctrl.category.name}}</p>
+          <h4 class="text-center">Crea un nuovo Pr e aggiungilo nella Categoria <strong>{{ctrl.category.name}}</strong></h4>
         </div>
       </div>
 
-      <div class="row br-sm"></div>
+      <hr/>
 
       <div class="row">
         <div class="col-xs-12">
@@ -83,7 +86,7 @@
         </div>
       </div>
 
-      <div class="row br-sm"></div>
+      <hr/>
 
       <div class="row">
         <div class="col-xs-12">
@@ -94,46 +97,36 @@
       </div>
 
       <hr/>
-
-      <div class="row br-lg"></div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <p class="text-center">Aggiungi un Pr esistente nella Categoria {{ctrl.category.name}}</p>
-        </div>
-      </div>
-
-      <div class="row br-sm"></div>
+      <hr/>
+      <hr/>
 
       <div class="row">
         <div class="col-xs-12">
-          <div isteven-multi-select button-label="firstName lastName" item-label="firstName lastName" tick-property="ticked"
-          input-model="ctrl.filteredPrs" output-model="ctrl.prs" helper-elements="all none filter" max-labels="1"
-          translation="{ selectAll: 'Seleziona tutti', selectNone: 'Deseleziona tutti', search: 'Cerca Pr...', nothingSelected : 'Pr...' }"></div>
-        </div>
-      </div>
-
-      <div class="row br-sm"></div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.attachPrs(ctrl.prs, ctrl.category)">Aggiungi</button>
-          </div>
+          <h4 class="text-center">Aggiungi un Pr esistente nella Categoria <strong>{{ctrl.category.name}}</strong></h4>
         </div>
       </div>
 
       <hr/>
 
-      <div class="row br-lg"></div>
-
       <div class="row">
         <div class="col-xs-12">
-          <p class="text-center">Rimuovi un Pr nella Categoria {{ctrl.category.name}}</p>
+          <div isteven-multi-select button-label="firstName lastName" item-label="firstName lastName" tick-property="ticked" input-model="ctrl.filteredPrs" output-model="ctrl.selectedPrs" helper-elements="all none filter" max-labels="1" translation="{ selectAll: 'Seleziona tutti', selectNone: 'Deseleziona tutti', search: 'Cerca Pr...', nothingSelected : 'Pr...' }"></div>
         </div>
       </div>
 
-      <div class="row br-sm"></div>
+      <hr/>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-center">
+            <button type="button" class="btn btn-success" ng-click="ctrl.attachPrs(ctrl.selectedPrs, ctrl.category)">Aggiungi</button>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+      <hr/>
+      <hr/>
 
       <div class="row">
         <div class="col-xs-12">
@@ -146,7 +139,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="pr in ctrl.category.prs" ng-if="pr.id !== 1">
+              <tr ng-if="pr.id !== 1" ng-repeat="pr in ctrl.category.prs">
                 <td class="text-center" style="padding-top: 9px;">{{pr.firstName}}</td>
                 <td class="text-center" style="padding-top: 9px;">{{pr.lastName}}</td>
                 <td class="text-center"><a class="btn btn-danger btn-xs" ng-click="ctrl.detachPr(pr, ctrl.category)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -155,8 +148,8 @@
           </table>
         </div>
       </div>
-
-      <div class="row br-lg"></div>
     </div>
   </div>
+
+  <div class="row br-lg"></div>
 </div>

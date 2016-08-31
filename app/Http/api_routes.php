@@ -25,8 +25,15 @@ $api->version('v1', function ($api) {
 	$api->post('images/upload', 'App\Api\V1\Controllers\ImageController@upload');
 	$api->post('images/remove', 'App\Api\V1\Controllers\ImageController@remove');
 
+	$api->get('logs', 'App\Api\V1\Controllers\LogController@index');
+	$api->get('logs/{id}', 'App\Api\V1\Controllers\LogController@show');
+	$api->post('logs', 'App\Api\V1\Controllers\LogController@store');
+	$api->delete('logs/{id}', 'App\Api\V1\Controllers\LogController@destroy');
+
 	$api->resource('partecipants', 'App\Api\V1\Controllers\PartecipantController');
 
 	$api->resource('prs', 'App\Api\V1\Controllers\PrController');
+
+	$api->resource('sponsors', 'App\Api\V1\Controllers\SponsorController');
 
 });

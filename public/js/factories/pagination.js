@@ -2,10 +2,10 @@ angular.module('myServices').factory('paginationService', function ($http) {
 
   var events = [];
 
-  function paginate(category, objectsPerPage) {
+  function paginate(objects, objectsPerPage) {
     events.length = 0;
 
-    angular.forEach(category.events, function(event, index) {
+    angular.forEach(objects, function(event, index) {
       if(index == 0 || index % objectsPerPage == 0) {
         events.push([event]);
       } else {

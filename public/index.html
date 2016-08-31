@@ -47,6 +47,11 @@
   <script src="js/app.js"></script>
 
   <script src="js/controllers/module.js"></script>
+  <script src="js/controllers/administerCategory.js"></script>
+  <script src="js/controllers/administerDj.js"></script>
+  <script src="js/controllers/administerLog.js"></script>
+  <script src="js/controllers/administerPr.js"></script>
+  <script src="js/controllers/administerSponsor.js"></script>
   <script src="js/controllers/categories.js"></script>
   <script src="js/controllers/createDj.js"></script>
   <script src="js/controllers/createEvent.js"></script>
@@ -56,9 +61,13 @@
   <script src="js/controllers/events.js"></script>
   <script src="js/controllers/index.js"></script>
   <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/pdf.js"></script>
+  <script src="js/controllers/sponsors.js"></script>
   <script src="js/controllers/updateCategory.js"></script>
   <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
+  <script src="js/controllers/updatePr.js"></script>
+  <script src="js/controllers/updateSponsor.js"></script>
 
   <script src="js/factories/module.js"></script>
   <script src="js/factories/category.js"></script>
@@ -66,13 +75,16 @@
   <script src="js/factories/dj.js"></script>
   <script src="js/factories/event.js"></script>
   <script src="js/factories/image.js"></script>
+  <script src="js/factories/log.js"></script>
   <script src="js/factories/pagination.js"></script>
   <script src="js/factories/partecipant.js"></script>
   <script src="js/factories/pr.js"></script>
   <script src="js/factories/socket.js"></script>
+  <script src="js/factories/sponsor.js"></script>
   <script src="js/factories/user.js"></script>
 
   <script src="js/filters/module.js"></script>
+  <script src="js/filters/dejson.js"></script>
   <script src="js/filters/decache.js"></script>
   <script src="js/filters/newEvents.js"></script>
   <script src="js/filters/newLine.js"></script>
@@ -80,20 +92,6 @@
   <script src="js/filters/oldEvents.js"></script>
   <script src="js/filters/parseUrl.js"></script>
   <script src="js/filters/removeEscape.js"></script>
-
-  <style>
-  .add-on .input-group-btn > .btn {
-    border-left-width:0;left:-2px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  }
-  /* stop the glowing blue shadow */
-  .add-on .form-control:focus {
-    box-shadow:none;
-    -webkit-box-shadow:none;
-    border-color:#cccccc;
-  }
-  </style>
 </head>
 
 <body>
@@ -112,8 +110,10 @@
       </div>
       <nav class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
+          <li><a href="/sponsor">Sponsor</a></li>
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>
@@ -148,16 +148,6 @@
         <div class="col-xs-12">
           <div class="text-center">
             Visitatori: {{index.counter.visitors}}
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="text-right">
-            <div class="col-xs-12" ng-if="index.user.id == 1">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
-            <div class="col-xs-12" ng-if="!index.user || index.user.id != 1">
-              <div class="text-center">Realizzato da <a href="https://github.com/lxmiccio">Alex Miccio</a></div>
-            </div>
           </div>
         </div>
       </div>

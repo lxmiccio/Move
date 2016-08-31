@@ -1,15 +1,11 @@
-angular.module("myControllers").controller("UpdateDjController", function ($filter, $location, $routeParams, djService, imageService, userService) {
+// Flawless
+
+angular.module('myControllers').controller('UpdateDjController', function($window, $routeParams, djService, imageService) {
 
   var vm  = this;
 
   vm.changedExternalImage = false;
   vm.changedInternalImage = false;
-
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
 
   djService.getById($routeParams.id, function(response) {
     vm.dj = response.data.data;
@@ -57,8 +53,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
     }
   };
 
-  vm.updateDj = function(firstName, lastName, description, externalImage, internalImage, dj) {
-
+  vm.update = function(firstName, lastName, description, externalImage, internalImage, dj) {
     if(!vm.changedExternalImage) {
       if(!vm.changedInternalImage) {
         djService.update(dj.id, {
@@ -68,7 +63,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
           'external_image': externalImage,
           'internal_image': internalImage
         }, function(response) {
-          $location.path('dj/' + dj.id);
+          $window.location.href = 'dj/' + dj.id;
         }, function(response) {
           console.log(response);
         });
@@ -91,7 +86,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               'external_image': externalImage,
               'internal_image': response.data.image
             }, function(response) {
-              $location.path('dj/' + dj.id);
+              $window.location.href = 'dj/' + dj.id;
             }, function(response) {
               console.log(response);
             });
@@ -124,7 +119,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
               'external_image': externalImage,
               'internal_image': response.data.image
             }, function(response) {
-              $location.path('dj/' + dj.id);
+              //$window.location.href = 'dj/' + dj.id;
             }, function(response) {
               console.log(response);
             });
@@ -149,7 +144,7 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
                   'external_image': externalImage,
                   'internal_image': response.data.image
                 }, function(response) {
-                  $location.path('dj/' + dj.id);
+                  //$window.location.href = 'dj/' + dj.id;
                 }, function(response) {
                   console.log(response);
                 });
@@ -171,10 +166,6 @@ angular.module("myControllers").controller("UpdateDjController", function ($filt
         console.log(response);
       });
     }
-  };
-
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
   };
 
 });

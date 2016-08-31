@@ -1,4 +1,4 @@
-angular.module("myControllers").controller("IndexController", function ($http, $window, localStorageService, counterService, socket, userService) {
+angular.module('myControllers').controller('IndexController', function ($location, $window, counterService, socketService, userService) {
 
   var vm  = this;
 
@@ -42,6 +42,18 @@ angular.module("myControllers").controller("IndexController", function ($http, $
     }, function(response) {
       console.log(response);
     });
+  };
+
+  vm.locate = function(path) {
+    $location.path(path);
+  };
+
+  vm.redirect = function(path) {
+    $window.location.href = path;
+  };
+
+  vm.redirectToSite = function(link) {
+    $window.location.href = link;
   };
 
 });

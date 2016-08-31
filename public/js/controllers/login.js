@@ -1,4 +1,6 @@
-angular.module("myControllers").controller("LoginController", function ($rootScope, $window, userService) {
+// Flawless
+
+angular.module('myControllers').controller('LoginController', function ($window, logService, userService) {
 
   var vm  = this;
 
@@ -7,14 +9,16 @@ angular.module("myControllers").controller("LoginController", function ($rootSco
       username: username,
       password: password
     }, function(response) {
-      $window.location.href = $rootScope.previous;
+
+      logService.create({}, function(response) {
+        $window.location.href = '';
+      }, function(response) {
+        console.log(response);
+      })
+
     }, function(response) {
       console.log(response);
     });
-  };
-
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
   };
 
 });

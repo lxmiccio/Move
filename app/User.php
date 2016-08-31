@@ -33,6 +33,14 @@ class User extends Authenticatable
 	}
 
   /**
+  * Get the logs for the user.
+  */
+  public function logs()
+  {
+    return $this->hasMany('App\Log');
+  }
+
+  /**
   * This mutator automatically hashes the password.
   *
   * @var string

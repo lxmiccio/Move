@@ -1,4 +1,4 @@
-angular.module('myFilters').filter("newLine", function() {
+angular.module('myFilters').filter('newLine', function() {
   return function(string) {
     if (!string) {
       return string;

@@ -1,4 +1,6 @@
-<div class="row" ng-if="ctrl.isAuthenticated()">
+<!-- Flawless -->
+
+<div class="row" ng-if="index.isAuthenticated()">
   <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
     <div class="row">
       <div class="col-xs-12">
@@ -10,7 +12,7 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <p class="text-center">Modifica il Dj {{ctrl.dj.firstName}} {{ctrl.dj.lastName}}</p>
+        <h4 class="text-center">Modifica il Dj <strong>{{ctrl.dj.firstName}} {{ctrl.dj.lastName}}</strong></h4>
       </div>
     </div>
 
@@ -38,7 +40,7 @@
       </div>
     </div>
 
-    <div class="row br-xs"></div>
+    <div class="row br-sm"></div>
 
     <div class="row">
       <div class="col-xs-12">
@@ -59,7 +61,7 @@
       </div>
     </div>
 
-    <div class="row br-xs"></div>
+    <div class="row br-sm"></div>
 
     <div class="row">
       <div class="col-xs-12">
@@ -85,7 +87,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="text-center">
-          <button type="button" class="btn btn-success" ng-click="ctrl.updateDj(ctrl.firstName, ctrl.lastName, ctrl.description, ctrl.externalImage, ctrl.internalImage, ctrl.dj)">Modifica</button>
+          <button type="button" class="btn btn-success" ng-click="ctrl.update(ctrl.firstName, ctrl.lastName, ctrl.description, ctrl.externalImage, ctrl.internalImage, ctrl.dj)">Modifica</button>
         </div>
       </div>
     </div>

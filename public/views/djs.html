@@ -1,7 +1,9 @@
+<!-- Flawless -->
+
 <div class="row">
   <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="dj in ctrl.djs">
     <div class="jumbotron well-sm">
-      <div class="row br-xs"></div>
+      <div class="row br-sm"></div>
 
       <div class="row">
         <div class="col-xs-12">
@@ -13,7 +15,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <img ng-src="{{dj.externalImage}}" class="img-responsive img-rounded center-block"/>
+          <a ng-href="dj/{{dj.id}}"><img ng-src="{{dj.externalImage}}" class="img-responsive img-rounded center-block"/></a>
         </div>
       </div>
 
@@ -22,13 +24,13 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="text-center">
-            <button type="button" class="btn btn-success" ng-click="ctrl.redirect('dj/' + dj.id + '/modifica')" ng-if="ctrl.isAuthenticated()">Modifica</button>
-            <button type="button" class="btn btn-primary" ng-click="ctrl.redirect('dj/' + dj.id)">Vai</button>
+            <button type="button" class="btn btn-success" ng-click="index.locate('amministrazione/dj/' + dj.id + '/modifica')" ng-if="index.isAuthenticated()">Modifica</button>
+            <button type="button" class="btn btn-primary" ng-click="index.locate('dj/' + dj.id)">Vai</button>
           </div>
         </div>
       </div>
 
-      <div class="row br-xs"></div>
+      <div class="row br-sm"></div>
     </div>
   </div>
 </div>

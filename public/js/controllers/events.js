@@ -1,37 +1,27 @@
-angular.module("myControllers").controller("EventsController", function ($filter, $location, $routeParams, localStorageService, randomString, categoryService, paginationService, partecipantService, userService) {
+// Flawless
+
+angular.module('myControllers').controller('EventsController', function($filter, $location, $routeParams, categoryService, paginationService) {
 
   var vm  = this;
 
-  userService.me(function(response) {
-    vm.user = response.data.data;
-  }, function(response) {
-    console.log(response);
-  });
-
   categoryService.getById($routeParams.id, function(response) {
     vm.category = response.data.data;
+    vm.category.oldEvents = $filter('oldEvents')(vm.category.events.reverse());
 
-    vm.category.events = $filter('oldEvents')(vm.category.events.reverse());
-
-    paginationService.paginate(vm.category, 1);
+    paginationService.paginate(vm.category.oldEvents, 1);
     vm.pagination = paginationService.getPagination($routeParams.page);
   }, function(response)  {
     console.log(response);
   });
 
-  vm.redirect = function(path) {
-    $location.path(path);
-  };
-
-  vm.redirectToPage = function(page) {
-    if(page > 0 && page <= vm.pagination.totalPages) {
-      $location.path('categoria/' + $routeParams.id + '/pagina/' + page)
+  vm.locateToPage = function(page, totalPages, path) {
+    if(page > 0 && page <= totalPages) {
+      $location.path(path);
     }
   };
 
   vm.openPartecipantsPrsPdf = function(event) {
     var prs = [];
-
     var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {
@@ -40,7 +30,7 @@ angular.module("myControllers").controller("EventsController", function ($filter
       angular.forEach(prs, function(pr, index) {
         if(pr.id == partecipant.pr.id) {
           found = true;
-          prs[index].partecipants += ', ' + partecipant.name;
+          prs[index].partecipants += '\n ' + partecipant.name;
           prs[index].totalPartecipants++;
         }
       });
@@ -137,7 +127,6 @@ angular.module("myControllers").controller("EventsController", function ($filter
     var body = [[
       { text: 'Partecipante', style: 'tableHeader' }
     ]];
-
     var totalPartecipants = 0;
 
     angular.forEach(event.partecipants, function(partecipant) {
