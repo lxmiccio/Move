@@ -24,7 +24,7 @@ angular.module('myControllers').controller('CreateDjController', function($windo
     }
   };
 
-  vm.createDj = function (firstName, lastName, description, externalImage, internalImage) {
+  vm.create = function (firstName, lastName, description, externalImage, internalImage) {
     djService.create({
       'first_name': firstName,
       'last_name': lastName,

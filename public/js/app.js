@@ -14,6 +14,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/categoria/:id/modifica', {
     templateUrl: 'views/updateCategory.html',
     controller: 'UpdateCategoryController as ctrl'
+  }).when('/amministrazione/evento/:id/modifica', {
+    templateUrl: 'views/updateEvent.html',
+    controller: 'UpdateEventController as ctrl'
   }).when('/amministrazione/dj', {
     templateUrl: 'views/administerDj.html',
     controller: 'AdministerDjController as ctrl'
@@ -47,9 +50,6 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/categoria/:id/pagina/:page', {
     templateUrl: 'views/events.html',
     controller: 'EventsController as ctrl'
-  }).when('/evento/:id/modifica', {
-    templateUrl: 'views/updateEvent.html',
-    controller: 'UpdateEventController as ctrl'
   }).when('/dj/crea', {
     templateUrl: 'views/createDj.html',
     controller: 'CreateDjController as ctrl'
@@ -66,8 +66,8 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
     templateUrl: 'views/login.html',
     controller: 'LoginController as ctrl'
   }).when('/sponsor', {
-    templateUrl: 'views/sponsor.html',
-    controller: 'SponsorController as ctrl'
+    templateUrl: 'views/sponsors.html',
+    controller: 'SponsorsController as ctrl'
   })/*.otherwise({
     redirectTo: '/'
   })*/;

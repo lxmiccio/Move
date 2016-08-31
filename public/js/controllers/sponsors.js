@@ -1,6 +1,6 @@
 // Flawless
 
-angular.module('myControllers').controller('SponsorController', function(sponsorService) {
+angular.module('myControllers').controller('SponsorsController', function(sponsorService) {
 
   var vm  = this;
 

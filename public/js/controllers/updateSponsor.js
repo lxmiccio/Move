@@ -39,9 +39,10 @@ angular.module('myControllers').controller('UpdateSponsorController', function($
       sponsorService.update(sponsor.id, {
         'name': name,
         'link': link,
-        'description': description
+        'description': description,
+        'image': image
       }, function(response) {
-        $window.location.href = 'amministrazione/sponsor';
+        $window.location.href = 'sponsor/' + sponsor.id;
       }, function(response) {
         console.log(response);
       });
@@ -63,7 +64,7 @@ angular.module('myControllers').controller('UpdateSponsorController', function($
             'description': description,
             'image': response.data.image
           }, function(response) {
-            $window.location.href = 'amministrazione/sponsor';
+            $window.location.href = 'sponsor/' + sponsor.id;
           }, function(response) {
             console.log(response);
           });

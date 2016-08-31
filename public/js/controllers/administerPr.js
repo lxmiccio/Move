@@ -1,6 +1,6 @@
 //Flawless
 
-angular.module('myControllers').controller('AdministerPrController', function(categoryService, prService) {
+angular.module('myControllers').controller('AdministerPrController', function(categoryService, prService, $window) {
 
   var vm = this;
 
@@ -12,7 +12,6 @@ angular.module('myControllers').controller('AdministerPrController', function(ca
 
   prService.getAll(function(response) {
     vm.prs = response.data.data;
-    vm.prs.shift();
 
     angular.forEach(vm.prs, function(pr, index) {
       vm.prs[index].writtenCategories = '';
@@ -35,20 +34,26 @@ angular.module('myControllers').controller('AdministerPrController', function(ca
         pr_id: response.data.data.id
       }, function(response) {
 
-        prService.getAll(function(response) {
-          vm.prs = response.data.data;
-          vm.prs.shift();
+        $window.location.reload();
 
-          angular.forEach(vm.prs, function(pr, index) {
-            vm.prs[index].writtenCategories = '';
-            angular.forEach(pr.categories, function(category) {
-              vm.prs[index].writtenCategories += category.name + ', ';
-            });
-            vm.prs[index].writtenCategories = vm.prs[index].writtenCategories.slice(0, -2);
-          });
-        }, function(response) {
-          console.log(response);
-        });
+        // vm.firstName = null;
+        // vm.lastName = null;
+        // vm.selectedPr = null;
+        //
+        // prService.getAll(function(response) {
+        //   vm.prs = response.data.data;
+        //   vm.prs.shift();
+        //
+        //   angular.forEach(vm.prs, function(pr, index) {
+        //     vm.prs[index].writtenCategories = '';
+        //     angular.forEach(pr.categories, function(category) {
+        //       vm.prs[index].writtenCategories += category.name + ', ';
+        //     });
+        //     vm.prs[index].writtenCategories = vm.prs[index].writtenCategories.slice(0, -2);
+        //   });
+        // }, function(response) {
+        //   console.log(response);
+        // });
 
       }, function(response) {
         console.log(response);

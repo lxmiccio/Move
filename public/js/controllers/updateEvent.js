@@ -49,13 +49,14 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
     }
   };
 
-  vm.updateEvent = function(name, startingDate, maximumPartecipants, description, image, event) {
+  vm.update = function(name, startingDate, maximumPartecipants, description, image, event) {
     if(!vm.changedImage) {
       eventService.update(event.id, {
         'name': name,
         'starting_date': startingDate,
         'maximum_partecipants': maximumPartecipants,
-        'description': description
+        'description': description,
+        'image': image
       }, function(response) {
         $window.location.href = 'categoria/' + event.category.id;
       }, function(response) {
@@ -73,7 +74,7 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
           'filename': event.id
         }, function(response) {
 
-          eventService.update(sponsor.id, {
+          eventService.update(event.id, {
             'name': name,
             'starting_date': startingDate,
             'maximum_partecipants': maximumPartecipants,

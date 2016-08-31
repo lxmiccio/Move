@@ -6,8 +6,9 @@ angular.module('myControllers').controller('EventsController', function($filter,
 
   categoryService.getById($routeParams.id, function(response) {
     vm.category = response.data.data;
+    vm.category.oldEvents = $filter('oldEvents')(vm.category.events.reverse());
 
-    paginationService.paginate($filter('oldEvents')(vm.category.events.reverse()), 1);
+    paginationService.paginate(vm.category.oldEvents, 1);
     vm.pagination = paginationService.getPagination($routeParams.page);
   }, function(response)  {
     console.log(response);

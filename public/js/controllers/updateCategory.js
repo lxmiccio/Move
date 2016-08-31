@@ -14,6 +14,8 @@ angular.module('myControllers').controller('UpdateCategoryController', function 
 
     prService.getAll(function(response) {
       vm.prs = response.data.data;
+
+      vm.filteredPrs = vm.prs.shift();
       vm.filteredPrs = $filter('newPrs')(vm.prs, vm.category);
     }, function(response) {
       console.log(response);
@@ -40,12 +42,13 @@ angular.module('myControllers').controller('UpdateCategoryController', function 
     }
   };
 
-  vm.updateCategory = function(name, image, category) {
+  vm.update = function(name, image, category) {
     if(!vm.changedImage) {
       categoryService.update(category.id, {
-        'name': name
+        'name': name,
+        'image': image
       }, function(response) {
-        vm.function = response.data.data;
+        vm.category = response.data.data;
       }, function(response) {
         console.log(response);
       });
@@ -65,7 +68,7 @@ angular.module('myControllers').controller('UpdateCategoryController', function 
             'name': name,
             'image': response.data.image
           }, function(response) {
-            vm.function = response.data.data;
+            vm.category = response.data.data;
           }, function(response) {
             console.log(response);
           });

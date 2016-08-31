@@ -8,15 +8,17 @@ angular.module('myControllers').controller('EventController', function($filter, 
     vm.category = response.data.data;
 
     vm.event = $filter('newEvents')(vm.category.events)[0];
-    vm.event.show = true;
 
-    vm.partecipantsCounter = vm.event.partecipantsCounter;
+    if(vm.event) {
+      vm.event.show = true;
+      vm.partecipantsCounter = vm.event.partecipantsCounter;
 
-    angular.forEach(vm.event.partecipants, function(partecipant) {
-      if(partecipant.token == localStorageService.get('userToken')) {
-        vm.event.show = false;
-      }
-    });
+      angular.forEach(vm.event.partecipants, function(partecipant) {
+        if(partecipant.token == localStorageService.get('userToken')) {
+          vm.event.show = false;
+        }
+      });
+    }
   }, function(response)  {
     console.log(response);
   });

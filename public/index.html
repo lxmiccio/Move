@@ -61,7 +61,7 @@
   <script src="js/controllers/events.js"></script>
   <script src="js/controllers/index.js"></script>
   <script src="js/controllers/login.js"></script>
-  <script src="js/controllers/sponsor.js"></script>
+  <script src="js/controllers/sponsors.js"></script>
   <script src="js/controllers/updateCategory.js"></script>
   <script src="js/controllers/updateDj.js"></script>
   <script src="js/controllers/updateEvent.js"></script>
@@ -83,6 +83,7 @@
   <script src="js/factories/user.js"></script>
 
   <script src="js/filters/module.js"></script>
+  <script src="js/filters/dejson.js"></script>
   <script src="js/filters/decache.js"></script>
   <script src="js/filters/newEvents.js"></script>
   <script src="js/filters/newLine.js"></script>
@@ -108,11 +109,11 @@
       </div>
       <nav class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
           <li><a href="/sponsor">Sponsor</a></li>
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
-          <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>
         </ul>
       </nav>
