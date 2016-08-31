@@ -113,19 +113,19 @@ angular.module('myControllers').controller('EventController', function($filter, 
   };
 
   vm.remove = function(event) {
-    imageService.remove({
-      image: event.image
-    }, function(response) {
-
-      eventService.remove(event.id, function(response) {
-        $window.location.href = '';
-      }, function(response) {
-        console.log(response);
-      });
-
-    }, function(response) {
-      console.log(response);
-    });
+    // imageService.remove({
+    //   image: event.image
+    // }, function(response) {
+    //
+    //   eventService.remove(event.id, function(response) {
+    //     $window.location.href = '';
+    //   }, function(response) {
+    //     console.log(response);
+    //   });
+    //
+    // }, function(response) {
+    //   console.log(response);
+    // });
   };
 
   vm.openPartecipantsPrsPdf = function(event) {
