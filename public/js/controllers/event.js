@@ -138,7 +138,7 @@ angular.module('myControllers').controller('EventController', function($filter, 
       angular.forEach(prs, function(pr, index) {
         if(pr.id == partecipant.pr.id) {
           found = true;
-          prs[index].partecipants += ', ' + partecipant.name;
+          prs[index].partecipants += '\n ' + partecipant.name;
           prs[index].totalPartecipants++;
         }
       });
@@ -194,67 +194,6 @@ angular.module('myControllers').controller('EventController', function($filter, 
           widths: ['*', '*'],
           headerRows: 1,
           body: partecipantsPerPr
-        }
-      }, {
-        style: 'text',
-        text: 'Partecipanti: ' + totalPartecipants
-      }],
-      styles: {
-        header: {
-          alignment: 'center',
-          bold: true,
-          fontSize: 18,
-          margin: [0, 0, 0, 10]
-        },
-        table: {
-          margin: [0, 15, 0, 15]
-        },
-        tableHeader: {
-          alignment: 'center',
-          bold: true,
-          fontSize: 12,
-          margin: [0, 2, 0, 2]
-        },
-        tableText: {
-          alignment: 'center',
-          fontSize: 10,
-          margin: [0, 2, 0, 2]
-        },
-        text: {
-          alignment: 'center',
-          fontSize: 12,
-          margin: [0, 15, 0, 15]
-        }
-      }
-    };
-
-    pdfMake.createPdf(pdf).open();
-  };
-
-  vm.openPartecipantsPdf = function(event) {
-    var body = [[
-      { text: 'Partecipante', style: 'tableHeader' }
-    ]];
-    var totalPartecipants = 0;
-
-    angular.forEach(event.partecipants, function(partecipant) {
-      body.push([
-        { text: partecipant.name, style: 'tableText' }
-      ]);
-
-      totalPartecipants++;
-    });
-
-    var pdf = {
-      content: [{
-        text: event.name,
-        style: 'header'
-      }, {
-        style: 'table',
-        table: {
-          widths: ['*'],
-          headerRows: 1,
-          body: body
         }
       }, {
         style: 'text',

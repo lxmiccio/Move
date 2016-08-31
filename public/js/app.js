@@ -23,6 +23,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/evento/:id/modifica', {
     templateUrl: 'views/updateEvent.html',
     controller: 'UpdateEventController as ctrl'
+  }).when('/amministrazione/evento/:id/pdf', {
+    templateUrl: 'views/pdf.html',
+    controller: 'PdfController as ctrl'
   }).when('/amministrazione/dj', {
     templateUrl: 'views/administerDj.html',
     controller: 'AdministerDjController as ctrl'

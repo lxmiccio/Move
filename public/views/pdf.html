@@ -1,0 +1,62 @@
+<!-- Flawless -->
+
+<div class="row" ng-if="index.isAuthenticated()">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="text-center"><strong>Stampa i Partecipanti</strong></h2>
+      </div>
+    </div>
+
+    <div class="row br-lg"></div>
+  </div>
+
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4 class="text-center">Elimina i Partecipanti</h4>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-xs-6 text-center">Nome</th>
+                  <th class="col-xs-3 text-center">Pr</th>
+                  <th class="col-xs-3 text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="partecipant in ctrl.partecipants">
+                  <td class="text-center" style="padding-top: 9px;">{{partecipant.name}}</td>
+                  <td class="text-center" style="padding-top: 9px;">{{partecipant.pr.firstName}} {{partecipant.pr.lastName}}</td>
+                  <td class="text-center">
+                    <a class="btn btn-danger btn-xs" ng-click="ctrl.remove(partecipant, ctrl.partecipants)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row br-lg"></div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="text-center">
+              <button type="button" class="btn btn-success" ng-click="ctrl.openPdf(ctrl.partecipants, ctrl.event)">Crea Pdf</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row br-lg"></div>
+  </div>
+</div>

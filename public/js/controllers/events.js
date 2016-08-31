@@ -30,7 +30,7 @@ angular.module('myControllers').controller('EventsController', function($filter,
       angular.forEach(prs, function(pr, index) {
         if(pr.id == partecipant.pr.id) {
           found = true;
-          prs[index].partecipants += ', ' + partecipant.name;
+          prs[index].partecipants += '\n ' + partecipant.name;
           prs[index].totalPartecipants++;
         }
       });
