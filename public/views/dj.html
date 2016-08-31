@@ -23,12 +23,12 @@
 
           <div class="row">
             <div class="col-xs-12">
-              <p class="text-center">{{ctrl.dj.description}}</p>
+              <p class="text-center" ng-bind-html="ctrl.dj.description | json | newLine | parseUrl | removeEscape | dejson"></p>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div class="row br-lg"></div>
     </div>
   </div>
