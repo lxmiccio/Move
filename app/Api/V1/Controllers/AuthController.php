@@ -4,7 +4,6 @@ namespace App\Api\V1\Controllers;
 
 use Config;
 use JWTAuth;
-use Mail;
 use Validator;
 use App\Http\Controllers\Controller;
 use App\Transformers\UserTransformer;
@@ -13,7 +12,6 @@ use Carbon\Carbon;
 use Dingo\Api\Exception\ValidationHttpException;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Password;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;

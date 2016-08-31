@@ -20,6 +20,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/dj/:id/modifica', {
     templateUrl: 'views/updateDj.html',
     controller: 'UpdateDjController as ctrl'
+  }).when('/amministrazione/log', {
+    templateUrl: 'views/administerLog.html',
+    controller: 'AdministerLogController as ctrl'
   }).when('/amministrazione/pr', {
     templateUrl: 'views/administerPr.html',
     controller: 'AdministerPrController as ctrl'

@@ -1,4 +1,4 @@
-angular.module('myControllers').controller('LoginController', function ($rootScope, $window, userService) {
+angular.module('myControllers').controller('LoginController', function ($rootScope, $window, logService, userService) {
 
   var vm  = this;
 
@@ -7,14 +7,18 @@ angular.module('myControllers').controller('LoginController', function ($rootSco
       username: username,
       password: password
     }, function(response) {
-      $window.location.href = $rootScope.previous;
+
+      logService.create({
+
+      }, function(response) {
+        $window.location.href = $rootScope.previous;
+      }, function(response) {
+        console.log(response);
+      })
+
     }, function(response) {
       console.log(response);
     });
-  };
-
-  vm.isAuthenticated = function () {
-    return userService.isAuthenticated();
   };
 
 });
