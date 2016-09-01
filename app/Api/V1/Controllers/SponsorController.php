@@ -43,7 +43,8 @@ class SponsorController extends Controller
   {
     $validator = Validator::make($request->only(['name', 'link']), [
       'name' => 'required',
-      'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+      // 'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+      'link' => 'required'
     ]);
 
     if($validator->fails()) {
@@ -70,7 +71,8 @@ class SponsorController extends Controller
     $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'link'])), [
       'id' => 'required|exists:sponsors,id',
       'name' => 'required',
-      'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+      // 'link' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+      'link' => 'required'
     ]);
 
     if($validator->fails()) {
