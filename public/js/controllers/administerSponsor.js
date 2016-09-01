@@ -85,4 +85,26 @@ angular.module('myControllers').controller('AdministerSponsorController', functi
     }
   };
 
+  vm.remove = function(sponsor) {
+    imageService.remove({
+      image: sponsor.image
+    }, function(response) {
+
+      sponsorService.remove(sponsor.id, function(response) {
+
+        sponsorService.getAll(function(response) {
+          vm.sponsors = response.data.data;
+        }, function(response) {
+          console.log(response);
+        });
+
+      }, function(response) {
+        console.log(response);
+      });
+
+    }, function(response) {
+      console.log(response);
+    });
+  }
+
 });
