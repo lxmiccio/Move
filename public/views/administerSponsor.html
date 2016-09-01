@@ -97,7 +97,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="sponsor in ctrl.sponsors">
+              <tr ng-repeat="sponsor in ctrl.sponsors | orderBy:'name'">
                 <td class="text-center" style="padding-top: 9px;">{{sponsor.name}}</td>
                 <td class="text-center" style="padding-top: 9px;" ng-bind-html="sponsor.link | parseUrl"></td>
                 <td class="text-center">

@@ -117,7 +117,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="dj in ctrl.djs">
+              <tr ng-repeat="dj in ctrl.djs | orderBy:'lastName'">
                 <td class="text-center" style="padding-top: 9px;">{{dj.firstName}}</td>
                 <td class="text-center" style="padding-top: 9px;">{{dj.lastName}}</td>
                 <td class="text-center">
