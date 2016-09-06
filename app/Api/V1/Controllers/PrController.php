@@ -23,6 +23,16 @@ class PrController extends Controller
 
   public function index()
   {
+    // if(file_exists('prs.txt')) {
+    //   unlink('prs.txt');
+    // }
+    //
+    // foreach(Pr::all() as $pr) {
+    //   if(strcmp($pr->last_name, 'Nessuno')) {
+    //     file_put_contents('prs.txt', $pr->first_name . ' ' . $pr->last_name . "\n", FILE_APPEND);
+    //   }
+    // }
+
     return $this->response->collection(Pr::all(), new PrTransformer);
   }
 
