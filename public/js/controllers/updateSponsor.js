@@ -48,7 +48,7 @@ angular.module('myControllers').controller('UpdateSponsorController', function($
       });
     }
     else {
-      imageService.remove({
+      imageService.cancel({
         image: sponsor.image
       }, function(response) {
 

@@ -50,6 +50,7 @@
   <script src="js/controllers/administerCategory.js"></script>
   <script src="js/controllers/administerDj.js"></script>
   <script src="js/controllers/administerLog.js"></script>
+  <script src="js/controllers/administerImage.js"></script>
   <script src="js/controllers/administerPr.js"></script>
   <script src="js/controllers/administerSponsor.js"></script>
   <script src="js/controllers/categories.js"></script>
@@ -59,6 +60,7 @@
   <script src="js/controllers/djs.js"></script>
   <script src="js/controllers/event.js"></script>
   <script src="js/controllers/events.js"></script>
+  <script src="js/controllers/images.js"></script>
   <script src="js/controllers/index.js"></script>
   <script src="js/controllers/login.js"></script>
   <script src="js/controllers/pdf.js"></script>
@@ -113,6 +115,7 @@
           <li ng-if="index.isAuthenticated()"><a href="/amministrazione">Amministrazione</a></li>
           <li><a href="/">Home</a></li>
           <li><a href="/dj">Dj</a></li>
+          <li><a href="/foto">Foto</a></li>
           <li><a href="/sponsor">Sponsor</a></li>
           <li ng-if="!index.isAuthenticated()"><a href="/login">Login</a></li>
           <li ng-if="index.isAuthenticated()"><a ng-click="index.logout()">Logout</a></li>

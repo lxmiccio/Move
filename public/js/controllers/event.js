@@ -113,7 +113,7 @@ angular.module('myControllers').controller('EventController', function($filter, 
   };
 
   vm.remove = function(event) {
-    // imageService.remove({
+    // imageService.cancel({
     //   image: event.image
     // }, function(response) {
     //

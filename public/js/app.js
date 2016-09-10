@@ -26,6 +26,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/amministrazione/evento/:id/pdf', {
     templateUrl: 'views/pdf.html',
     controller: 'PdfController as ctrl'
+  }).when('/amministrazione/foto', {
+    templateUrl: 'views/administerImage.html',
+    controller: 'AdministerImageController as ctrl'
   }).when('/amministrazione/dj', {
     templateUrl: 'views/administerDj.html',
     controller: 'AdministerDjController as ctrl'
@@ -56,6 +59,9 @@ angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomStri
   }).when('/dj', {
     templateUrl: 'views/djs.html',
     controller: 'DjsController as ctrl'
+  }).when('/foto', {
+    templateUrl: 'views/images.html',
+    controller: 'ImageController as ctrl'
   }).when('/dj/:id', {
     templateUrl: 'views/dj.html',
     controller: 'DjController as ctrl'

@@ -1,0 +1,27 @@
+<!-- Flawless -->
+
+<div class="row">
+  <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="image in ctrl.images">
+    <div class="jumbotron well-sm">
+      <div class="row br-sm"></div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <a><img ng-src="{{image.image | decache}}" class="img-responsive img-rounded center-block"/></a>
+        </div>
+      </div>
+
+      <div class="row br-sm" ng-if="index.isAuthenticated()"></div>
+
+      <div class="row" ng-if="index.isAuthenticated()">
+        <div class="col-xs-12">
+          <div class="text-center">
+            <button type="button" class="btn btn-danger" ng-click="ctrl.remove(image)">Rimuovi</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row br-sm"></div>
+    </div>
+  </div>
+</div>

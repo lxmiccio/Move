@@ -64,7 +64,7 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
       });
     }
     else {
-      imageService.remove({
+      imageService.cancel({
         image: event.image
       }, function(response) {
 

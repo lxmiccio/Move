@@ -54,7 +54,7 @@ angular.module('myControllers').controller('UpdateCategoryController', function 
       });
     }
     else {
-      imageService.remove({
+      imageService.cancel({
         image: category.image
       }, function(response) {
 
