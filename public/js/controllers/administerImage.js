@@ -9,7 +9,9 @@ angular.module('myControllers').controller('AdministerImageController', function
   };
 
   vm.changeImage = function(image) {
-    
+    if(image) {
+      vm.image = image;
+    }
   };
 
   imageService.getAll(function(response) {
