@@ -86,7 +86,7 @@ angular.module('myControllers').controller('AdministerSponsorController', functi
   };
 
   vm.remove = function(sponsor) {
-    imageService.remove({
+    imageService.cancel({
       image: sponsor.image
     }, function(response) {
 
@@ -105,6 +105,6 @@ angular.module('myControllers').controller('AdministerSponsorController', functi
     }, function(response) {
       console.log(response);
     });
-  }
+  };
 
 });

@@ -22,8 +22,9 @@ $api->version('v1', function ($api) {
 
 	$api->resource('djs', 'App\Api\V1\Controllers\DjController');
 
+	$api->resource('images', 'App\Api\V1\Controllers\ImageController');
 	$api->post('images/upload', 'App\Api\V1\Controllers\ImageController@upload');
-	$api->post('images/remove', 'App\Api\V1\Controllers\ImageController@remove');
+	$api->post('images/cancel', 'App\Api\V1\Controllers\ImageController@cancel');
 
 	$api->get('logs', 'App\Api\V1\Controllers\LogController@index');
 	$api->get('logs/{id}', 'App\Api\V1\Controllers\LogController@show');

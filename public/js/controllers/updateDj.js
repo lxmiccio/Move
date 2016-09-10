@@ -69,7 +69,7 @@ angular.module('myControllers').controller('UpdateDjController', function($windo
         });
       }
       else {
-        imageService.remove({
+        imageService.cancel({
           image: dj.internalImage
         }, function(response) {
 
@@ -101,7 +101,7 @@ angular.module('myControllers').controller('UpdateDjController', function($windo
       }
     }
     else {
-      imageService.remove({
+      imageService.cancel({
         image: dj.externalImage
       }, function(response) {
 
@@ -127,7 +127,7 @@ angular.module('myControllers').controller('UpdateDjController', function($windo
           else {
             var externalImage = response.data.image;
 
-            imageService.remove({
+            imageService.cancel({
               image: dj.internalImage
             }, function(response) {
 

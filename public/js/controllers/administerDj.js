@@ -126,11 +126,11 @@ angular.module('myControllers').controller('AdministerDjController', function(dj
   };
 
   vm.remove = function(dj) {
-    imageService.remove({
+    imageService.cancel({
       image: dj.externalImage
     }, function(response) {
 
-      imageService.remove({
+      imageService.cancel({
         image: dj.internalImage
       }, function(response) {
 
