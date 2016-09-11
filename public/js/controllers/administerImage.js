@@ -4,50 +4,45 @@ angular.module('myControllers').controller('AdministerImageController', function
 
   var vm  = this;
 
-  vm.removeImage = function() {
-    vm.image = null;
-  };
-
-  vm.changeImage = function(image) {
-    if(image) {
-      vm.image = image;
-    }
-  };
-
   imageService.getAll(function(response) {
     vm.djs = response.data.data;
   }, function(response) {
     console.log(response);
   });
 
-  vm.create = function(image) {
-    if(image) {
-      imageService.create({
-      }, function(response) {
+  vm.removeImage = function() {
+    vm.image = null;
+  };
 
-        var id = response.data.data.id;
-
-        imageService.upload({
-          'image': image,
-          'directory': 'images',
-          'filename': id
+  vm.create = function(images) {
+    if(images && images.length) {
+      angular.forEach(images, function(image) {
+        imageService.create({
         }, function(response) {
 
-          imageService.update(id, {
-            'image': response.data.image
+          var id = response.data.data.id;
+
+          imageService.upload({
+            'image': image,
+            'directory': 'images',
+            'filename': id
           }, function(response) {
-            $location.path('foto');
+
+            imageService.update(id, {
+              'image': response.data.image
+            }, function(response) {
+              $location.path('foto');
+            }, function(response) {
+              console.log(response);
+            });
+
           }, function(response) {
             console.log(response);
           });
-
         }, function(response) {
           console.log(response);
         });
-      }, function(response) {
-        console.log(response);
       });
     }
   };
-
 });
