@@ -1,4 +1,4 @@
-angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomString', 'btford.socket-io', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
+angular.module('moveApp', ['angucomplete-alt', 'angular-jwt', 'angularRandomString', 'btford.socket-io', 'isteven-multi-select', 'LocalStorageModule', 'ngFileUpload', 'ngRoute', 'ngSanitize', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'myControllers', 'myFilters', 'myServices'])
 
 .config(function ($locationProvider, $routeProvider) {
   $locationProvider.html5Mode(true);

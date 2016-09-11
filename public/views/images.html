@@ -4,7 +4,7 @@
   <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="image in ctrl.images">
     <div class="row">
       <div class="col-xs-12">
-        <a><img ng-src="{{image.image | decache}}" class="img-responsive img-rounded center-block"/></a>
+        <a ng-click="ctrl.openImage(image, 'lg', 'views/image.html')"><img ng-src="{{image.image | decache}}" class="img-responsive img-rounded center-block"/></a>
       </div>
     </div>
 

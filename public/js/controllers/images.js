@@ -1,4 +1,4 @@
-angular.module('myControllers').controller('ImageController', function (imageService) {
+angular.module('myControllers').controller('ImageController', function($uibModal, imageService) {
 
   var vm  = this;
 
@@ -30,4 +30,23 @@ angular.module('myControllers').controller('ImageController', function (imageSer
     });
   };
 
+  vm.openImage = function(image, size, view) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      controller: function ($scope, $uibModalInstance) {
+        $scope.image = image;
+
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss("cancel");
+        };
+      },
+      resolve: {
+        image: function() {
+          return image;
+        }
+      },
+      size: size,
+      templateUrl: view
+    });
+  };
 });
