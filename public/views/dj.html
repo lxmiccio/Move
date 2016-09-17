@@ -19,11 +19,11 @@
             </div>
           </div>
 
-          <div class="row br-lg" ng-if="!ctrl.dj.description || ctrl.dj.description.length > 0"></div>
+          <div class="row br-lg" ng-if="!ctrl.dj.description || ctrl.dj.description.length <= 0"></div>
 
           <div class="row">
             <div class="col-xs-12">
-              <p class="text-center" ng-if="!ctrl.dj.description || ctrl.dj.description.length > 0" ng-bind-html="ctrl.dj.description | json | newLine | parseUrl | removeEscape | dejson"></p>
+              <p class="text-center" ng-if="!ctrl.dj.description || ctrl.dj.description.length <= 0" ng-bind-html="ctrl.dj.description | json | newLine | parseUrl | removeEscape | dejson"></p>
             </div>
           </div>
         </div>
