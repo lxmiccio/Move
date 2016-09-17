@@ -1,6 +1,6 @@
 // Flawless
 
-angular.module('myControllers').controller('AdministerDjController', function(djService, imageService) {
+angular.module('myControllers').controller('AdministerDjController', function($window, djService, imageService) {
 
   var vm  = this;
 
@@ -83,7 +83,7 @@ angular.module('myControllers').controller('AdministerDjController', function(dj
               'external_image': response.data.image,
               'internal_image': internalImage
             }, function(response) {
-              $location.path('dj/' + id);
+              $window.location.href = 'dj/' + id;
             }, function(response) {
               console.log(response);
             });

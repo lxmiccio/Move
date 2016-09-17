@@ -116,10 +116,10 @@ angular.module('myControllers').controller('UpdateDjController', function($windo
               'first_name': firstName,
               'last_name': lastName,
               'description': description,
-              'external_image': externalImage,
-              'internal_image': response.data.image
+              'external_image': response.data.image,
+              'internal_image': internalImage
             }, function(response) {
-              //$window.location.href = 'dj/' + dj.id;
+              $window.location.href = 'dj/' + dj.id;
             }, function(response) {
               console.log(response);
             });
@@ -144,7 +144,7 @@ angular.module('myControllers').controller('UpdateDjController', function($windo
                   'external_image': externalImage,
                   'internal_image': response.data.image
                 }, function(response) {
-                  //$window.location.href = 'dj/' + dj.id;
+                  $window.location.href = 'dj/' + dj.id;
                 }, function(response) {
                   console.log(response);
                 });
