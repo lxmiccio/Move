@@ -1,4 +1,4 @@
-angular.module('myControllers').controller('IndexController', function ($location, $window, counterService, socketService, userService) {
+angular.module('myControllers').controller('IndexController', function($location, $window, counterService, socketService, userService) {
 
   var vm  = this;
 

@@ -33,10 +33,10 @@ angular.module('myControllers').controller('ImageController', function($uibModal
   vm.openImage = function(image, size, view) {
     var modalInstance = $uibModal.open({
       animation: true,
-      controller: function ($scope, $uibModalInstance) {
+      controller: function($scope, $uibModalInstance) {
         $scope.image = image;
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
           $uibModalInstance.dismiss("cancel");
         };
       },

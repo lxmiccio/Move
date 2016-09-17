@@ -1,6 +1,6 @@
 //Flawless
 
-angular.module('myControllers').controller('CreateEventController', function ($filter, $routeParams, $window, categoryService, eventService, imageService) {
+angular.module('myControllers').controller('CreateEventController', function($filter, $routeParams, $window, categoryService, eventService, imageService) {
 
   var vm  = this;
 
@@ -28,7 +28,7 @@ angular.module('myControllers').controller('CreateEventController', function ($f
     }
   };
 
-  vm.createEvent = function (name, startingDate, description, image, category) {
+  vm.createEvent = function(name, startingDate, description, image, category) {
     eventService.create({
       'name': name,
       'starting_date': startingDate,

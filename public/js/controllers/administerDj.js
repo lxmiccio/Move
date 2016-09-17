@@ -30,7 +30,7 @@ angular.module('myControllers').controller('AdministerDjController', function(dj
     }
   };
 
-  vm.create = function (firstName, lastName, description, externalImage, internalImage) {
+  vm.create = function(firstName, lastName, description, externalImage, internalImage) {
     djService.create({
       'first_name': firstName,
       'last_name': lastName,

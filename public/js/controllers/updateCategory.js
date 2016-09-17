@@ -1,6 +1,6 @@
 // Flawless
 
-angular.module('myControllers').controller('UpdateCategoryController', function ($filter, $routeParams, categoryService, imageService, prService, userService) {
+angular.module('myControllers').controller('UpdateCategoryController', function($filter, $routeParams, categoryService, imageService, prService, userService) {
 
   var vm  = this;
 
