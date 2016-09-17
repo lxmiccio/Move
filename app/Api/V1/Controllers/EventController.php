@@ -41,10 +41,9 @@ class EventController extends Controller
 
   public function store(Request $request)
   {
-    $validator = Validator::make($request->only(['name', 'starting_date', 'maximum_partecipants', 'category_id']), [
+    $validator = Validator::make($request->only(['name', 'starting_date', 'category_id']), [
       'name' => 'required',
       'starting_date' => 'required|date_format:Y-m-d H:i:s',
-      'maximum_partecipants' => 'required|integer|min:0',
       'category_id' => 'required|exists:categories,id'
     ]);
 
@@ -56,7 +55,7 @@ class EventController extends Controller
 
     $event->name = $request->get('name');
     $event->starting_date = $request->get('starting_date');
-    $event->maximum_partecipants = $request->get('maximum_partecipants');
+    $event->maximum_partecipants = 100000;
     $event->description = $request->get('description');
     $event->image = $request->get('image');
     $event->category_id = $request->get('category_id');
@@ -71,11 +70,10 @@ class EventController extends Controller
 
   public function update(Request $request, $id)
   {
-    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date', 'maximum_partecipants'])), [
+    $validator = Validator::make(array_merge(['id' => $id], $request->only(['name', 'starting_date'])), [
       'id' => 'required|exists:events,id',
       'name' => 'required',
-      'starting_date' => 'required|date_format:Y-m-d H:i:s',
-      'maximum_partecipants' => 'required|integer|min:0'
+      'starting_date' => 'required|date_format:Y-m-d H:i:s'
     ]);
 
     if($validator->fails()) {
@@ -87,7 +85,6 @@ class EventController extends Controller
     $event->name = $request->get('name');
     $event->starting_date = $request->get('starting_date');
     $event->partecipants_counter = $request->get('partecipants_counter');
-    $event->maximum_partecipants = $request->get('maximum_partecipants');
     $event->description = $request->get('description');
     $event->image = $request->get('image');
 

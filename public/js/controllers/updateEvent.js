@@ -11,7 +11,6 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
 
     vm.name = vm.event.name;
     vm.startingDate = vm.event.startingDate;
-    vm.maximumPartecipants = vm.event.maximumPartecipants;
     vm.description = vm.event.description;
     vm.image = vm.event.image;
   }, function(response) {
@@ -23,12 +22,6 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
       vm.startingDate = $filter('date')(startingDate, 'yyyy-MM-dd HH:mm:ss');
     } else {
       vm.startingDate = '';
-    }
-  };
-
-  vm.onMaximumPartecipantsChange = function(maximumPartecipants, event) {
-    if(!Number.isInteger(maximumPartecipants) || maximumPartecipants < event.partecipants.length) {
-      vm.maximumPartecipants = event.partecipants.length;
     }
   };
 
@@ -49,12 +42,11 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
     }
   };
 
-  vm.update = function(name, startingDate, maximumPartecipants, description, image, event) {
+  vm.update = function(name, startingDate, description, image, event) {
     if(!vm.changedImage) {
       eventService.update(event.id, {
         'name': name,
         'starting_date': startingDate,
-        'maximum_partecipants': maximumPartecipants,
         'description': description,
         'image': image
       }, function(response) {
@@ -77,7 +69,6 @@ angular.module('myControllers').controller('UpdateEventController', function($fi
           eventService.update(event.id, {
             'name': name,
             'starting_date': startingDate,
-            'maximum_partecipants': maximumPartecipants,
             'description': description,
             'image': response.data.image
           }, function(response) {

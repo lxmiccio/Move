@@ -18,12 +18,6 @@ angular.module('myControllers').controller('CreateEventController', function ($f
     }
   };
 
-  vm.onMaximumPartecipantsChange = function(maximumPartecipants) {
-    if(!Number.isInteger(maximumPartecipants) || maximumPartecipants < 0) {
-      vm.maximumPartecipants = 0;
-    }
-  };
-
   vm.removeImage = function() {
     vm.image = null;
   };
@@ -34,11 +28,10 @@ angular.module('myControllers').controller('CreateEventController', function ($f
     }
   };
 
-  vm.createEvent = function (name, startingDate, maximumPartecipants, description, image, category) {
+  vm.createEvent = function (name, startingDate, description, image, category) {
     eventService.create({
       'name': name,
       'starting_date': startingDate,
-      'maximum_partecipants': maximumPartecipants,
       'description': description,
       'category_id': category.id
     }, function(response) {
@@ -58,7 +51,6 @@ angular.module('myControllers').controller('CreateEventController', function ($f
           eventService.update(id, {
             'name': name,
             'starting_date': startingDate,
-            'maximum_partecipants': maximumPartecipants,
             'description': description,
             'image': response.data.image
           }, function(response) {
