@@ -134,3 +134,6 @@ storage/
 
 ### Database ###
 db.sql
+
+### Images ###
+public/images/
